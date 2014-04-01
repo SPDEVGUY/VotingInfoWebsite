@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  This file should be placed in a SharePoint Project's CONFIG mapped folder to the SharePoint Root
+  
+  A farm feature should be added that contains the following feature activated code in a feature event receiver:
+  
+  public override void FeatureActivated(SPFeatureReceiverProperties properties)
+  {
+      SPWebService.ContentService.ApplyApplicationContentToLocalServer();
+  }
+  
+  -->
+<actions>
+  <add path="configuration" id="c88c506a-ed5b-4ca9-9bdd-9812a155b15e">
+    <connectionStrings></connectionStrings>
+  </add>
+  <add path="configuration/connectionStrings" id="33b02bcc-efe2-430a-9b38-b640143f311e">
+    <add name="VotingInfoConnectionString" connectionString="Data Source=.;Initial Catalog=VotingInfo;User Id=VotingInfoUser;Password=ThisIsASecurePassw0rd!;" providerName="System.Data.SqlClient" />
+  </add>
+</actions>

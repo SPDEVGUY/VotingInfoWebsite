@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{0D6E7122-DD2F-40A3-8BA5-B62266A81D07}"
+	ProjectSection(SolutionItems) = preProject
+		AutoDal.config = AutoDal.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{E126BCB3-160D-4A97-8DC8-D05B58511390}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{6E5F224C-361D-4396-9232-BDA822C6D6B2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E126BCB3-160D-4A97-8DC8-D05B58511390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E126BCB3-160D-4A97-8DC8-D05B58511390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E126BCB3-160D-4A97-8DC8-D05B58511390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E126BCB3-160D-4A97-8DC8-D05B58511390}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E5F224C-361D-4396-9232-BDA822C6D6B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E5F224C-361D-4396-9232-BDA822C6D6B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E5F224C-361D-4396-9232-BDA822C6D6B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E5F224C-361D-4396-9232-BDA822C6D6B2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

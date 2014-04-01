@@ -1,0 +1,334 @@
+<script src="Scripts/Views/js/VotingInfo.Client.Organizations.controller.js"></script>
+<div data-ng-controller="VotingInfoClientOrganizationsController">
+
+
+    <h3>Organizations</h3>
+    <div data-ng-show="vm.IsLoading">
+        <img src="/Content/images/loading.gif"/> Loading...
+    </div>
+
+    <!--
+        Key Fields: OrganizationId 
+        Value Fields:
+        
+				OrganizationId as int
+				ContentInspectionId as int
+				OrganizationName as string
+				IsArchived as bool
+				IsBeingProposed as bool
+				ProposedByUserId as int
+				ConfirmedByUserId as int
+				FalseInfoCount as int
+				TrueInfoCount as int
+				AdminInpsected as bool
+				DateLastChecked as DateTime
+				SourceUrl as stringComment
+        -->
+
+    <!-- List view -->
+    <div data-ng-show="!vm.IsLoading && ShowList">
+        <table class="table table-condensed table-bordered table-striped">
+            <tr>
+            <th>OrganizationId</th>
+            <th>ContentInspectionId</th>
+            <th>OrganizationName</th>
+            <th>IsArchived</th>
+            <th>IsBeingProposed</th>
+            <th>ProposedByUserId</th>
+            <th>ConfirmedByUserId</th>
+            <th>FalseInfoCount</th>
+            <th>TrueInfoCount</th>
+            <th>AdminInpsected</th>
+            <th>DateLastChecked</th>
+            <th>SourceUrl</th>
+                <th>Actions</th>
+            </tr>
+            <tr data-ng-repeat="Item in vm.Items" data-ng-mouseenter="vm.MoveIndex($index)">
+            <td>{{Item.OrganizationId}}</td>
+            <td>{{Item.ContentInspectionId}}</td>
+            <td>{{Item.OrganizationName}}</td>
+            <td>{{Item.IsArchived}}</td>
+            <td>{{Item.IsBeingProposed}}</td>
+            <td>{{Item.ProposedByUserId}}</td>
+            <td>{{Item.ConfirmedByUserId}}</td>
+            <td>{{Item.FalseInfoCount}}</td>
+            <td>{{Item.TrueInfoCount}}</td>
+            <td>{{Item.AdminInpsected}}</td>
+            <td>{{Item.DateLastChecked}}</td>
+            <td>{{Item.SourceUrl}}</td>
+                <td style="text-align: right">
+                    <button 
+                        role="button" 
+                        class="btn btn-primary" 
+                        data-ng-click="ShowDetailView()"
+                        ><i class="glyphicon glyphicon-zoom-in"></i></button>
+                    <button  data-ng-disabled="!CanUpdate"
+                             role="button" 
+                             class="btn btn-info" 
+                             data-ng-click="ShowEditView()"
+                        ><i class="glyphicon glyphicon-pencil"></i></button>
+                    <button  data-ng-disabled="!CanDelete"
+                             role="button" 
+                             class="btn btn-danger" 
+                             data-ng-click="DeleteCurrentItem()"
+                        ><i class="glyphicon glyphicon-trash"></i></button>
+                </td>
+            </tr>
+        </table>
+        <div class="well">
+            <button  data-ng-disabled="!CanInsert"
+                     role="button" 
+                     class="btn btn-info" 
+                     data-ng-click="ShowAddView()"
+                ><i class="glyphicon glyphicon-plus"></i> Add</button>
+            <button  data-ng-disabled="!CanInsert"
+                     role="button" 
+                     class="btn btn-info" 
+                     data-ng-click="ShowMatrixView()"
+                ><i class="glyphicon glyphicon-th-list"></i> Matrix View</button>
+        </div>
+    </div>
+
+
+    <!-- Matrix view -->
+    <div data-ng-show="!vm.IsLoading && ShowMatrix">
+        <table class="table table-condensed table-bordered table-striped">
+            <tr>
+                <th>&nbsp;</th>
+                <th data-ng-repeat="Item in vm.Items">
+                    {{Item.OrganizationsName}}
+                </th>
+            </tr>
+        <tr>
+            <td>OrganizationId</td>
+            <td data-ng-repeat="Item in vm.Items">{{Item.OrganizationId}}</td>
+        </tr>
+        <tr>
+            <td>ContentInspectionId</td>
+            <td data-ng-repeat="Item in vm.Items">{{Item.ContentInspectionId}}</td>
+        </tr>
+        <tr>
+            <td>OrganizationName</td>
+            <td data-ng-repeat="Item in vm.Items">{{Item.OrganizationName}}</td>
+        </tr>
+        <tr>
+            <td>IsArchived</td>
+            <td data-ng-repeat="Item in vm.Items">{{Item.IsArchived}}</td>
+        </tr>
+        <tr>
+            <td>IsBeingProposed</td>
+            <td data-ng-repeat="Item in vm.Items">{{Item.IsBeingProposed}}</td>
+        </tr>
+        <tr>
+            <td>ProposedByUserId</td>
+            <td data-ng-repeat="Item in vm.Items">{{Item.ProposedByUserId}}</td>
+        </tr>
+        <tr>
+            <td>ConfirmedByUserId</td>
+            <td data-ng-repeat="Item in vm.Items">{{Item.ConfirmedByUserId}}</td>
+        </tr>
+        <tr>
+            <td>FalseInfoCount</td>
+            <td data-ng-repeat="Item in vm.Items">{{Item.FalseInfoCount}}</td>
+        </tr>
+        <tr>
+            <td>TrueInfoCount</td>
+            <td data-ng-repeat="Item in vm.Items">{{Item.TrueInfoCount}}</td>
+        </tr>
+        <tr>
+            <td>AdminInpsected</td>
+            <td data-ng-repeat="Item in vm.Items">{{Item.AdminInpsected}}</td>
+        </tr>
+        <tr>
+            <td>DateLastChecked</td>
+            <td data-ng-repeat="Item in vm.Items">{{Item.DateLastChecked}}</td>
+        </tr>
+        <tr>
+            <td>SourceUrl</td>
+            <td data-ng-repeat="Item in vm.Items">{{Item.SourceUrl}}</td>
+        </tr>
+        </table>
+    </div>
+
+    <!-- Detail view -->
+    <div data-ng-show="!vm.IsLoading && ShowDetail">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        <tr>
+            <td>OrganizationId</td>
+            <td>{{vm.CurrentItem.OrganizationId}}</td>
+        </tr>
+        <tr>
+            <td>ContentInspectionId</td>
+            <td>{{vm.CurrentItem.ContentInspectionId}}</td>
+        </tr>
+        <tr>
+            <td>OrganizationName</td>
+            <td>{{vm.CurrentItem.OrganizationName}}</td>
+        </tr>
+        <tr>
+            <td>IsArchived</td>
+            <td>{{vm.CurrentItem.IsArchived}}</td>
+        </tr>
+        <tr>
+            <td>IsBeingProposed</td>
+            <td>{{vm.CurrentItem.IsBeingProposed}}</td>
+        </tr>
+        <tr>
+            <td>ProposedByUserId</td>
+            <td>{{vm.CurrentItem.ProposedByUserId}}</td>
+        </tr>
+        <tr>
+            <td>ConfirmedByUserId</td>
+            <td>{{vm.CurrentItem.ConfirmedByUserId}}</td>
+        </tr>
+        <tr>
+            <td>FalseInfoCount</td>
+            <td>{{vm.CurrentItem.FalseInfoCount}}</td>
+        </tr>
+        <tr>
+            <td>TrueInfoCount</td>
+            <td>{{vm.CurrentItem.TrueInfoCount}}</td>
+        </tr>
+        <tr>
+            <td>AdminInpsected</td>
+            <td>{{vm.CurrentItem.AdminInpsected}}</td>
+        </tr>
+        <tr>
+            <td>DateLastChecked</td>
+            <td>{{vm.CurrentItem.DateLastChecked}}</td>
+        </tr>
+        <tr>
+            <td>SourceUrl</td>
+            <td>{{vm.CurrentItem.SourceUrl}}</td>
+        </tr>
+        </table>
+        <div class="well">
+            <button  ng-disabled="!CanUpdate"
+                     role="button" 
+                     class="btn btn-info" 
+                     data-ng-click="ShowEditView()"
+                ><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+            <button 
+                role="button" 
+                class="btn btn-danger" 
+                data-ng-click="ShowListView()"
+                ><i class="glyphicon glyphicon-remove"></i>Back</button>
+        </div>
+    </div>
+
+    <!-- ShowInput view -->
+    <div data-ng-show="!vm.IsLoading && ShowInput">
+        <form name="editOrganizations" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label">OrganizationId</label>
+            <div class="controls">
+                <select
+                    class="nullable" 
+                    data-ng-mode="vm.CurrentItem.OrganizationId"
+                    data-ng-options="i.OrganizationId for i.OrganizationIdId in OrganizationIds"
+                    ><option value="">-- Select OrganizationId --</option></select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">ContentInspectionId</label>
+            <div class="controls">
+                <select
+                    class="nullable" 
+                    data-ng-mode="vm.CurrentItem.ContentInspectionId"
+                    data-ng-options="i.ContentInspectionId for i.ContentInspectionIdId in ContentInspectionIds"
+                    ><option value="">-- Select ContentInspectionId --</option></select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">OrganizationName</label>    
+            <div class="controls">
+                <input type="text" data-ng-model="vm.CurrentItem.OrganizationName">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" data-ng-model="vm.CurrentItem.IsArchived"/> IsArchived
+                </label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" data-ng-model="vm.CurrentItem.IsBeingProposed"/> IsBeingProposed
+                </label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">ProposedByUserId</label>
+            <div class="controls">
+                <select
+                    class="nullable" 
+                    data-ng-mode="vm.CurrentItem.ProposedByUserId"
+                    data-ng-options="i.ProposedByUserId for i.ProposedByUserIdId in ProposedByUserIds"
+                    ><option value="">-- Select ProposedByUserId --</option></select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">ConfirmedByUserId</label>
+            <div class="controls">
+                <select
+                    class="nullable" 
+                    data-ng-mode="vm.CurrentItem.ConfirmedByUserId"
+                    data-ng-options="i.ConfirmedByUserId for i.ConfirmedByUserIdId in ConfirmedByUserIds"
+                    ><option value="">-- Select ConfirmedByUserId --</option></select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">FalseInfoCount</label>
+            <div class="controls">
+                <input type="number" data-ng-model="vm.CurrentItem.FalseInfoCount">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">TrueInfoCount</label>
+            <div class="controls">
+                <input type="number" data-ng-model="vm.CurrentItem.TrueInfoCount">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" data-ng-model="vm.CurrentItem.AdminInpsected"/> AdminInpsected
+                </label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">DateLastChecked</label>    
+            <div class="controls">
+                <input type="text" data-ng-model="vm.CurrentItem.DateLastChecked">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">SourceUrl</label>    
+            <div class="controls">
+                <input type="text" data-ng-model="vm.CurrentItem.SourceUrl">
+            </div>
+        </div>
+            <div class="well">
+                <button  ng-disabled="!editOrganizations.$valid"
+                         role="button" 
+                         class="btn btn-success" 
+                         data-ng-click="SaveChanges()"
+                    ><i class="glyphicon glyphicon-check"></i>Save Changes</button>
+                <button 
+                    role="button" 
+                    class="btn btn-danger" 
+                    data-ng-click="CancelInput()"
+                    ><i class="glyphicon glyphicon-remove"></i>Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E126BCB3-160D-4A97-8DC8-D05B58511390}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VotingInfo.Database</RootNamespace>
+    <AssemblyName>VotingInfo.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contracts\Auth\Permission\PermissionContract.cs" />
+    <Compile Include="Contracts\Auth\Permission\PermissionContractBase.cs" />
+    <Compile Include="Contracts\Auth\RolePermission\RolePermissionContract.cs" />
+    <Compile Include="Contracts\Auth\RolePermission\RolePermissionContractBase.cs" />
+    <Compile Include="Contracts\Auth\Role\RoleContract.cs" />
+    <Compile Include="Contracts\Auth\Role\RoleContractBase.cs" />
+    <Compile Include="Contracts\Auth\UserRole\UserRoleContract.cs" />
+    <Compile Include="Contracts\Auth\UserRole\UserRoleContractBase.cs" />
+    <Compile Include="Contracts\Auth\User\UserContract.cs" />
+    <Compile Include="Contracts\Auth\User\UserContractBase.cs" />
+    <Compile Include="Contracts\Client\Candidates\CandidatesContract.cs" />
+    <Compile Include="Contracts\Client\Candidates\CandidatesContractBase.cs" />
+    <Compile Include="Contracts\Client\Organizations\OrganizationsContract.cs" />
+    <Compile Include="Contracts\Client\Organizations\OrganizationsContractBase.cs" />
+    <Compile Include="Contracts\Client\Users\UsersContract.cs" />
+    <Compile Include="Contracts\Client\Users\UsersContractBase.cs" />
+    <Compile Include="Contracts\ContractBase.cs" />
+    <Compile Include="Contracts\Data\CandidateMetaData\CandidateMetaDataContract.cs" />
+    <Compile Include="Contracts\Data\CandidateMetaData\CandidateMetaDataContractBase.cs" />
+    <Compile Include="Contracts\Data\Candidate\CandidateContract.cs" />
+    <Compile Include="Contracts\Data\Candidate\CandidateContractBase.cs" />
+    <Compile Include="Contracts\Data\ContentInspection\ContentInspectionContract.cs" />
+    <Compile Include="Contracts\Data\ContentInspection\ContentInspectionContractBase.cs" />
+    <Compile Include="Contracts\Data\ElectionCandidate\ElectionCandidateContract.cs" />
+    <Compile Include="Contracts\Data\ElectionCandidate\ElectionCandidateContractBase.cs" />
+    <Compile Include="Contracts\Data\ElectionLevelMetaDataXref\ElectionLevelMetaDataXrefContract.cs" />
+    <Compile Include="Contracts\Data\ElectionLevelMetaDataXref\ElectionLevelMetaDataXrefContractBase.cs" />
+    <Compile Include="Contracts\Data\ElectionLevel\ElectionLevelContract.cs" />
+    <Compile Include="Contracts\Data\ElectionLevel\ElectionLevelContractBase.cs" />
+    <Compile Include="Contracts\Data\Election\ElectionContract.cs" />
+    <Compile Include="Contracts\Data\Election\ElectionContractBase.cs" />
+    <Compile Include="Contracts\Data\MetaData\MetaDataContract.cs" />
+    <Compile Include="Contracts\Data\MetaData\MetaDataContractBase.cs" />
+    <Compile Include="Contracts\Data\OrganizationMetaData\OrganizationMetaDataContract.cs" />
+    <Compile Include="Contracts\Data\OrganizationMetaData\OrganizationMetaDataContractBase.cs" />
+    <Compile Include="Contracts\Data\Organization\OrganizationContract.cs" />
+    <Compile Include="Contracts\Data\Organization\OrganizationContractBase.cs" />
+    <Compile Include="Contracts\ListItemContract.cs" />
+    <Compile Include="Contracts\ListItemContractBase.cs" />
+    <Compile Include="Logic\Auth\Permission\PermissionContractBase.Logic.cs" />
+    <Compile Include="Logic\Auth\Permission\PermissionLogic.cs" />
+    <Compile Include="Logic\Auth\Permission\PermissionLogic.Static.cs" />
+    <Compile Include="Logic\Auth\Permission\PermissionLogicBase.cs" />
+    <Compile Include="Logic\Auth\RolePermission\RolePermissionContractBase.Logic.cs" />
+    <Compile Include="Logic\Auth\RolePermission\RolePermissionLogic.cs" />
+    <Compile Include="Logic\Auth\RolePermission\RolePermissionLogic.Static.cs" />
+    <Compile Include="Logic\Auth\RolePermission\RolePermissionLogicBase.cs" />
+    <Compile Include="Logic\Auth\Role\RoleContractBase.Logic.cs" />
+    <Compile Include="Logic\Auth\Role\RoleLogic.cs" />
+    <Compile Include="Logic\Auth\Role\RoleLogic.Static.cs" />
+    <Compile Include="Logic\Auth\Role\RoleLogicBase.cs" />
+    <Compile Include="Logic\Auth\UserRole\UserRoleContractBase.Logic.cs" />
+    <Compile Include="Logic\Auth\UserRole\UserRoleLogic.cs" />
+    <Compile Include="Logic\Auth\UserRole\UserRoleLogic.Static.cs" />
+    <Compile Include="Logic\Auth\UserRole\UserRoleLogicBase.cs" />
+    <Compile Include="Logic\Auth\User\UserContractBase.Logic.cs" />
+    <Compile Include="Logic\Auth\User\UserLogic.cs" />
+    <Compile Include="Logic\Auth\User\UserLogic.Static.cs" />
+    <Compile Include="Logic\Auth\User\UserLogicBase.cs" />
+    <Compile Include="Logic\CacheContainer.cs" />
+    <Compile Include="Logic\Client\Candidates\CandidatesLogic.cs" />
+    <Compile Include="Logic\Client\Candidates\CandidatesLogic.Static.cs" />
+    <Compile Include="Logic\Client\Candidates\CandidatesLogicBase.cs" />
+    <Compile Include="Logic\Client\Organizations\OrganizationsLogic.cs" />
+    <Compile Include="Logic\Client\Organizations\OrganizationsLogic.Static.cs" />
+    <Compile Include="Logic\Client\Organizations\OrganizationsLogicBase.cs" />
+    <Compile Include="Logic\Client\Users\UsersLogic.cs" />
+    <Compile Include="Logic\Client\Users\UsersLogic.Static.cs" />
+    <Compile Include="Logic\Client\Users\UsersLogicBase.cs" />
+    <Compile Include="Logic\Data\CandidateMetaData\CandidateMetaDataContractBase.Logic.cs" />
+    <Compile Include="Logic\Data\CandidateMetaData\CandidateMetaDataLogic.cs" />
+    <Compile Include="Logic\Data\CandidateMetaData\CandidateMetaDataLogic.Static.cs" />
+    <Compile Include="Logic\Data\CandidateMetaData\CandidateMetaDataLogicBase.cs" />
+    <Compile Include="Logic\Data\Candidate\CandidateContractBase.Logic.cs" />
+    <Compile Include="Logic\Data\Candidate\CandidateLogic.cs" />
+    <Compile Include="Logic\Data\Candidate\CandidateLogic.Static.cs" />
+    <Compile Include="Logic\Data\Candidate\CandidateLogicBase.cs" />
+    <Compile Include="Logic\Data\ContentInspection\ContentInspectionContractBase.Logic.cs" />
+    <Compile Include="Logic\Data\ContentInspection\ContentInspectionLogic.cs" />
+    <Compile Include="Logic\Data\ContentInspection\ContentInspectionLogic.Static.cs" />
+    <Compile Include="Logic\Data\ContentInspection\ContentInspectionLogicBase.cs" />
+    <Compile Include="Logic\Data\ElectionCandidate\ElectionCandidateContractBase.Logic.cs" />
+    <Compile Include="Logic\Data\ElectionCandidate\ElectionCandidateLogic.cs" />
+    <Compile Include="Logic\Data\ElectionCandidate\ElectionCandidateLogic.Static.cs" />
+    <Compile Include="Logic\Data\ElectionCandidate\ElectionCandidateLogicBase.cs" />
+    <Compile Include="Logic\Data\ElectionLevelMetaDataXref\ElectionLevelMetaDataXrefContractBase.Logic.cs" />
+    <Compile Include="Logic\Data\ElectionLevelMetaDataXref\ElectionLevelMetaDataXrefLogic.cs" />
+    <Compile Include="Logic\Data\ElectionLevelMetaDataXref\ElectionLevelMetaDataXrefLogic.Static.cs" />
+    <Compile Include="Logic\Data\ElectionLevelMetaDataXref\ElectionLevelMetaDataXrefLogicBase.cs" />
+    <Compile Include="Logic\Data\ElectionLevel\ElectionLevelContractBase.Logic.cs" />
+    <Compile Include="Logic\Data\ElectionLevel\ElectionLevelLogic.cs" />
+    <Compile Include="Logic\Data\ElectionLevel\ElectionLevelLogic.Static.cs" />
+    <Compile Include="Logic\Data\ElectionLevel\ElectionLevelLogicBase.cs" />
+    <Compile Include="Logic\Data\Election\ElectionContractBase.Logic.cs" />
+    <Compile Include="Logic\Data\Election\ElectionLogic.cs" />
+    <Compile Include="Logic\Data\Election\ElectionLogic.Static.cs" />
+    <Compile Include="Logic\Data\Election\ElectionLogicBase.cs" />
+    <Compile Include="Logic\Data\MetaData\MetaDataContractBase.Logic.cs" />
+    <Compile Include="Logic\Data\MetaData\MetaDataLogic.cs" />
+    <Compile Include="Logic\Data\MetaData\MetaDataLogic.Static.cs" />
+    <Compile Include="Logic\Data\MetaData\MetaDataLogicBase.cs" />
+    <Compile Include="Logic\Data\OrganizationMetaData\OrganizationMetaDataContractBase.Logic.cs" />
+    <Compile Include="Logic\Data\OrganizationMetaData\OrganizationMetaDataLogic.cs" />
+    <Compile Include="Logic\Data\OrganizationMetaData\OrganizationMetaDataLogic.Static.cs" />
+    <Compile Include="Logic\Data\OrganizationMetaData\OrganizationMetaDataLogicBase.cs" />
+    <Compile Include="Logic\Data\Organization\OrganizationContractBase.Logic.cs" />
+    <Compile Include="Logic\Data\Organization\OrganizationLogic.cs" />
+    <Compile Include="Logic\Data\Organization\OrganizationLogic.Static.cs" />
+    <Compile Include="Logic\Data\Organization\OrganizationLogicBase.cs" />
+    <Compile Include="Logic\DbConnectionString.cs" />
+    <Compile Include="Logic\DbConnectionStringBase.cs" />
+    <Compile Include="Logic\ListExtensions.cs" />
+    <Compile Include="Logic\ListItemLogicBase.cs" />
+    <Compile Include="Logic\ListItemLogicFront.cs" />
+    <Compile Include="Logic\ListItemLogicFrontStatic.cs" />
+    <Compile Include="Logic\LogicBase.cs" />
+    <Compile Include="Logic\VotingInfoDb.cs" />
+    <Compile Include="Logic\VotingInfoDbBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Logic\webconfig.VotingInfo.xml" />
+    <Content Include="SQL\Alter\00-ClearOut\Auth.sql" />
+    <Content Include="SQL\Alter\00-ClearOut\Client.sql" />
+    <Content Include="SQL\Alter\00-ClearOut\Data.sql" />
+    <Content Include="SQL\Alter\01-EnsureSchemas\Auth.sql" />
+    <Content Include="SQL\Alter\01-EnsureSchemas\Client.sql" />
+    <Content Include="SQL\Alter\01-EnsureSchemas\Data.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Auth\00-TableVersion.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Auth\Permission.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Auth\Role.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Auth\RolePermission.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Auth\User.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Auth\UserRole.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Client\00-TableVersion.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Data\00-TableVersion.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Data\Candidate.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Data\CandidateMetaData.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Data\ContentInspection.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Data\ElectionCandidate.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Data\Election.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Data\ElectionLevel.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Data\ElectionLevelMetaDataXref.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Data\MetaData.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Data\Organization.sql" />
+    <Content Include="SQL\Alter\02-EnsureTables\Data\OrganizationMetaData.sql" />
+    <Content Include="SQL\Alter\03-Updates\Auth\TableName_V1.txt" />
+    <Content Include="SQL\Alter\03-Updates\Client\TableName_V1.txt" />
+    <Content Include="SQL\Alter\03-Updates\Data\TableName_V1.txt" />
+    <Content Include="SQL\Alter\04-Views\Auth\ViewName.txt" />
+    <Content Include="SQL\Alter\04-Views\Client\Candidates.sql" />
+    <Content Include="SQL\Alter\04-Views\Client\Organizations.sql" />
+    <Content Include="SQL\Alter\04-Views\Client\Users.sql" />
+    <Content Include="SQL\Alter\04-Views\Client\ViewName.txt" />
+    <Content Include="SQL\Alter\04-Views\Data\ViewName.txt" />
+    <Content Include="SQL\Alter\05-Funcs\00-Generated\Auth\[Auth].[GetUserIdByUserToken].sql" />
+    <Content Include="SQL\Alter\05-Funcs\01-Custom\Auth\[Auth].[FunctionName].txt" />
+    <Content Include="SQL\Alter\05-Funcs\01-Custom\Client\[Client].[FunctionName].txt" />
+    <Content Include="SQL\Alter\05-Funcs\01-Custom\Data\[Data].[FunctionName].txt" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Permission\[Auth].[Permission_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Permission\[Auth].[Permission_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Permission\[Auth].[Permission_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Permission\[Auth].[Permission_List].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Permission\[Auth].[Permission_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Permission\[Auth].[Permission_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Permission\[Auth].[Permission_SelectBy_PermissionId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Permission\[Auth].[Permission_SelectBy_UserId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Permission\[Auth].[Permission_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\RolePermission\[Auth].[RolePermission_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\RolePermission\[Auth].[RolePermission_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\RolePermission\[Auth].[RolePermission_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\RolePermission\[Auth].[RolePermission_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\RolePermission\[Auth].[RolePermission_SelectBy_PermissionId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\RolePermission\[Auth].[RolePermission_SelectBy_RoleId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\RolePermission\[Auth].[RolePermission_SelectBy_RolePermissionId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\RolePermission\[Auth].[RolePermission_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Role\[Auth].[Role_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Role\[Auth].[Role_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Role\[Auth].[Role_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Role\[Auth].[Role_List].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Role\[Auth].[Role_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Role\[Auth].[Role_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Role\[Auth].[Role_SelectBy_RoleId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\Role\[Auth].[Role_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\TableVersion\[Auth].[TableVersion_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\TableVersion\[Auth].[TableVersion_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\TableVersion\[Auth].[TableVersion_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\TableVersion\[Auth].[TableVersion_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\TableVersion\[Auth].[TableVersion_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\TableVersion\[Auth].[TableVersion_SelectBy_TableId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\TableVersion\[Auth].[TableVersion_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\UserRole\[Auth].[UserRole_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\UserRole\[Auth].[UserRole_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\UserRole\[Auth].[UserRole_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\UserRole\[Auth].[UserRole_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\UserRole\[Auth].[UserRole_SelectBy_RoleId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\UserRole\[Auth].[UserRole_SelectBy_UserId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\UserRole\[Auth].[UserRole_SelectBy_UserRoleId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\UserRole\[Auth].[UserRole_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\User\[Auth].[User_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\User\[Auth].[User_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\User\[Auth].[User_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\User\[Auth].[User_List].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\User\[Auth].[User_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\User\[Auth].[User_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\User\[Auth].[User_SelectBy_Email].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\User\[Auth].[User_SelectBy_UserId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\User\[Auth].[User_SelectBy_UserName].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\User\[Auth].[User_SelectBy_UserToken].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\User\[Auth].[User_SelectBy_WINSID].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Auth\User\[Auth].[User_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Candidates\[Client].[Candidates_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Candidates\[Client].[Candidates_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Candidates\[Client].[Candidates_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Candidates\[Client].[Candidates_SelectBy_ContentInspectionId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Candidates\[Client].[Candidates_SelectBy_OrganizationId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Organizations\[Client].[Organizations_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Organizations\[Client].[Organizations_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Organizations\[Client].[Organizations_SelectBy_ConfirmedByUserId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Organizations\[Client].[Organizations_SelectBy_ContentInspectionId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Organizations\[Client].[Organizations_SelectBy_OrganizationId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Organizations\[Client].[Organizations_SelectBy_ProposedByUserId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\TableVersion\[Client].[TableVersion_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\TableVersion\[Client].[TableVersion_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\TableVersion\[Client].[TableVersion_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\TableVersion\[Client].[TableVersion_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\TableVersion\[Client].[TableVersion_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\TableVersion\[Client].[TableVersion_SelectBy_TableId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\TableVersion\[Client].[TableVersion_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Users\[Client].[Users_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Users\[Client].[Users_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Users\[Client].[Users_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Users\[Client].[Users_SelectByUser_Current].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Client\Users\[Client].[Users_SelectByUser_UpdateProfile].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\CandidateMetaData\[Data].[CandidateMetaData_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\CandidateMetaData\[Data].[CandidateMetaData_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\CandidateMetaData\[Data].[CandidateMetaData_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\CandidateMetaData\[Data].[CandidateMetaData_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\CandidateMetaData\[Data].[CandidateMetaData_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\CandidateMetaData\[Data].[CandidateMetaData_SelectBy_CandidateId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\CandidateMetaData\[Data].[CandidateMetaData_SelectBy_CandidateMetaDataId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\CandidateMetaData\[Data].[CandidateMetaData_SelectBy_ContentInspectionId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\CandidateMetaData\[Data].[CandidateMetaData_SelectBy_MetaDataId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\CandidateMetaData\[Data].[CandidateMetaData_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Candidate\[Data].[Candidate_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Candidate\[Data].[Candidate_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Candidate\[Data].[Candidate_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Candidate\[Data].[Candidate_List].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Candidate\[Data].[Candidate_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Candidate\[Data].[Candidate_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Candidate\[Data].[Candidate_SelectBy_CandidateId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Candidate\[Data].[Candidate_SelectBy_ContentInspectionId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Candidate\[Data].[Candidate_SelectBy_OrganizationId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Candidate\[Data].[Candidate_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ContentInspection\[Data].[ContentInspection_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ContentInspection\[Data].[ContentInspection_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ContentInspection\[Data].[ContentInspection_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ContentInspection\[Data].[ContentInspection_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ContentInspection\[Data].[ContentInspection_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ContentInspection\[Data].[ContentInspection_SelectBy_ConfirmedByUserId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ContentInspection\[Data].[ContentInspection_SelectBy_ContentInspectionId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ContentInspection\[Data].[ContentInspection_SelectBy_ProposedByUserId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ContentInspection\[Data].[ContentInspection_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionCandidate\[Data].[ElectionCandidate_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionCandidate\[Data].[ElectionCandidate_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionCandidate\[Data].[ElectionCandidate_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionCandidate\[Data].[ElectionCandidate_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionCandidate\[Data].[ElectionCandidate_SelectBy_ElectionCandidateId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionCandidate\[Data].[ElectionCandidate_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevelMetaDataXref\[Data].[ElectionLevelMetaDataXref_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevelMetaDataXref\[Data].[ElectionLevelMetaDataXref_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevelMetaDataXref\[Data].[ElectionLevelMetaDataXref_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevelMetaDataXref\[Data].[ElectionLevelMetaDataXref_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevelMetaDataXref\[Data].[ElectionLevelMetaDataXref_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevelMetaDataXref\[Data].[ElectionLevelMetaDataXref_SelectBy_ElectionLevelId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevelMetaDataXref\[Data].[ElectionLevelMetaDataXref_SelectBy_ElectionLevelMetaDataXrefId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevelMetaDataXref\[Data].[ElectionLevelMetaDataXref_SelectBy_MetaDataId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevelMetaDataXref\[Data].[ElectionLevelMetaDataXref_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevel\[Data].[ElectionLevel_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevel\[Data].[ElectionLevel_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevel\[Data].[ElectionLevel_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevel\[Data].[ElectionLevel_List].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevel\[Data].[ElectionLevel_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevel\[Data].[ElectionLevel_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevel\[Data].[ElectionLevel_SelectBy_ElectionLevelId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\ElectionLevel\[Data].[ElectionLevel_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Election\[Data].[Election_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Election\[Data].[Election_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Election\[Data].[Election_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Election\[Data].[Election_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Election\[Data].[Election_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Election\[Data].[Election_SelectBy_ElectionId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Election\[Data].[Election_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\MetaData\[Data].[MetaData_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\MetaData\[Data].[MetaData_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\MetaData\[Data].[MetaData_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\MetaData\[Data].[MetaData_List].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\MetaData\[Data].[MetaData_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\MetaData\[Data].[MetaData_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\MetaData\[Data].[MetaData_SelectBy_ContentInspectionId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\MetaData\[Data].[MetaData_SelectBy_MetaDataId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\MetaData\[Data].[MetaData_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\OrganizationMetaData\[Data].[OrganizationMetaData_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\OrganizationMetaData\[Data].[OrganizationMetaData_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\OrganizationMetaData\[Data].[OrganizationMetaData_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\OrganizationMetaData\[Data].[OrganizationMetaData_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\OrganizationMetaData\[Data].[OrganizationMetaData_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\OrganizationMetaData\[Data].[OrganizationMetaData_SelectBy_ContentInspectionId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\OrganizationMetaData\[Data].[OrganizationMetaData_SelectBy_MetaDataId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\OrganizationMetaData\[Data].[OrganizationMetaData_SelectBy_OrganizationId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\OrganizationMetaData\[Data].[OrganizationMetaData_SelectBy_OrganizationMetaDataId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\OrganizationMetaData\[Data].[OrganizationMetaData_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Organization\[Data].[Organization_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Organization\[Data].[Organization_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Organization\[Data].[Organization_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Organization\[Data].[Organization_List].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Organization\[Data].[Organization_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Organization\[Data].[Organization_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Organization\[Data].[Organization_SelectBy_ContentInspectionId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Organization\[Data].[Organization_SelectBy_OrganizationId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\Organization\[Data].[Organization_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\TableVersion\[Data].[TableVersion_Delete].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\TableVersion\[Data].[TableVersion_Exists].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\TableVersion\[Data].[TableVersion_Insert].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\TableVersion\[Data].[TableVersion_Search].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\TableVersion\[Data].[TableVersion_SelectAll].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\TableVersion\[Data].[TableVersion_SelectBy_TableId].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Data\TableVersion\[Data].[TableVersion_Update].sql" />
+    <Content Include="SQL\Alter\06-Procs\00-Generated\Note.txt" />
+    <Content Include="SQL\Alter\06-Procs\01-Custom\Auth\[Auth].[TableName_ProcedureName].txt" />
+    <Content Include="SQL\Alter\06-Procs\01-Custom\Client\[Client].[TableName_ProcedureName].txt" />
+    <Content Include="SQL\Alter\06-Procs\01-Custom\Data\[Data].[TableName_ProcedureName].txt" />
+    <Content Include="SQL\Alter\07-Indexes\Auth\User.sql" />
+    <Content Include="SQL\Alter\07-Indexes\Auth\ViewName.txt" />
+    <Content Include="SQL\Alter\07-Indexes\Client\Candidates.sql" />
+    <Content Include="SQL\Alter\07-Indexes\Client\Organizations.sql" />
+    <Content Include="SQL\Alter\07-Indexes\Client\ViewName.txt" />
+    <Content Include="SQL\Alter\07-Indexes\Data\ElectionLevelMetaDataXref.sql" />
+    <Content Include="SQL\Alter\07-Indexes\Data\ViewName.txt" />
+    <Content Include="SQL\Alter\08-FKeys\Auth\ChildTableName.txt" />
+    <Content Include="SQL\Alter\08-FKeys\Auth\RolePermission.sql" />
+    <Content Include="SQL\Alter\08-FKeys\Auth\UserRole.sql" />
+    <Content Include="SQL\Alter\08-FKeys\Client\ChildTableName.txt" />
+    <Content Include="SQL\Alter\08-FKeys\Data\Candidate.sql" />
+    <Content Include="SQL\Alter\08-FKeys\Data\CandidateMetaData.sql" />
+    <Content Include="SQL\Alter\08-FKeys\Data\ChildTableName.txt" />
+    <Content Include="SQL\Alter\08-FKeys\Data\ElectionLevelMetaDataXref.sql" />
+    <Content Include="SQL\Alter\08-FKeys\Data\OrganizationMetaData.sql" />
+    <Content Include="SQL\Alter\09-DefaultData\Auth\01-User.sql" />
+    <Content Include="SQL\Alter\09-DefaultData\Auth\02-Role.sql" />
+    <Content Include="SQL\Alter\09-DefaultData\Auth\03-Permissions.Services.Generated.sql" />
+    <Content Include="SQL\Alter\09-DefaultData\Auth\99-RolePermission.sql" />
+    <Content Include="SQL\Alter\09-DefaultData\Data\01-ElectionLevel.sql" />
+    <Content Include="SQL\Alter\09-DefaultData\Data\02-Organizations.sql" />
+    <Content Include="SQL\Alter\09-DefaultData\Data\03-MetaData.sql" />
+    <Content Include="SQL\Create\01-Database\CreateDatabase.sql" />
+    <Content Include="SQL\Create\02-Logins\CreateLogin.sql" />
+    <Content Include="SQL\Delete\01-Database\DropDatabase.sql" />
+    <Content Include="SQL\Delete\02-Logins\DropLogin.sql" />
+    <Content Include="Tools\RunAllSql.exe" />
+    <Content Include="Tools\SetupEnvironment.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tools\RunAllSql.exe.config" />
+    <None Include="Tools\SqlVars.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
