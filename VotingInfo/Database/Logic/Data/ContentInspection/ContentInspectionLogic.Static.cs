@@ -439,62 +439,62 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
-		/// Run ContentInspection_SelectBy_ConfirmedByUserId, and return results as a list of ContentInspectionRow.
+		/// Run ContentInspection_SelectBy_ProposedByUserId, and return results as a list of ContentInspectionRow.
 		/// </summary>
-		/// <param name="fldConfirmedByUserId">Value for ConfirmedByUserId</param>
+		/// <param name="fldProposedByUserId">Value for ProposedByUserId</param>
 		/// <returns>A collection of ContentInspectionRow.</returns>
-		public static List<ContentInspectionContract> SelectBy_ConfirmedByUserIdNow(int fldConfirmedByUserId
+		public static List<ContentInspectionContract> SelectBy_ProposedByUserIdNow(int fldProposedByUserId
 )
 		{
 			var driver = new ContentInspectionLogic();
-			driver.SelectBy_ConfirmedByUserId(fldConfirmedByUserId
+			driver.SelectBy_ProposedByUserId(fldProposedByUserId
 );
 			return driver.Results;
 		}
 
 		/// <summary>
-		/// Run ContentInspection_SelectBy_ConfirmedByUserId, and return results as a list of ContentInspectionRow.
+		/// Run ContentInspection_SelectBy_ProposedByUserId, and return results as a list of ContentInspectionRow.
 		/// </summary>
-		/// <param name="fldConfirmedByUserId">Value for ConfirmedByUserId</param>
+		/// <param name="fldProposedByUserId">Value for ProposedByUserId</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		/// <returns>A collection of ContentInspectionRow.</returns>
-		public static List<ContentInspectionContract> SelectBy_ConfirmedByUserIdNow(int fldConfirmedByUserId
+		public static List<ContentInspectionContract> SelectBy_ProposedByUserIdNow(int fldProposedByUserId
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			var driver = new ContentInspectionLogic();
-			driver.SelectBy_ConfirmedByUserId(fldConfirmedByUserId
+			driver.SelectBy_ProposedByUserId(fldProposedByUserId
 , connection, transaction);
 
 			return driver.Results;
 		}
 
 		/// <summary>
-		/// Run ContentInspection_SelectBy_ProposedByUserId, and return results as a list of ContentInspectionRow.
+		/// Run ContentInspection_SelectBy_ConfirmedByUserId, and return results as a list of ContentInspectionRow.
 		/// </summary>
-		/// <param name="fldProposedByUserId">Value for ProposedByUserId</param>
+		/// <param name="fldConfirmedByUserId">Value for ConfirmedByUserId</param>
 		/// <returns>A collection of ContentInspectionRow.</returns>
-		public static List<ContentInspectionContract> SelectBy_ProposedByUserIdNow(int fldProposedByUserId
+		public static List<ContentInspectionContract> SelectBy_ConfirmedByUserIdNow(int fldConfirmedByUserId
 )
 		{
 			var driver = new ContentInspectionLogic();
-			driver.SelectBy_ProposedByUserId(fldProposedByUserId
+			driver.SelectBy_ConfirmedByUserId(fldConfirmedByUserId
 );
 			return driver.Results;
 		}
 
 		/// <summary>
-		/// Run ContentInspection_SelectBy_ProposedByUserId, and return results as a list of ContentInspectionRow.
+		/// Run ContentInspection_SelectBy_ConfirmedByUserId, and return results as a list of ContentInspectionRow.
 		/// </summary>
-		/// <param name="fldProposedByUserId">Value for ProposedByUserId</param>
+		/// <param name="fldConfirmedByUserId">Value for ConfirmedByUserId</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		/// <returns>A collection of ContentInspectionRow.</returns>
-		public static List<ContentInspectionContract> SelectBy_ProposedByUserIdNow(int fldProposedByUserId
+		public static List<ContentInspectionContract> SelectBy_ConfirmedByUserIdNow(int fldConfirmedByUserId
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			var driver = new ContentInspectionLogic();
-			driver.SelectBy_ProposedByUserId(fldProposedByUserId
+			driver.SelectBy_ConfirmedByUserId(fldConfirmedByUserId
 , connection, transaction);
 
 			return driver.Results;

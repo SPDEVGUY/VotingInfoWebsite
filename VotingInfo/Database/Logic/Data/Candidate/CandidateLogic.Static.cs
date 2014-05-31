@@ -22,35 +22,47 @@ namespace VotingInfo.Database.Logic.Data
 		/// <summary>
 		/// Run Candidate_Insert.
 		/// </summary>
+		/// <param name="fldUserId">Value for UserId</param>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
-		/// <param name="fldCandidateName">Value for CandidateName</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldOrganizationId">Value for OrganizationId</param>
-		public static int? InsertNow(int fldContentInspectionId
-, string fldCandidateName
+		/// <param name="fldCandidateName">Value for CandidateName</param>
+		public static int? InsertNow(int fldUserId
+, int fldContentInspectionId
+, int fldLocationId
 , int fldOrganizationId
+, string fldCandidateName
 )
 		{
-			return (new CandidateLogic()).Insert(fldContentInspectionId
-, fldCandidateName
+			return (new CandidateLogic()).Insert(fldUserId
+, fldContentInspectionId
+, fldLocationId
 , fldOrganizationId
+, fldCandidateName
 );
 		}
 		/// <summary>
 		/// Run Candidate_Insert.
 		/// </summary>
+		/// <param name="fldUserId">Value for UserId</param>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
-		/// <param name="fldCandidateName">Value for CandidateName</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldOrganizationId">Value for OrganizationId</param>
+		/// <param name="fldCandidateName">Value for CandidateName</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
-		public static int? InsertNow(int fldContentInspectionId
-, string fldCandidateName
+		public static int? InsertNow(int fldUserId
+, int fldContentInspectionId
+, int fldLocationId
 , int fldOrganizationId
+, string fldCandidateName
 , SqlConnection connection, SqlTransaction transaction)
 		{
-			return (new CandidateLogic()).Insert(fldContentInspectionId
-, fldCandidateName
+			return (new CandidateLogic()).Insert(fldUserId
+, fldContentInspectionId
+, fldLocationId
 , fldOrganizationId
+, fldCandidateName
 , connection, transaction);
 		}
 
@@ -101,20 +113,26 @@ namespace VotingInfo.Database.Logic.Data
 		/// Run Candidate_Update.
 		/// </summary>
 		/// <param name="fldCandidateId">Value for CandidateId</param>
+		/// <param name="fldUserId">Value for UserId</param>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
-		/// <param name="fldCandidateName">Value for CandidateName</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldOrganizationId">Value for OrganizationId</param>
+		/// <param name="fldCandidateName">Value for CandidateName</param>
 		/// <returns>The number of rows affected.</returns>
 		public static int UpdateNow(int fldCandidateId
+, int fldUserId
 , int fldContentInspectionId
-, string fldCandidateName
+, int fldLocationId
 , int fldOrganizationId
+, string fldCandidateName
 )
 		{
 			return (new CandidateLogic()).Update(fldCandidateId
+, fldUserId
 , fldContentInspectionId
-, fldCandidateName
+, fldLocationId
 , fldOrganizationId
+, fldCandidateName
 );
 		}
 
@@ -122,22 +140,28 @@ namespace VotingInfo.Database.Logic.Data
 		/// Run Candidate_Update.
 		/// </summary>
 		/// <param name="fldCandidateId">Value for CandidateId</param>
+		/// <param name="fldUserId">Value for UserId</param>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
-		/// <param name="fldCandidateName">Value for CandidateName</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldOrganizationId">Value for OrganizationId</param>
+		/// <param name="fldCandidateName">Value for CandidateName</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		/// <returns>The number of rows affected.</returns>
 		public static int UpdateNow(int fldCandidateId
+, int fldUserId
 , int fldContentInspectionId
-, string fldCandidateName
+, int fldLocationId
 , int fldOrganizationId
+, string fldCandidateName
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			return (new CandidateLogic()).Update(fldCandidateId
+, fldUserId
 , fldContentInspectionId
-, fldCandidateName
+, fldLocationId
 , fldOrganizationId
+, fldCandidateName
 , connection, transaction);
 		}
 		/// <summary>
@@ -393,6 +417,37 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
+		/// Run Candidate_SelectBy_UserId, and return results as a list of CandidateRow.
+		/// </summary>
+		/// <param name="fldUserId">Value for UserId</param>
+		/// <returns>A collection of CandidateRow.</returns>
+		public static List<CandidateContract> SelectBy_UserIdNow(int fldUserId
+)
+		{
+			var driver = new CandidateLogic();
+			driver.SelectBy_UserId(fldUserId
+);
+			return driver.Results;
+		}
+
+		/// <summary>
+		/// Run Candidate_SelectBy_UserId, and return results as a list of CandidateRow.
+		/// </summary>
+		/// <param name="fldUserId">Value for UserId</param>
+		/// <param name="connection">The SqlConnection to use</param>
+		/// <param name="transaction">The SqlTransaction to use</param>
+		/// <returns>A collection of CandidateRow.</returns>
+		public static List<CandidateContract> SelectBy_UserIdNow(int fldUserId
+, SqlConnection connection, SqlTransaction transaction)
+		{
+			var driver = new CandidateLogic();
+			driver.SelectBy_UserId(fldUserId
+, connection, transaction);
+
+			return driver.Results;
+		}
+
+		/// <summary>
 		/// Run Candidate_SelectBy_ContentInspectionId, and return results as a list of CandidateRow.
 		/// </summary>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
@@ -418,6 +473,37 @@ namespace VotingInfo.Database.Logic.Data
 		{
 			var driver = new CandidateLogic();
 			driver.SelectBy_ContentInspectionId(fldContentInspectionId
+, connection, transaction);
+
+			return driver.Results;
+		}
+
+		/// <summary>
+		/// Run Candidate_SelectBy_LocationId, and return results as a list of CandidateRow.
+		/// </summary>
+		/// <param name="fldLocationId">Value for LocationId</param>
+		/// <returns>A collection of CandidateRow.</returns>
+		public static List<CandidateContract> SelectBy_LocationIdNow(int fldLocationId
+)
+		{
+			var driver = new CandidateLogic();
+			driver.SelectBy_LocationId(fldLocationId
+);
+			return driver.Results;
+		}
+
+		/// <summary>
+		/// Run Candidate_SelectBy_LocationId, and return results as a list of CandidateRow.
+		/// </summary>
+		/// <param name="fldLocationId">Value for LocationId</param>
+		/// <param name="connection">The SqlConnection to use</param>
+		/// <param name="transaction">The SqlTransaction to use</param>
+		/// <returns>A collection of CandidateRow.</returns>
+		public static List<CandidateContract> SelectBy_LocationIdNow(int fldLocationId
+, SqlConnection connection, SqlTransaction transaction)
+		{
+			var driver = new CandidateLogic();
+			driver.SelectBy_LocationId(fldLocationId
 , connection, transaction);
 
 			return driver.Results;

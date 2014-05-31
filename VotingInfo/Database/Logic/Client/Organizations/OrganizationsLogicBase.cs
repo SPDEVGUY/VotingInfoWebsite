@@ -26,6 +26,48 @@ namespace VotingInfo.Database.Logic.Client
 		}
 
 		/// <summary>
+		/// Run Organizations_SelectAll, and return results as a list of OrganizationsRow.
+		/// </summary>
+
+		/// <returns>A collection of OrganizationsRow.</returns>
+		public virtual bool SelectAll()
+		{
+			var result = false;
+
+			VotingInfoDb.ConnectThen(x =>
+			{
+				using (
+					var cmd = new SqlCommand("[Client].[Organizations_SelectAll]", x)
+					{
+						CommandType = CommandType.StoredProcedure,
+						CommandTimeout = DefaultCommandTimeout
+					})
+				{
+					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
+				}
+			});
+
+			return result;
+		}
+
+		/// <summary>
+		/// Run Organizations_SelectAll, and return results as a list of OrganizationsRow.
+		/// </summary>
+
+		/// <param name="connection">The SqlConnection to use</param>
+		/// <param name="transaction">The SqlTransaction to use</param>
+		/// <returns>A collection of OrganizationsRow.</returns>
+		public virtual bool SelectAll(SqlConnection connection, SqlTransaction transaction)
+		{
+			using (
+				var cmd = new SqlCommand("[Client].[Organizations_SelectAll]", connection)
+				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
+			{
+				using(var r = cmd.ExecuteReader()) return ReadAll(r);
+			}
+		}
+
+		/// <summary>
 		/// Determine if the table contains a row with the existing values
 		/// </summary>
 		/// <param name="fldOrganizationId">Value for OrganizationId</param>
@@ -137,48 +179,6 @@ namespace VotingInfo.Database.Logic.Client
 
 					});
 
-				using(var r = cmd.ExecuteReader()) return ReadAll(r);
-			}
-		}
-
-		/// <summary>
-		/// Run Organizations_SelectAll, and return results as a list of OrganizationsRow.
-		/// </summary>
-
-		/// <returns>A collection of OrganizationsRow.</returns>
-		public virtual bool SelectAll()
-		{
-			var result = false;
-
-			VotingInfoDb.ConnectThen(x =>
-			{
-				using (
-					var cmd = new SqlCommand("[Client].[Organizations_SelectAll]", x)
-					{
-						CommandType = CommandType.StoredProcedure,
-						CommandTimeout = DefaultCommandTimeout
-					})
-				{
-					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
-				}
-			});
-
-			return result;
-		}
-
-		/// <summary>
-		/// Run Organizations_SelectAll, and return results as a list of OrganizationsRow.
-		/// </summary>
-
-		/// <param name="connection">The SqlConnection to use</param>
-		/// <param name="transaction">The SqlTransaction to use</param>
-		/// <returns>A collection of OrganizationsRow.</returns>
-		public virtual bool SelectAll(SqlConnection connection, SqlTransaction transaction)
-		{
-			using (
-				var cmd = new SqlCommand("[Client].[Organizations_SelectAll]", connection)
-				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
-			{
 				using(var r = cmd.ExecuteReader()) return ReadAll(r);
 			}
 		}

@@ -26,9 +26,9 @@ namespace VotingInfo.Database.Contracts.Data
 		[DataMember]
 		public virtual int ElectionLevelId { get; set; }
 
-		//varchar(150)
+		//int
 		[DataMember]
-		public virtual string ElectionRegion { get; set; }
+		public virtual int LocationId { get; set; }
 
 		//datetime
 		[DataMember]

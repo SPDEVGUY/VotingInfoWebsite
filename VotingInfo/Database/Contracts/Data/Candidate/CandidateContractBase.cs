@@ -20,15 +20,23 @@ namespace VotingInfo.Database.Contracts.Data
 
 		//int
 		[DataMember]
+		public virtual int UserId { get; set; }
+
+		//int
+		[DataMember]
 		public virtual int ContentInspectionId { get; set; }
 
-		//varchar(150)
+		//int
 		[DataMember]
-		public virtual string CandidateName { get; set; }
+		public virtual int LocationId { get; set; }
 
 		//int
 		[DataMember]
 		public virtual int OrganizationId { get; set; }
+
+		//varchar(150)
+		[DataMember]
+		public virtual string CandidateName { get; set; }
 
 	}
 }

@@ -11,16 +11,16 @@ namespace VotingInfo.WebSite.Services.Client
     [ServiceContract]
     public partial interface OrganizationsServiceInterface
     {        
+        [OperationContract] [WebGet(UriTemplate = "{authId}/")]
+        List<OrganizationsContract> SelectAll(string authId);
+
+
         [OperationContract] [WebGet(UriTemplate = "{authId}/Exists({fldOrganizationId})")]
         bool Exists(string authId, string fldOrganizationId);
 
 
         [OperationContract] [WebInvoke(Method = "POST", UriTemplate = "{authId}/Search()")]
         List<OrganizationsContract> Search(string authId, OrganizationsServiceBase.SearchPx px);
-
-
-        [OperationContract] [WebGet(UriTemplate = "{authId}/")]
-        List<OrganizationsContract> SelectAll(string authId);
 
 
         [OperationContract] [WebInvoke(Method = "POST", UriTemplate = "{authId}/SelectBy_OrganizationId()")]

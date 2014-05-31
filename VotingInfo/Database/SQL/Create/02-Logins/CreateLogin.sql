@@ -6,7 +6,7 @@ GO
 
 --Note: $ = Var from RunAllSql
 
-DECLARE @DatabaseName as nvarchar(30); SET @DatabaseName = '$DatabaseName';
+DECLARE @DatabaseName as nvarchar(30); SET @DatabaseName = 'VotingInfo';
 DECLARE @UseWindowsAuth as bit; SET @UseWindowsAuth = $UseWindowsAuth;
 DECLARE @AccountName as nvarchar(30);  SET @AccountName = '$AccountName';
 DECLARE @SQLAccountPassword as nvarchar(30); SET @SQLAccountPassword = '$SQLAccountPassword';

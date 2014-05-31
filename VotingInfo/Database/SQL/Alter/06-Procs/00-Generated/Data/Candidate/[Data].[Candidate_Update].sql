@@ -7,16 +7,20 @@ IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Candidat
 GO--
 CREATE PROCEDURE [Data].[Candidate_Update] 
 			@CandidateId int,
+			@UserId int,
 			@ContentInspectionId int,
-			@CandidateName varchar(150),
-			@OrganizationId int
+			@LocationId int,
+			@OrganizationId int,
+			@CandidateName varchar(150)
 AS --Generated--
 BEGIN
 
 	UPDATE	[Data].[Candidate] SET 
+			[UserId] = @UserId,
 			[ContentInspectionId] = @ContentInspectionId,
-			[CandidateName] = @CandidateName,
-			[OrganizationId] = @OrganizationId
+			[LocationId] = @LocationId,
+			[OrganizationId] = @OrganizationId,
+			[CandidateName] = @CandidateName
 	WHERE	[CandidateId] = @CandidateId
 
 END

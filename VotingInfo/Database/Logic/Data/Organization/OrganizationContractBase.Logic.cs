@@ -49,5 +49,15 @@ namespace VotingInfo.Database.Contracts.Data
 		[IgnoreDataMember] protected List<Data.OrganizationMetaDataContract> _OrganizationMetaData;
 #endregion OrganizationMetaData Extension
 
+#region VoterFavoriteOrganization Extension (Child)
+		[IgnoreDataMember] public virtual Data.VoterContract VoterFavoriteOrganization
+		{ get { return VoterFavoriteOrganizationList == null || VoterFavoriteOrganizationList.Count == 0 ? null : VoterFavoriteOrganizationList[0]; } }
+
+		[IgnoreDataMember] public virtual List<Data.VoterContract> VoterFavoriteOrganizationList
+		{ get { return _VoterFavoriteOrganization ?? (_VoterFavoriteOrganization = logic.Data.VoterLogic.SelectBy_FavoriteOrganizationIdNow((int)OrganizationId)); } }
+
+		[IgnoreDataMember] protected List<Data.VoterContract> _VoterFavoriteOrganization;
+#endregion VoterFavoriteOrganization Extension
+
 	}
 }

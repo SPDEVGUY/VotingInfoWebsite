@@ -19,16 +19,6 @@ namespace VotingInfo.Database.Contracts.Data
         [IgnoreDataMember] public virtual int Cache_ExpireInMiliseconds { get { return 300; } }
 
 
-#region ConfirmedByUser Extension (Parent)
-		[IgnoreDataMember] public virtual Auth.UserContract ConfirmedByUser
-		{ get { return ConfirmedByUserList == null || ConfirmedByUserList.Count == 0 ? null : ConfirmedByUserList[0]; } }
-
-		[IgnoreDataMember] public virtual List<Auth.UserContract> ConfirmedByUserList
-		{ get { return _ConfirmedByUser ?? (_ConfirmedByUser = logic.Auth.UserLogic.SelectBy_UserIdNow(ConfirmedByUserId)); } }
-
-		[IgnoreDataMember] protected List<Auth.UserContract> _ConfirmedByUser;
-#endregion ConfirmedByUser Extension
-
 #region ProposedByUser Extension (Parent)
 		[IgnoreDataMember] public virtual Auth.UserContract ProposedByUser
 		{ get { return ProposedByUserList == null || ProposedByUserList.Count == 0 ? null : ProposedByUserList[0]; } }
@@ -38,6 +28,16 @@ namespace VotingInfo.Database.Contracts.Data
 
 		[IgnoreDataMember] protected List<Auth.UserContract> _ProposedByUser;
 #endregion ProposedByUser Extension
+
+#region ConfirmedByUser Extension (Parent)
+		[IgnoreDataMember] public virtual Auth.UserContract ConfirmedByUser
+		{ get { return ConfirmedByUserList == null || ConfirmedByUserList.Count == 0 ? null : ConfirmedByUserList[0]; } }
+
+		[IgnoreDataMember] public virtual List<Auth.UserContract> ConfirmedByUserList
+		{ get { return _ConfirmedByUser ?? (_ConfirmedByUser = logic.Auth.UserLogic.SelectBy_UserIdNow(ConfirmedByUserId)); } }
+
+		[IgnoreDataMember] protected List<Auth.UserContract> _ConfirmedByUser;
+#endregion ConfirmedByUser Extension
 
 #region Candidate Extension (Child)
 		[IgnoreDataMember] public virtual Data.CandidateContract Candidate
@@ -99,6 +99,16 @@ namespace VotingInfo.Database.Contracts.Data
 		[IgnoreDataMember] protected List<Data.ElectionLevelMetaDataXrefContract> _ElectionLevelMetaDataXref;
 #endregion ElectionLevelMetaDataXref Extension
 
+#region Location Extension (Child)
+		[IgnoreDataMember] public virtual Data.LocationContract Location
+		{ get { return LocationList == null || LocationList.Count == 0 ? null : LocationList[0]; } }
+
+		[IgnoreDataMember] public virtual List<Data.LocationContract> LocationList
+		{ get { return _Location ?? (_Location = logic.Data.LocationLogic.SelectBy_ContentInspectionIdNow((int)ContentInspectionId)); } }
+
+		[IgnoreDataMember] protected List<Data.LocationContract> _Location;
+#endregion Location Extension
+
 #region MetaData Extension (Child)
 		[IgnoreDataMember] public virtual Data.MetaDataContract MetaData
 		{ get { return MetaDataList == null || MetaDataList.Count == 0 ? null : MetaDataList[0]; } }
@@ -128,6 +138,16 @@ namespace VotingInfo.Database.Contracts.Data
 
 		[IgnoreDataMember] protected List<Data.OrganizationMetaDataContract> _OrganizationMetaData;
 #endregion OrganizationMetaData Extension
+
+#region Voter Extension (Child)
+		[IgnoreDataMember] public virtual Data.VoterContract Voter
+		{ get { return VoterList == null || VoterList.Count == 0 ? null : VoterList[0]; } }
+
+		[IgnoreDataMember] public virtual List<Data.VoterContract> VoterList
+		{ get { return _Voter ?? (_Voter = logic.Data.VoterLogic.SelectBy_ContentInspectionIdNow((int)ContentInspectionId)); } }
+
+		[IgnoreDataMember] protected List<Data.VoterContract> _Voter;
+#endregion Voter Extension
 
 	}
 }

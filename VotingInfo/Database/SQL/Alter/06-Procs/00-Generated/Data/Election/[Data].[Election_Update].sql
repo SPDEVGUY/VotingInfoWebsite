@@ -9,7 +9,7 @@ CREATE PROCEDURE [Data].[Election_Update]
 			@ElectionId int,
 			@ContentInspectionId int,
 			@ElectionLevelId int,
-			@ElectionRegion varchar(150),
+			@LocationId int,
 			@VotingDate datetime
 AS --Generated--
 BEGIN
@@ -17,7 +17,7 @@ BEGIN
 	UPDATE	[Data].[Election] SET 
 			[ContentInspectionId] = @ContentInspectionId,
 			[ElectionLevelId] = @ElectionLevelId,
-			[ElectionRegion] = @ElectionRegion,
+			[LocationId] = @LocationId,
 			[VotingDate] = @VotingDate
 	WHERE	[ElectionId] = @ElectionId
 

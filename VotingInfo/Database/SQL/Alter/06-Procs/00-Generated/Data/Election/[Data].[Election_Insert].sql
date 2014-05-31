@@ -8,7 +8,7 @@ GO--
 CREATE PROCEDURE [Data].[Election_Insert]
 			@ContentInspectionId int,
 			@ElectionLevelId int,
-			@ElectionRegion varchar(150),
+			@LocationId int,
 			@VotingDate datetime
 AS --Generated--
 BEGIN
@@ -17,13 +17,13 @@ BEGIN
 
 			[ContentInspectionId],
 			[ElectionLevelId],
-			[ElectionRegion],
+			[LocationId],
 			[VotingDate]
 	) VALUES (
 
 			@ContentInspectionId,
 			@ElectionLevelId,
-			@ElectionRegion,
+			@LocationId,
 			@VotingDate
 	)
 

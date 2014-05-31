@@ -854,60 +854,6 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
-		/// Run ContentInspection_SelectBy_ConfirmedByUserId, and return results as a list of ContentInspectionRow.
-		/// </summary>
-		/// <param name="fldConfirmedByUserId">Value for ConfirmedByUserId</param>
-		/// <returns>A collection of ContentInspectionRow.</returns>
-		public virtual bool SelectBy_ConfirmedByUserId(int fldConfirmedByUserId
-)
-		{
-			var result = false;
-
-			VotingInfoDb.ConnectThen(x =>
-			{
-				using (
-					var cmd = new SqlCommand("[Data].[ContentInspection_SelectBy_ConfirmedByUserId]", x)
-					{
-						CommandType = CommandType.StoredProcedure,
-						CommandTimeout = DefaultCommandTimeout
-					})
-				{
-					cmd.Parameters.AddRange(new[] {
-						new SqlParameter("@ConfirmedByUserId", fldConfirmedByUserId)
-
-					});
-
-					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
-				}
-			});
-
-			return result;
-		}
-
-		/// <summary>
-		/// Run ContentInspection_SelectBy_ConfirmedByUserId, and return results as a list of ContentInspectionRow.
-		/// </summary>
-		/// <param name="fldConfirmedByUserId">Value for ConfirmedByUserId</param>
-		/// <param name="connection">The SqlConnection to use</param>
-		/// <param name="transaction">The SqlTransaction to use</param>
-		/// <returns>A collection of ContentInspectionRow.</returns>
-		public virtual bool SelectBy_ConfirmedByUserId(int fldConfirmedByUserId
-, SqlConnection connection, SqlTransaction transaction)
-		{
-			using (
-				var cmd = new SqlCommand("[Data].[ContentInspection_SelectBy_ConfirmedByUserId]", connection)
-				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
-			{
-					cmd.Parameters.AddRange(new[] {
-						new SqlParameter("@ConfirmedByUserId", fldConfirmedByUserId)
-
-					});
-
-				using(var r = cmd.ExecuteReader()) return ReadAll(r);
-			}
-		}
-
-		/// <summary>
 		/// Run ContentInspection_SelectBy_ProposedByUserId, and return results as a list of ContentInspectionRow.
 		/// </summary>
 		/// <param name="fldProposedByUserId">Value for ProposedByUserId</param>
@@ -954,6 +900,60 @@ namespace VotingInfo.Database.Logic.Data
 			{
 					cmd.Parameters.AddRange(new[] {
 						new SqlParameter("@ProposedByUserId", fldProposedByUserId)
+
+					});
+
+				using(var r = cmd.ExecuteReader()) return ReadAll(r);
+			}
+		}
+
+		/// <summary>
+		/// Run ContentInspection_SelectBy_ConfirmedByUserId, and return results as a list of ContentInspectionRow.
+		/// </summary>
+		/// <param name="fldConfirmedByUserId">Value for ConfirmedByUserId</param>
+		/// <returns>A collection of ContentInspectionRow.</returns>
+		public virtual bool SelectBy_ConfirmedByUserId(int fldConfirmedByUserId
+)
+		{
+			var result = false;
+
+			VotingInfoDb.ConnectThen(x =>
+			{
+				using (
+					var cmd = new SqlCommand("[Data].[ContentInspection_SelectBy_ConfirmedByUserId]", x)
+					{
+						CommandType = CommandType.StoredProcedure,
+						CommandTimeout = DefaultCommandTimeout
+					})
+				{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@ConfirmedByUserId", fldConfirmedByUserId)
+
+					});
+
+					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
+				}
+			});
+
+			return result;
+		}
+
+		/// <summary>
+		/// Run ContentInspection_SelectBy_ConfirmedByUserId, and return results as a list of ContentInspectionRow.
+		/// </summary>
+		/// <param name="fldConfirmedByUserId">Value for ConfirmedByUserId</param>
+		/// <param name="connection">The SqlConnection to use</param>
+		/// <param name="transaction">The SqlTransaction to use</param>
+		/// <returns>A collection of ContentInspectionRow.</returns>
+		public virtual bool SelectBy_ConfirmedByUserId(int fldConfirmedByUserId
+, SqlConnection connection, SqlTransaction transaction)
+		{
+			using (
+				var cmd = new SqlCommand("[Data].[ContentInspection_SelectBy_ConfirmedByUserId]", connection)
+				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
+			{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@ConfirmedByUserId", fldConfirmedByUserId)
 
 					});
 

@@ -4,7 +4,7 @@ BEGIN
 		[ElectionId] int IDENTITY(1,1) NOT NULL,
 		[ContentInspectionId] int  NOT NULL,
 		[ElectionLevelId] int  NOT NULL,
-		[ElectionRegion] varchar(150)  NOT NULL,
+		[LocationId] int  NOT NULL,
 		[VotingDate] datetime  NOT NULL,
 		CONSTRAINT [PK_Election] PRIMARY KEY CLUSTERED ([ElectionId])
 	)  

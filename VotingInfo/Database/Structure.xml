@@ -158,6 +158,108 @@ INNER JOIN [Data].[ContentInspection] CI
               </KeyFields>
             </Value>
           </KeyCollectionItemOfTableDefinition>
+          <KeyCollectionItemOfTableDefinition Key="Locations">
+            <Value Name="Locations" IsView="true" IsSearchable="true" IsListable="false" VerifyConcurrency="false">
+              <ViewCreateSql>CREATE VIEW [Client].[Locations] WITH SCHEMABINDING
+AS
+SELECT	
+		L.[LocationId],
+		L.[ContentInspectionId],
+		L.[LocationName],
+		CI.[IsArchived],
+		CI.[IsBeingProposed],
+		CI.[ProposedByUserId],
+		CI.[ConfirmedByUserId],
+		CI.[FalseInfoCount],
+		CI.[TrueInfoCount],
+		CI.[AdminInpsected],
+		CI.[DateLastChecked],
+		CI.[SourceUrl]
+FROM	[Data].[Location] L
+INNER JOIN [Data].[ContentInspection] CI
+	ON L.[ContentInspectionId] = CI.[ContentInspectionId]
+
+</ViewCreateSql>
+              <Fields>
+                <Items>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="LocationId">
+                    <Value Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="ContentInspectionId">
+                    <Value Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="LocationName">
+                    <Value Name="LocationName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="IsArchived">
+                    <Value Name="IsArchived" SqlType="bit" DotNetType="bool" JavaType="boolean" SqlTypeWithDimension="bit" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="IsBeingProposed">
+                    <Value Name="IsBeingProposed" SqlType="bit" DotNetType="bool" JavaType="boolean" SqlTypeWithDimension="bit" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="ProposedByUserId">
+                    <Value Name="ProposedByUserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="ConfirmedByUserId">
+                    <Value Name="ConfirmedByUserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="FalseInfoCount">
+                    <Value Name="FalseInfoCount" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="TrueInfoCount">
+                    <Value Name="TrueInfoCount" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="AdminInpsected">
+                    <Value Name="AdminInpsected" SqlType="bit" DotNetType="bool" JavaType="boolean" SqlTypeWithDimension="bit" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="DateLastChecked">
+                    <Value Name="DateLastChecked" SqlType="datetime" DotNetType="DateTime" JavaType="String" SqlTypeWithDimension="datetime" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="SourceUrl">
+                    <Value Name="SourceUrl" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(250)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                </Items>
+              </Fields>
+              <Indexes>
+                <Items>
+                  <KeyCollectionItemOfIndexDefinition Key="IX_Client_Locations_LocationId">
+                    <Value Name="IX_Client_Locations_LocationId" IsPrimaryKey="true" IsForeignKey="false" IsUniqueKey="true" IsClustered="true">
+                      <FieldNames>
+                        <string>LocationId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="IX_Client_Locations_ContentInspectionId">
+                    <Value Name="IX_Client_Locations_ContentInspectionId" IsPrimaryKey="false" IsForeignKey="false" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>ContentInspectionId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="IX_Client_Locations_ProposedByUserId">
+                    <Value Name="IX_Client_Locations_ProposedByUserId" IsPrimaryKey="false" IsForeignKey="false" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>ProposedByUserId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="IX_Client_Locations_ConfirmedByUserId">
+                    <Value Name="IX_Client_Locations_ConfirmedByUserId" IsPrimaryKey="false" IsForeignKey="false" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>ConfirmedByUserId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                </Items>
+              </Indexes>
+              <FKeys>
+                <Items />
+              </FKeys>
+              <KeyFields>
+                <string>LocationId</string>
+              </KeyFields>
+            </Value>
+          </KeyCollectionItemOfTableDefinition>
           <KeyCollectionItemOfTableDefinition Key="Organizations">
             <Value Name="Organizations" IsView="true" IsSearchable="true" IsListable="false" VerifyConcurrency="false">
               <ViewCreateSql>CREATE VIEW [Client].[Organizations] WITH SCHEMABINDING
@@ -295,6 +397,11 @@ SELECT [UserId]
       </Tables>
       <Procedures>
         <Items>
+          <KeyCollectionItemOfProcedureDefinition Key="Organizations_SelectAll">
+            <Value Name="Organizations_SelectAll" MethodName="SelectAll" ProcedureType="Lookup" TableName="Organizations" IsStatic="false">
+              <Parameters />
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
           <KeyCollectionItemOfProcedureDefinition Key="Users_SelectByUser_Current">
             <Value Name="Users_SelectByUser_Current" MethodName="SelectByUser_Current" ProcedureType="Lookup" TableName="Users" IsStatic="false">
               <CustomProcSql>
@@ -451,6 +558,54 @@ END</CustomProcSql>
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Locations_Exists">
+            <Value Name="Locations_Exists" MethodName="Exists" ProcedureType="ExistsQuery" TableName="Locations" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Locations_Search">
+            <Value Name="Locations_Search" MethodName="Search" ProcedureType="Lookup" TableName="Locations" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="SourceUrl" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(250)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Locations_SelectAll">
+            <Value Name="Locations_SelectAll" MethodName="SelectAll" ProcedureType="Lookup" TableName="Locations" IsStatic="false">
+              <Parameters />
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Locations_SelectBy_LocationId">
+            <Value Name="Locations_SelectBy_LocationId" MethodName="SelectBy_LocationId" ProcedureType="Lookup" TableName="Locations" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Locations_SelectBy_ContentInspectionId">
+            <Value Name="Locations_SelectBy_ContentInspectionId" MethodName="SelectBy_ContentInspectionId" ProcedureType="Lookup" TableName="Locations" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Locations_SelectBy_ProposedByUserId">
+            <Value Name="Locations_SelectBy_ProposedByUserId" MethodName="SelectBy_ProposedByUserId" ProcedureType="Lookup" TableName="Locations" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ProposedByUserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Locations_SelectBy_ConfirmedByUserId">
+            <Value Name="Locations_SelectBy_ConfirmedByUserId" MethodName="SelectBy_ConfirmedByUserId" ProcedureType="Lookup" TableName="Locations" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ConfirmedByUserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
           <KeyCollectionItemOfProcedureDefinition Key="Organizations_Exists">
             <Value Name="Organizations_Exists" MethodName="Exists" ProcedureType="ExistsQuery" TableName="Organizations" IsStatic="false">
               <Parameters>
@@ -464,11 +619,6 @@ END</CustomProcSql>
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="OrganizationName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(250)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="SourceUrl" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(250)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
               </Parameters>
-            </Value>
-          </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="Organizations_SelectAll">
-            <Value Name="Organizations_SelectAll" MethodName="SelectAll" ProcedureType="Lookup" TableName="Organizations" IsStatic="false">
-              <Parameters />
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
           <KeyCollectionItemOfProcedureDefinition Key="Organizations_SelectBy_OrganizationId">
@@ -565,14 +715,20 @@ END</CustomProcSql>
                   <KeyCollectionItemOfAdvancedFieldDefinition Key="CandidateId">
                     <Value Name="CandidateId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
                   </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="UserId">
+                    <Value Name="UserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
                   <KeyCollectionItemOfAdvancedFieldDefinition Key="ContentInspectionId">
                     <Value Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
                   </KeyCollectionItemOfAdvancedFieldDefinition>
-                  <KeyCollectionItemOfAdvancedFieldDefinition Key="CandidateName">
-                    <Value Name="CandidateName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="LocationId">
+                    <Value Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
                   </KeyCollectionItemOfAdvancedFieldDefinition>
                   <KeyCollectionItemOfAdvancedFieldDefinition Key="OrganizationId">
                     <Value Name="OrganizationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="CandidateName">
+                    <Value Name="CandidateName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
                   </KeyCollectionItemOfAdvancedFieldDefinition>
                 </Items>
               </Fields>
@@ -585,10 +741,24 @@ END</CustomProcSql>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_Candidate_UserId">
+                    <Value Name="FK_Data_Candidate_UserId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>UserId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
                   <KeyCollectionItemOfIndexDefinition Key="FK_Data_Candidate_ContentInspectionId">
                     <Value Name="FK_Data_Candidate_ContentInspectionId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
                       <FieldNames>
                         <string>ContentInspectionId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_Candidate_LocationId">
+                    <Value Name="FK_Data_Candidate_LocationId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>LocationId</string>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
@@ -603,6 +773,16 @@ END</CustomProcSql>
               </Indexes>
               <FKeys>
                 <Items>
+                  <KeyCollectionItemOfFKeyDefinition Key="FK_Data_Candidate_UserId">
+                    <Value Name="FK_Data_Candidate_UserId" CascadeDelete="false" CascadeUpdate="false" ParentSchemaName="Auth" ParentTableName="User" ChildSchemaName="Data" ChildTableName="Candidate">
+                      <ChildFieldNames>
+                        <string>UserId</string>
+                      </ChildFieldNames>
+                      <ParentFieldNames>
+                        <string>UserId</string>
+                      </ParentFieldNames>
+                    </Value>
+                  </KeyCollectionItemOfFKeyDefinition>
                   <KeyCollectionItemOfFKeyDefinition Key="FK_Data_Candidate_ContentInspectionId">
                     <Value Name="FK_Data_Candidate_ContentInspectionId" CascadeDelete="false" CascadeUpdate="false" ParentSchemaName="Data" ParentTableName="ContentInspection" ChildSchemaName="Data" ChildTableName="Candidate">
                       <ChildFieldNames>
@@ -610,6 +790,16 @@ END</CustomProcSql>
                       </ChildFieldNames>
                       <ParentFieldNames>
                         <string>ContentInspectionId</string>
+                      </ParentFieldNames>
+                    </Value>
+                  </KeyCollectionItemOfFKeyDefinition>
+                  <KeyCollectionItemOfFKeyDefinition Key="FK_Data_Candidate_LocationId">
+                    <Value Name="FK_Data_Candidate_LocationId" CascadeDelete="false" CascadeUpdate="false" ParentSchemaName="Data" ParentTableName="Location" ChildSchemaName="Data" ChildTableName="Candidate">
+                      <ChildFieldNames>
+                        <string>LocationId</string>
+                      </ChildFieldNames>
+                      <ParentFieldNames>
+                        <string>LocationId</string>
                       </ParentFieldNames>
                     </Value>
                   </KeyCollectionItemOfFKeyDefinition>
@@ -660,17 +850,17 @@ END</CustomProcSql>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
-                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_CandidateMetaData_CandidateId">
-                    <Value Name="FK_Data_CandidateMetaData_CandidateId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
-                      <FieldNames>
-                        <string>CandidateId</string>
-                      </FieldNames>
-                    </Value>
-                  </KeyCollectionItemOfIndexDefinition>
                   <KeyCollectionItemOfIndexDefinition Key="FK_Data_CandidateMetaData_ContentInspectionId">
                     <Value Name="FK_Data_CandidateMetaData_ContentInspectionId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
                       <FieldNames>
                         <string>ContentInspectionId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_CandidateMetaData_CandidateId">
+                    <Value Name="FK_Data_CandidateMetaData_CandidateId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>CandidateId</string>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
@@ -767,13 +957,6 @@ END</CustomProcSql>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
-                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_ContentInspection_ConfirmedByUserId">
-                    <Value Name="FK_Data_ContentInspection_ConfirmedByUserId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
-                      <FieldNames>
-                        <string>ConfirmedByUserId</string>
-                      </FieldNames>
-                    </Value>
-                  </KeyCollectionItemOfIndexDefinition>
                   <KeyCollectionItemOfIndexDefinition Key="FK_Data_ContentInspection_ProposedByUserId">
                     <Value Name="FK_Data_ContentInspection_ProposedByUserId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
                       <FieldNames>
@@ -781,24 +964,31 @@ END</CustomProcSql>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_ContentInspection_ConfirmedByUserId">
+                    <Value Name="FK_Data_ContentInspection_ConfirmedByUserId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>ConfirmedByUserId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
                 </Items>
               </Indexes>
               <FKeys>
                 <Items>
-                  <KeyCollectionItemOfFKeyDefinition Key="FK_Data_ContentInspection_ConfirmedByUserId">
-                    <Value Name="FK_Data_ContentInspection_ConfirmedByUserId" CascadeDelete="false" CascadeUpdate="false" ParentSchemaName="Auth" ParentTableName="User" ChildSchemaName="Data" ChildTableName="ContentInspection">
+                  <KeyCollectionItemOfFKeyDefinition Key="FK_Data_ContentInspection_ProposedByUserId">
+                    <Value Name="FK_Data_ContentInspection_ProposedByUserId" CascadeDelete="false" CascadeUpdate="false" ParentSchemaName="Auth" ParentTableName="User" ChildSchemaName="Data" ChildTableName="ContentInspection">
                       <ChildFieldNames>
-                        <string>ConfirmedByUserId</string>
+                        <string>ProposedByUserId</string>
                       </ChildFieldNames>
                       <ParentFieldNames>
                         <string>UserId</string>
                       </ParentFieldNames>
                     </Value>
                   </KeyCollectionItemOfFKeyDefinition>
-                  <KeyCollectionItemOfFKeyDefinition Key="FK_Data_ContentInspection_ProposedByUserId">
-                    <Value Name="FK_Data_ContentInspection_ProposedByUserId" CascadeDelete="false" CascadeUpdate="false" ParentSchemaName="Auth" ParentTableName="User" ChildSchemaName="Data" ChildTableName="ContentInspection">
+                  <KeyCollectionItemOfFKeyDefinition Key="FK_Data_ContentInspection_ConfirmedByUserId">
+                    <Value Name="FK_Data_ContentInspection_ConfirmedByUserId" CascadeDelete="false" CascadeUpdate="false" ParentSchemaName="Auth" ParentTableName="User" ChildSchemaName="Data" ChildTableName="ContentInspection">
                       <ChildFieldNames>
-                        <string>ProposedByUserId</string>
+                        <string>ConfirmedByUserId</string>
                       </ChildFieldNames>
                       <ParentFieldNames>
                         <string>UserId</string>
@@ -813,7 +1003,7 @@ END</CustomProcSql>
             </Value>
           </KeyCollectionItemOfTableDefinition>
           <KeyCollectionItemOfTableDefinition Key="Election">
-            <Value Name="Election" IsView="false" IsSearchable="true" IsListable="false" VerifyConcurrency="false" IdentityField="ElectionId">
+            <Value Name="Election" IsView="false" IsSearchable="false" IsListable="false" VerifyConcurrency="false" IdentityField="ElectionId">
               <Fields>
                 <Items>
                   <KeyCollectionItemOfAdvancedFieldDefinition Key="ElectionId">
@@ -825,8 +1015,8 @@ END</CustomProcSql>
                   <KeyCollectionItemOfAdvancedFieldDefinition Key="ElectionLevelId">
                     <Value Name="ElectionLevelId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
                   </KeyCollectionItemOfAdvancedFieldDefinition>
-                  <KeyCollectionItemOfAdvancedFieldDefinition Key="ElectionRegion">
-                    <Value Name="ElectionRegion" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="LocationId">
+                    <Value Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
                   </KeyCollectionItemOfAdvancedFieldDefinition>
                   <KeyCollectionItemOfAdvancedFieldDefinition Key="VotingDate">
                     <Value Name="VotingDate" SqlType="datetime" DotNetType="DateTime" JavaType="String" SqlTypeWithDimension="datetime" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
@@ -842,6 +1032,13 @@ END</CustomProcSql>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_Election_ContentInspectionId">
+                    <Value Name="FK_Data_Election_ContentInspectionId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>ContentInspectionId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
                   <KeyCollectionItemOfIndexDefinition Key="FK_Data_Election_ElectionLevelId">
                     <Value Name="FK_Data_Election_ElectionLevelId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
                       <FieldNames>
@@ -849,10 +1046,10 @@ END</CustomProcSql>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
-                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_Election_ContentInspectionId">
-                    <Value Name="FK_Data_Election_ContentInspectionId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_Election_LocationId">
+                    <Value Name="FK_Data_Election_LocationId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
                       <FieldNames>
-                        <string>ContentInspectionId</string>
+                        <string>LocationId</string>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
@@ -877,6 +1074,16 @@ END</CustomProcSql>
                       </ChildFieldNames>
                       <ParentFieldNames>
                         <string>ElectionLevelId</string>
+                      </ParentFieldNames>
+                    </Value>
+                  </KeyCollectionItemOfFKeyDefinition>
+                  <KeyCollectionItemOfFKeyDefinition Key="FK_Data_Election_LocationId">
+                    <Value Name="FK_Data_Election_LocationId" CascadeDelete="false" CascadeUpdate="false" ParentSchemaName="Data" ParentTableName="Location" ChildSchemaName="Data" ChildTableName="Election">
+                      <ChildFieldNames>
+                        <string>LocationId</string>
+                      </ChildFieldNames>
+                      <ParentFieldNames>
+                        <string>LocationId</string>
                       </ParentFieldNames>
                     </Value>
                   </KeyCollectionItemOfFKeyDefinition>
@@ -920,17 +1127,17 @@ END</CustomProcSql>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
-                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_ElectionCandidate_CandidateId">
-                    <Value Name="FK_Data_ElectionCandidate_CandidateId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
-                      <FieldNames>
-                        <string>CandidateId</string>
-                      </FieldNames>
-                    </Value>
-                  </KeyCollectionItemOfIndexDefinition>
                   <KeyCollectionItemOfIndexDefinition Key="FK_Data_ElectionCandidate_ContentInspectionId">
                     <Value Name="FK_Data_ElectionCandidate_ContentInspectionId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
                       <FieldNames>
                         <string>ContentInspectionId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_ElectionCandidate_CandidateId">
+                    <Value Name="FK_Data_ElectionCandidate_CandidateId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>CandidateId</string>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
@@ -1068,17 +1275,17 @@ END</CustomProcSql>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
-                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_ElectionLevelMetaDataXref_ElectionLevelId">
-                    <Value Name="FK_Data_ElectionLevelMetaDataXref_ElectionLevelId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
-                      <FieldNames>
-                        <string>ElectionLevelId</string>
-                      </FieldNames>
-                    </Value>
-                  </KeyCollectionItemOfIndexDefinition>
                   <KeyCollectionItemOfIndexDefinition Key="FK_Data_ElectionLevelMetaDataXref_ContentInspectionId">
                     <Value Name="FK_Data_ElectionLevelMetaDataXref_ContentInspectionId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
                       <FieldNames>
                         <string>ContentInspectionId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_ElectionLevelMetaDataXref_ElectionLevelId">
+                    <Value Name="FK_Data_ElectionLevelMetaDataXref_ElectionLevelId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>ElectionLevelId</string>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
@@ -1110,6 +1317,58 @@ END</CustomProcSql>
               </FKeys>
               <KeyFields>
                 <string>ElectionLevelMetaDataXrefId</string>
+              </KeyFields>
+            </Value>
+          </KeyCollectionItemOfTableDefinition>
+          <KeyCollectionItemOfTableDefinition Key="Location">
+            <Value Name="Location" IsView="false" IsSearchable="true" IsListable="true" VerifyConcurrency="false" IdentityField="LocationId" TitleColumn="LocationName">
+              <Fields>
+                <Items>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="LocationId">
+                    <Value Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="ContentInspectionId">
+                    <Value Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="LocationName">
+                    <Value Name="LocationName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                </Items>
+              </Fields>
+              <Indexes>
+                <Items>
+                  <KeyCollectionItemOfIndexDefinition Key="PK_Location">
+                    <Value Name="PK_Location" IsPrimaryKey="true" IsForeignKey="false" IsUniqueKey="true" IsClustered="true">
+                      <FieldNames>
+                        <string>LocationId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_Location_ContentInspectionId">
+                    <Value Name="FK_Data_Location_ContentInspectionId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>ContentInspectionId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                </Items>
+              </Indexes>
+              <FKeys>
+                <Items>
+                  <KeyCollectionItemOfFKeyDefinition Key="FK_Data_Location_ContentInspectionId">
+                    <Value Name="FK_Data_Location_ContentInspectionId" CascadeDelete="false" CascadeUpdate="false" ParentSchemaName="Data" ParentTableName="ContentInspection" ChildSchemaName="Data" ChildTableName="Location">
+                      <ChildFieldNames>
+                        <string>ContentInspectionId</string>
+                      </ChildFieldNames>
+                      <ParentFieldNames>
+                        <string>ContentInspectionId</string>
+                      </ParentFieldNames>
+                    </Value>
+                  </KeyCollectionItemOfFKeyDefinition>
+                </Items>
+              </FKeys>
+              <KeyFields>
+                <string>LocationId</string>
               </KeyFields>
             </Value>
           </KeyCollectionItemOfTableDefinition>
@@ -1266,17 +1525,17 @@ END</CustomProcSql>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
-                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_OrganizationMetaData_MetaDataId">
-                    <Value Name="FK_Data_OrganizationMetaData_MetaDataId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
-                      <FieldNames>
-                        <string>MetaDataId</string>
-                      </FieldNames>
-                    </Value>
-                  </KeyCollectionItemOfIndexDefinition>
                   <KeyCollectionItemOfIndexDefinition Key="FK_Data_OrganizationMetaData_OrganizationId">
                     <Value Name="FK_Data_OrganizationMetaData_OrganizationId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
                       <FieldNames>
                         <string>OrganizationId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_OrganizationMetaData_MetaDataId">
+                    <Value Name="FK_Data_OrganizationMetaData_MetaDataId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>MetaDataId</string>
                       </FieldNames>
                     </Value>
                   </KeyCollectionItemOfIndexDefinition>
@@ -1318,6 +1577,121 @@ END</CustomProcSql>
               </FKeys>
               <KeyFields>
                 <string>OrganizationMetaDataId</string>
+              </KeyFields>
+            </Value>
+          </KeyCollectionItemOfTableDefinition>
+          <KeyCollectionItemOfTableDefinition Key="Voter">
+            <Value Name="Voter" IsView="false" IsSearchable="true" IsListable="true" VerifyConcurrency="false" IdentityField="VoterId" TitleColumn="VoterName">
+              <Fields>
+                <Items>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="VoterId">
+                    <Value Name="VoterId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="UserId">
+                    <Value Name="UserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="ContentInspectionId">
+                    <Value Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="LocationId">
+                    <Value Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="VoterName">
+                    <Value Name="VoterName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="PostalCode">
+                    <Value Name="PostalCode" SqlType="char" DotNetType="string" JavaType="String" SqlTypeWithDimension="char(6)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="FavoriteOrganizationId">
+                    <Value Name="FavoriteOrganizationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                </Items>
+              </Fields>
+              <Indexes>
+                <Items>
+                  <KeyCollectionItemOfIndexDefinition Key="PK_Voter">
+                    <Value Name="PK_Voter" IsPrimaryKey="true" IsForeignKey="false" IsUniqueKey="true" IsClustered="true">
+                      <FieldNames>
+                        <string>VoterId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_Voter_UserId">
+                    <Value Name="FK_Data_Voter_UserId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>UserId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_Voter_ContentInspectionId">
+                    <Value Name="FK_Data_Voter_ContentInspectionId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>ContentInspectionId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_Voter_LocationId">
+                    <Value Name="FK_Data_Voter_LocationId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>LocationId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                  <KeyCollectionItemOfIndexDefinition Key="FK_Data_Voter_FavoriteOrganizationId">
+                    <Value Name="FK_Data_Voter_FavoriteOrganizationId" IsPrimaryKey="false" IsForeignKey="true" IsUniqueKey="false" IsClustered="false">
+                      <FieldNames>
+                        <string>FavoriteOrganizationId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                </Items>
+              </Indexes>
+              <FKeys>
+                <Items>
+                  <KeyCollectionItemOfFKeyDefinition Key="FK_Data_Voter_UserId">
+                    <Value Name="FK_Data_Voter_UserId" CascadeDelete="false" CascadeUpdate="false" ParentSchemaName="Auth" ParentTableName="User" ChildSchemaName="Data" ChildTableName="Voter">
+                      <ChildFieldNames>
+                        <string>UserId</string>
+                      </ChildFieldNames>
+                      <ParentFieldNames>
+                        <string>UserId</string>
+                      </ParentFieldNames>
+                    </Value>
+                  </KeyCollectionItemOfFKeyDefinition>
+                  <KeyCollectionItemOfFKeyDefinition Key="FK_Data_Voter_ContentInspectionId">
+                    <Value Name="FK_Data_Voter_ContentInspectionId" CascadeDelete="false" CascadeUpdate="false" ParentSchemaName="Data" ParentTableName="ContentInspection" ChildSchemaName="Data" ChildTableName="Voter">
+                      <ChildFieldNames>
+                        <string>ContentInspectionId</string>
+                      </ChildFieldNames>
+                      <ParentFieldNames>
+                        <string>ContentInspectionId</string>
+                      </ParentFieldNames>
+                    </Value>
+                  </KeyCollectionItemOfFKeyDefinition>
+                  <KeyCollectionItemOfFKeyDefinition Key="FK_Data_Voter_LocationId">
+                    <Value Name="FK_Data_Voter_LocationId" CascadeDelete="false" CascadeUpdate="false" ParentSchemaName="Data" ParentTableName="Location" ChildSchemaName="Data" ChildTableName="Voter">
+                      <ChildFieldNames>
+                        <string>LocationId</string>
+                      </ChildFieldNames>
+                      <ParentFieldNames>
+                        <string>LocationId</string>
+                      </ParentFieldNames>
+                    </Value>
+                  </KeyCollectionItemOfFKeyDefinition>
+                  <KeyCollectionItemOfFKeyDefinition Key="FK_Data_Voter_FavoriteOrganizationId">
+                    <Value Name="FK_Data_Voter_FavoriteOrganizationId" CascadeDelete="false" CascadeUpdate="false" ParentSchemaName="Data" ParentTableName="Organization" ChildSchemaName="Data" ChildTableName="Voter">
+                      <ChildFieldNames>
+                        <string>FavoriteOrganizationId</string>
+                      </ChildFieldNames>
+                      <ParentFieldNames>
+                        <string>OrganizationId</string>
+                      </ParentFieldNames>
+                    </Value>
+                  </KeyCollectionItemOfFKeyDefinition>
+                </Items>
+              </FKeys>
+              <KeyFields>
+                <string>VoterId</string>
               </KeyFields>
             </Value>
           </KeyCollectionItemOfTableDefinition>
@@ -1378,9 +1752,11 @@ END</CustomProcSql>
           <KeyCollectionItemOfProcedureDefinition Key="Candidate_Insert">
             <Value Name="Candidate_Insert" MethodName="Insert" ProcedureType="IdentityInsert" TableName="Candidate" IsStatic="false">
               <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="UserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="CandidateName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="OrganizationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="CandidateName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
@@ -1388,9 +1764,11 @@ END</CustomProcSql>
             <Value Name="Candidate_Update" MethodName="Update" ProcedureType="NonQuery" TableName="Candidate" IsStatic="false">
               <Parameters>
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="CandidateId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="UserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="CandidateName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="OrganizationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="CandidateName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
@@ -1434,10 +1812,24 @@ END</CustomProcSql>
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Candidate_SelectBy_UserId">
+            <Value Name="Candidate_SelectBy_UserId" MethodName="SelectBy_UserId" ProcedureType="Lookup" TableName="Candidate" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="UserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
           <KeyCollectionItemOfProcedureDefinition Key="Candidate_SelectBy_ContentInspectionId">
             <Value Name="Candidate_SelectBy_ContentInspectionId" MethodName="SelectBy_ContentInspectionId" ProcedureType="Lookup" TableName="Candidate" IsStatic="false">
               <Parameters>
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Candidate_SelectBy_LocationId">
+            <Value Name="Candidate_SelectBy_LocationId" MethodName="SelectBy_LocationId" ProcedureType="Lookup" TableName="Candidate" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
@@ -1502,17 +1894,17 @@ END</CustomProcSql>
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="CandidateMetaData_SelectBy_CandidateId">
-            <Value Name="CandidateMetaData_SelectBy_CandidateId" MethodName="SelectBy_CandidateId" ProcedureType="Lookup" TableName="CandidateMetaData" IsStatic="false">
-              <Parameters>
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="CandidateId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
-              </Parameters>
-            </Value>
-          </KeyCollectionItemOfProcedureDefinition>
           <KeyCollectionItemOfProcedureDefinition Key="CandidateMetaData_SelectBy_ContentInspectionId">
             <Value Name="CandidateMetaData_SelectBy_ContentInspectionId" MethodName="SelectBy_ContentInspectionId" ProcedureType="Lookup" TableName="CandidateMetaData" IsStatic="false">
               <Parameters>
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="CandidateMetaData_SelectBy_CandidateId">
+            <Value Name="CandidateMetaData_SelectBy_CandidateId" MethodName="SelectBy_CandidateId" ProcedureType="Lookup" TableName="CandidateMetaData" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="CandidateId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
@@ -1587,17 +1979,17 @@ END</CustomProcSql>
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="ContentInspection_SelectBy_ConfirmedByUserId">
-            <Value Name="ContentInspection_SelectBy_ConfirmedByUserId" MethodName="SelectBy_ConfirmedByUserId" ProcedureType="Lookup" TableName="ContentInspection" IsStatic="false">
-              <Parameters>
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ConfirmedByUserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
-              </Parameters>
-            </Value>
-          </KeyCollectionItemOfProcedureDefinition>
           <KeyCollectionItemOfProcedureDefinition Key="ContentInspection_SelectBy_ProposedByUserId">
             <Value Name="ContentInspection_SelectBy_ProposedByUserId" MethodName="SelectBy_ProposedByUserId" ProcedureType="Lookup" TableName="ContentInspection" IsStatic="false">
               <Parameters>
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ProposedByUserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="ContentInspection_SelectBy_ConfirmedByUserId">
+            <Value Name="ContentInspection_SelectBy_ConfirmedByUserId" MethodName="SelectBy_ConfirmedByUserId" ProcedureType="Lookup" TableName="ContentInspection" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ConfirmedByUserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
@@ -1606,7 +1998,7 @@ END</CustomProcSql>
               <Parameters>
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ElectionLevelId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ElectionRegion" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="VotingDate" SqlType="datetime" DotNetType="DateTime" JavaType="String" SqlTypeWithDimension="datetime" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
               </Parameters>
             </Value>
@@ -1617,7 +2009,7 @@ END</CustomProcSql>
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ElectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ElectionLevelId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ElectionRegion" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="VotingDate" SqlType="datetime" DotNetType="DateTime" JavaType="String" SqlTypeWithDimension="datetime" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
               </Parameters>
             </Value>
@@ -1636,13 +2028,6 @@ END</CustomProcSql>
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="Election_Search">
-            <Value Name="Election_Search" MethodName="Search" ProcedureType="Lookup" TableName="Election" IsStatic="false">
-              <Parameters>
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ElectionRegion" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
-              </Parameters>
-            </Value>
-          </KeyCollectionItemOfProcedureDefinition>
           <KeyCollectionItemOfProcedureDefinition Key="Election_SelectAll">
             <Value Name="Election_SelectAll" MethodName="SelectAll" ProcedureType="Lookup" TableName="Election" IsStatic="false">
               <Parameters />
@@ -1655,6 +2040,13 @@ END</CustomProcSql>
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Election_SelectBy_ContentInspectionId">
+            <Value Name="Election_SelectBy_ContentInspectionId" MethodName="SelectBy_ContentInspectionId" ProcedureType="Lookup" TableName="Election" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
           <KeyCollectionItemOfProcedureDefinition Key="Election_SelectBy_ElectionLevelId">
             <Value Name="Election_SelectBy_ElectionLevelId" MethodName="SelectBy_ElectionLevelId" ProcedureType="Lookup" TableName="Election" IsStatic="false">
               <Parameters>
@@ -1662,10 +2054,10 @@ END</CustomProcSql>
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="Election_SelectBy_ContentInspectionId">
-            <Value Name="Election_SelectBy_ContentInspectionId" MethodName="SelectBy_ContentInspectionId" ProcedureType="Lookup" TableName="Election" IsStatic="false">
+          <KeyCollectionItemOfProcedureDefinition Key="Election_SelectBy_LocationId">
+            <Value Name="Election_SelectBy_LocationId" MethodName="SelectBy_LocationId" ProcedureType="Lookup" TableName="Election" IsStatic="false">
               <Parameters>
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
@@ -1718,17 +2110,17 @@ END</CustomProcSql>
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="ElectionCandidate_SelectBy_CandidateId">
-            <Value Name="ElectionCandidate_SelectBy_CandidateId" MethodName="SelectBy_CandidateId" ProcedureType="Lookup" TableName="ElectionCandidate" IsStatic="false">
-              <Parameters>
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="CandidateId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
-              </Parameters>
-            </Value>
-          </KeyCollectionItemOfProcedureDefinition>
           <KeyCollectionItemOfProcedureDefinition Key="ElectionCandidate_SelectBy_ContentInspectionId">
             <Value Name="ElectionCandidate_SelectBy_ContentInspectionId" MethodName="SelectBy_ContentInspectionId" ProcedureType="Lookup" TableName="ElectionCandidate" IsStatic="false">
               <Parameters>
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="ElectionCandidate_SelectBy_CandidateId">
+            <Value Name="ElectionCandidate_SelectBy_CandidateId" MethodName="SelectBy_CandidateId" ProcedureType="Lookup" TableName="ElectionCandidate" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="CandidateId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
@@ -1862,6 +2254,13 @@ END</CustomProcSql>
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="ElectionLevelMetaDataXref_SelectBy_ContentInspectionId">
+            <Value Name="ElectionLevelMetaDataXref_SelectBy_ContentInspectionId" MethodName="SelectBy_ContentInspectionId" ProcedureType="Lookup" TableName="ElectionLevelMetaDataXref" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
           <KeyCollectionItemOfProcedureDefinition Key="ElectionLevelMetaDataXref_SelectBy_ElectionLevelId">
             <Value Name="ElectionLevelMetaDataXref_SelectBy_ElectionLevelId" MethodName="SelectBy_ElectionLevelId" ProcedureType="Lookup" TableName="ElectionLevelMetaDataXref" IsStatic="false">
               <Parameters>
@@ -1869,8 +2268,65 @@ END</CustomProcSql>
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="ElectionLevelMetaDataXref_SelectBy_ContentInspectionId">
-            <Value Name="ElectionLevelMetaDataXref_SelectBy_ContentInspectionId" MethodName="SelectBy_ContentInspectionId" ProcedureType="Lookup" TableName="ElectionLevelMetaDataXref" IsStatic="false">
+          <KeyCollectionItemOfProcedureDefinition Key="Location_Insert">
+            <Value Name="Location_Insert" MethodName="Insert" ProcedureType="IdentityInsert" TableName="Location" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Location_Update">
+            <Value Name="Location_Update" MethodName="Update" ProcedureType="NonQuery" TableName="Location" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Location_Delete">
+            <Value Name="Location_Delete" MethodName="Delete" ProcedureType="NonQuery" TableName="Location" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Location_Exists">
+            <Value Name="Location_Exists" MethodName="Exists" ProcedureType="ExistsQuery" TableName="Location" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Location_Search">
+            <Value Name="Location_Search" MethodName="Search" ProcedureType="Lookup" TableName="Location" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Location_SelectAll">
+            <Value Name="Location_SelectAll" MethodName="SelectAll" ProcedureType="Lookup" TableName="Location" IsStatic="false">
+              <Parameters />
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Location_List">
+            <Value Name="Location_List" MethodName="List" ProcedureType="List" TableName="Location" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Location_SelectBy_LocationId">
+            <Value Name="Location_SelectBy_LocationId" MethodName="SelectBy_LocationId" ProcedureType="Lookup" TableName="Location" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Location_SelectBy_ContentInspectionId">
+            <Value Name="Location_SelectBy_ContentInspectionId" MethodName="SelectBy_ContentInspectionId" ProcedureType="Lookup" TableName="Location" IsStatic="false">
               <Parameters>
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
               </Parameters>
@@ -2073,6 +2529,13 @@ END</CustomProcSql>
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="OrganizationMetaData_SelectBy_OrganizationId">
+            <Value Name="OrganizationMetaData_SelectBy_OrganizationId" MethodName="SelectBy_OrganizationId" ProcedureType="Lookup" TableName="OrganizationMetaData" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="OrganizationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
           <KeyCollectionItemOfProcedureDefinition Key="OrganizationMetaData_SelectBy_MetaDataId">
             <Value Name="OrganizationMetaData_SelectBy_MetaDataId" MethodName="SelectBy_MetaDataId" ProcedureType="Lookup" TableName="OrganizationMetaData" IsStatic="false">
               <Parameters>
@@ -2080,10 +2543,97 @@ END</CustomProcSql>
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="OrganizationMetaData_SelectBy_OrganizationId">
-            <Value Name="OrganizationMetaData_SelectBy_OrganizationId" MethodName="SelectBy_OrganizationId" ProcedureType="Lookup" TableName="OrganizationMetaData" IsStatic="false">
+          <KeyCollectionItemOfProcedureDefinition Key="Voter_Insert">
+            <Value Name="Voter_Insert" MethodName="Insert" ProcedureType="IdentityInsert" TableName="Voter" IsStatic="false">
               <Parameters>
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="OrganizationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="UserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="VoterName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="PostalCode" SqlType="char" DotNetType="string" JavaType="String" SqlTypeWithDimension="char(6)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="FavoriteOrganizationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Voter_Update">
+            <Value Name="Voter_Update" MethodName="Update" ProcedureType="NonQuery" TableName="Voter" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="VoterId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="UserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="VoterName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="PostalCode" SqlType="char" DotNetType="string" JavaType="String" SqlTypeWithDimension="char(6)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="FavoriteOrganizationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Voter_Delete">
+            <Value Name="Voter_Delete" MethodName="Delete" ProcedureType="NonQuery" TableName="Voter" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="VoterId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Voter_Exists">
+            <Value Name="Voter_Exists" MethodName="Exists" ProcedureType="ExistsQuery" TableName="Voter" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="VoterId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Voter_Search">
+            <Value Name="Voter_Search" MethodName="Search" ProcedureType="Lookup" TableName="Voter" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="VoterName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="PostalCode" SqlType="char" DotNetType="string" JavaType="String" SqlTypeWithDimension="char(6)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Voter_SelectAll">
+            <Value Name="Voter_SelectAll" MethodName="SelectAll" ProcedureType="Lookup" TableName="Voter" IsStatic="false">
+              <Parameters />
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Voter_List">
+            <Value Name="Voter_List" MethodName="List" ProcedureType="List" TableName="Voter" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="VoterName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Voter_SelectBy_VoterId">
+            <Value Name="Voter_SelectBy_VoterId" MethodName="SelectBy_VoterId" ProcedureType="Lookup" TableName="Voter" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="VoterId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Voter_SelectBy_UserId">
+            <Value Name="Voter_SelectBy_UserId" MethodName="SelectBy_UserId" ProcedureType="Lookup" TableName="Voter" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="UserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Voter_SelectBy_ContentInspectionId">
+            <Value Name="Voter_SelectBy_ContentInspectionId" MethodName="SelectBy_ContentInspectionId" ProcedureType="Lookup" TableName="Voter" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="ContentInspectionId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Voter_SelectBy_LocationId">
+            <Value Name="Voter_SelectBy_LocationId" MethodName="SelectBy_LocationId" ProcedureType="Lookup" TableName="Voter" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="LocationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="Voter_SelectBy_FavoriteOrganizationId">
+            <Value Name="Voter_SelectBy_FavoriteOrganizationId" MethodName="SelectBy_FavoriteOrganizationId" ProcedureType="Lookup" TableName="Voter" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="FavoriteOrganizationId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
@@ -2093,6 +2643,40 @@ END</CustomProcSql>
     <SchemaDefinition Name="Auth">
       <Tables>
         <Items>
+          <KeyCollectionItemOfTableDefinition Key="TableVersion">
+            <Value Name="TableVersion" IsView="false" IsSearchable="true" IsListable="false" VerifyConcurrency="false" IdentityField="TableId">
+              <Fields>
+                <Items>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="TableId">
+                    <Value Name="TableId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="TableName">
+                    <Value Name="TableName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                  <KeyCollectionItemOfAdvancedFieldDefinition Key="Version">
+                    <Value Name="Version" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+                  </KeyCollectionItemOfAdvancedFieldDefinition>
+                </Items>
+              </Fields>
+              <Indexes>
+                <Items>
+                  <KeyCollectionItemOfIndexDefinition Key="PK_TableVersion">
+                    <Value Name="PK_TableVersion" IsPrimaryKey="true" IsForeignKey="false" IsUniqueKey="true" IsClustered="true">
+                      <FieldNames>
+                        <string>TableId</string>
+                      </FieldNames>
+                    </Value>
+                  </KeyCollectionItemOfIndexDefinition>
+                </Items>
+              </Indexes>
+              <FKeys>
+                <Items />
+              </FKeys>
+              <KeyFields>
+                <string>TableId</string>
+              </KeyFields>
+            </Value>
+          </KeyCollectionItemOfTableDefinition>
           <KeyCollectionItemOfTableDefinition Key="Permission">
             <Value Name="Permission" IsView="false" IsSearchable="true" IsListable="true" VerifyConcurrency="false" IdentityField="PermissionId" TitleColumn="Title">
               <Fields>
@@ -2400,40 +2984,6 @@ END</CustomProcSql>
               </KeyFields>
             </Value>
           </KeyCollectionItemOfTableDefinition>
-          <KeyCollectionItemOfTableDefinition Key="TableVersion">
-            <Value Name="TableVersion" IsView="false" IsSearchable="true" IsListable="false" VerifyConcurrency="false" IdentityField="TableId">
-              <Fields>
-                <Items>
-                  <KeyCollectionItemOfAdvancedFieldDefinition Key="TableId">
-                    <Value Name="TableId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
-                  </KeyCollectionItemOfAdvancedFieldDefinition>
-                  <KeyCollectionItemOfAdvancedFieldDefinition Key="TableName">
-                    <Value Name="TableName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
-                  </KeyCollectionItemOfAdvancedFieldDefinition>
-                  <KeyCollectionItemOfAdvancedFieldDefinition Key="Version">
-                    <Value Name="Version" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
-                  </KeyCollectionItemOfAdvancedFieldDefinition>
-                </Items>
-              </Fields>
-              <Indexes>
-                <Items>
-                  <KeyCollectionItemOfIndexDefinition Key="PK_TableVersion">
-                    <Value Name="PK_TableVersion" IsPrimaryKey="true" IsForeignKey="false" IsUniqueKey="true" IsClustered="true">
-                      <FieldNames>
-                        <string>TableId</string>
-                      </FieldNames>
-                    </Value>
-                  </KeyCollectionItemOfIndexDefinition>
-                </Items>
-              </Indexes>
-              <FKeys>
-                <Items />
-              </FKeys>
-              <KeyFields>
-                <string>TableId</string>
-              </KeyFields>
-            </Value>
-          </KeyCollectionItemOfTableDefinition>
         </Items>
       </Tables>
       <Procedures>
@@ -2481,6 +3031,56 @@ BEGIN
 END</CustomProcSql>
               <Parameters>
                 <FieldDefinition Name="UserId" SqlType="int" DotNetType="int" JavaType="int" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_Insert">
+            <Value Name="TableVersion_Insert" MethodName="Insert" ProcedureType="IdentityInsert" TableName="TableVersion" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="Version" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_Update">
+            <Value Name="TableVersion_Update" MethodName="Update" ProcedureType="NonQuery" TableName="TableVersion" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="Version" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_Delete">
+            <Value Name="TableVersion_Delete" MethodName="Delete" ProcedureType="NonQuery" TableName="TableVersion" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_Exists">
+            <Value Name="TableVersion_Exists" MethodName="Exists" ProcedureType="ExistsQuery" TableName="TableVersion" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_Search">
+            <Value Name="TableVersion_Search" MethodName="Search" ProcedureType="Lookup" TableName="TableVersion" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
+              </Parameters>
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_SelectAll">
+            <Value Name="TableVersion_SelectAll" MethodName="SelectAll" ProcedureType="Lookup" TableName="TableVersion" IsStatic="false">
+              <Parameters />
+            </Value>
+          </KeyCollectionItemOfProcedureDefinition>
+          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_SelectBy_TableId">
+            <Value Name="TableVersion_SelectBy_TableId" MethodName="SelectBy_TableId" ProcedureType="Lookup" TableName="TableVersion" IsStatic="false">
+              <Parameters>
+                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>
@@ -2826,56 +3426,6 @@ END</CustomProcSql>
             <Value Name="UserRole_SelectBy_UserId" MethodName="SelectBy_UserId" ProcedureType="Lookup" TableName="UserRole" IsStatic="false">
               <Parameters>
                 <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="UserId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
-              </Parameters>
-            </Value>
-          </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_Insert">
-            <Value Name="TableVersion_Insert" MethodName="Insert" ProcedureType="IdentityInsert" TableName="TableVersion" IsStatic="false">
-              <Parameters>
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="Version" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
-              </Parameters>
-            </Value>
-          </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_Update">
-            <Value Name="TableVersion_Update" MethodName="Update" ProcedureType="NonQuery" TableName="TableVersion" IsStatic="false">
-              <Parameters>
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="Version" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="false" IsTimestamp="false" />
-              </Parameters>
-            </Value>
-          </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_Delete">
-            <Value Name="TableVersion_Delete" MethodName="Delete" ProcedureType="NonQuery" TableName="TableVersion" IsStatic="false">
-              <Parameters>
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
-              </Parameters>
-            </Value>
-          </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_Exists">
-            <Value Name="TableVersion_Exists" MethodName="Exists" ProcedureType="ExistsQuery" TableName="TableVersion" IsStatic="false">
-              <Parameters>
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
-              </Parameters>
-            </Value>
-          </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_Search">
-            <Value Name="TableVersion_Search" MethodName="Search" ProcedureType="Lookup" TableName="TableVersion" IsStatic="false">
-              <Parameters>
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableName" SqlType="varchar" DotNetType="string" JavaType="String" SqlTypeWithDimension="varchar(150)" IsNullable="false" IsPrimaryKey="false" IsIdentity="false" IsSearchable="true" IsTimestamp="false" />
-              </Parameters>
-            </Value>
-          </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_SelectAll">
-            <Value Name="TableVersion_SelectAll" MethodName="SelectAll" ProcedureType="Lookup" TableName="TableVersion" IsStatic="false">
-              <Parameters />
-            </Value>
-          </KeyCollectionItemOfProcedureDefinition>
-          <KeyCollectionItemOfProcedureDefinition Key="TableVersion_SelectBy_TableId">
-            <Value Name="TableVersion_SelectBy_TableId" MethodName="SelectBy_TableId" ProcedureType="Lookup" TableName="TableVersion" IsStatic="false">
-              <Parameters>
-                <FieldDefinition xsi:type="AdvancedFieldDefinition" Name="TableId" SqlType="int" DotNetType="int" JavaType="int" SqlTypeWithDimension="int" IsNullable="false" IsPrimaryKey="true" IsIdentity="true" IsSearchable="false" IsTimestamp="false" />
               </Parameters>
             </Value>
           </KeyCollectionItemOfProcedureDefinition>

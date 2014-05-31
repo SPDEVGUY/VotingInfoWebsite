@@ -20,6 +20,7 @@ namespace VotingInfo.WebSite.Services
         public static void RegisterGeneratedServiceRoutes()
         {
 			RouteTable.Routes.Add(new ServiceRoute("Client/Candidates", new WebServiceHostFactory(), typeof(Client.CandidatesService)));
+			RouteTable.Routes.Add(new ServiceRoute("Client/Locations", new WebServiceHostFactory(), typeof(Client.LocationsService)));
 			RouteTable.Routes.Add(new ServiceRoute("Client/Organizations", new WebServiceHostFactory(), typeof(Client.OrganizationsService)));
 			RouteTable.Routes.Add(new ServiceRoute("Client/Users", new WebServiceHostFactory(), typeof(Client.UsersService)));
             RouteTable.Routes.Add(new ServiceRoute("Auth", new WebServiceHostFactory(), typeof(AuthSvc)));

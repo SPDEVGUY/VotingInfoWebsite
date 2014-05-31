@@ -15,6 +15,26 @@ namespace VotingInfo.WebSite.Services.Client
 
     public abstract partial class OrganizationsServiceBase : ServiceBase
     {
+		
+		public virtual List<OrganizationsContract> SelectAll(string authId)
+		{
+			try {
+				return
+					Can(authId, (int)PermissionEnum.Client_Organizations_SelectAll)
+					? OrganizationsLogic.SelectAllNow()
+					: null;//cant
+			} catch(Exception ex) {
+			#if DEBUG
+				Debug.WriteLine("------------------------------");
+                Debug.WriteLine("------ OrganizationsServiceBase.SelectAll ERROR ------");
+                Debug.WriteLine("------------------------------");
+                Debug.WriteLine(ex.Message);
+                Debug.WriteLine(ex.ToString());
+                Debug.WriteLine("------------------------------");
+			#endif
+				throw;
+			}
+		}
         public virtual bool Exists(string authId, string fldOrganizationId)
         {
 			try {
@@ -52,26 +72,6 @@ namespace VotingInfo.WebSite.Services.Client
 			#if DEBUG
 				Debug.WriteLine("------------------------------");
                 Debug.WriteLine("------ OrganizationsServiceBase.Search ERROR ------");
-                Debug.WriteLine("------------------------------");
-                Debug.WriteLine(ex.Message);
-                Debug.WriteLine(ex.ToString());
-                Debug.WriteLine("------------------------------");
-			#endif
-				throw;
-			}
-		}
-		
-		public virtual List<OrganizationsContract> SelectAll(string authId)
-		{
-			try {
-				return
-					Can(authId, (int)PermissionEnum.Client_Organizations_SelectAll)
-					? OrganizationsLogic.SelectAllNow()
-					: null;//cant
-			} catch(Exception ex) {
-			#if DEBUG
-				Debug.WriteLine("------------------------------");
-                Debug.WriteLine("------ OrganizationsServiceBase.SelectAll ERROR ------");
                 Debug.WriteLine("------------------------------");
                 Debug.WriteLine(ex.Message);
                 Debug.WriteLine(ex.ToString());

@@ -764,60 +764,6 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
-		/// Run ElectionLevelMetaDataXref_SelectBy_ElectionLevelId, and return results as a list of ElectionLevelMetaDataXrefRow.
-		/// </summary>
-		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
-		/// <returns>A collection of ElectionLevelMetaDataXrefRow.</returns>
-		public virtual bool SelectBy_ElectionLevelId(int fldElectionLevelId
-)
-		{
-			var result = false;
-
-			VotingInfoDb.ConnectThen(x =>
-			{
-				using (
-					var cmd = new SqlCommand("[Data].[ElectionLevelMetaDataXref_SelectBy_ElectionLevelId]", x)
-					{
-						CommandType = CommandType.StoredProcedure,
-						CommandTimeout = DefaultCommandTimeout
-					})
-				{
-					cmd.Parameters.AddRange(new[] {
-						new SqlParameter("@ElectionLevelId", fldElectionLevelId)
-
-					});
-
-					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
-				}
-			});
-
-			return result;
-		}
-
-		/// <summary>
-		/// Run ElectionLevelMetaDataXref_SelectBy_ElectionLevelId, and return results as a list of ElectionLevelMetaDataXrefRow.
-		/// </summary>
-		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
-		/// <param name="connection">The SqlConnection to use</param>
-		/// <param name="transaction">The SqlTransaction to use</param>
-		/// <returns>A collection of ElectionLevelMetaDataXrefRow.</returns>
-		public virtual bool SelectBy_ElectionLevelId(int fldElectionLevelId
-, SqlConnection connection, SqlTransaction transaction)
-		{
-			using (
-				var cmd = new SqlCommand("[Data].[ElectionLevelMetaDataXref_SelectBy_ElectionLevelId]", connection)
-				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
-			{
-					cmd.Parameters.AddRange(new[] {
-						new SqlParameter("@ElectionLevelId", fldElectionLevelId)
-
-					});
-
-				using(var r = cmd.ExecuteReader()) return ReadAll(r);
-			}
-		}
-
-		/// <summary>
 		/// Run ElectionLevelMetaDataXref_SelectBy_ContentInspectionId, and return results as a list of ElectionLevelMetaDataXrefRow.
 		/// </summary>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
@@ -864,6 +810,60 @@ namespace VotingInfo.Database.Logic.Data
 			{
 					cmd.Parameters.AddRange(new[] {
 						new SqlParameter("@ContentInspectionId", fldContentInspectionId)
+
+					});
+
+				using(var r = cmd.ExecuteReader()) return ReadAll(r);
+			}
+		}
+
+		/// <summary>
+		/// Run ElectionLevelMetaDataXref_SelectBy_ElectionLevelId, and return results as a list of ElectionLevelMetaDataXrefRow.
+		/// </summary>
+		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
+		/// <returns>A collection of ElectionLevelMetaDataXrefRow.</returns>
+		public virtual bool SelectBy_ElectionLevelId(int fldElectionLevelId
+)
+		{
+			var result = false;
+
+			VotingInfoDb.ConnectThen(x =>
+			{
+				using (
+					var cmd = new SqlCommand("[Data].[ElectionLevelMetaDataXref_SelectBy_ElectionLevelId]", x)
+					{
+						CommandType = CommandType.StoredProcedure,
+						CommandTimeout = DefaultCommandTimeout
+					})
+				{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@ElectionLevelId", fldElectionLevelId)
+
+					});
+
+					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
+				}
+			});
+
+			return result;
+		}
+
+		/// <summary>
+		/// Run ElectionLevelMetaDataXref_SelectBy_ElectionLevelId, and return results as a list of ElectionLevelMetaDataXrefRow.
+		/// </summary>
+		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
+		/// <param name="connection">The SqlConnection to use</param>
+		/// <param name="transaction">The SqlTransaction to use</param>
+		/// <returns>A collection of ElectionLevelMetaDataXrefRow.</returns>
+		public virtual bool SelectBy_ElectionLevelId(int fldElectionLevelId
+, SqlConnection connection, SqlTransaction transaction)
+		{
+			using (
+				var cmd = new SqlCommand("[Data].[ElectionLevelMetaDataXref_SelectBy_ElectionLevelId]", connection)
+				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
+			{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@ElectionLevelId", fldElectionLevelId)
 
 					});
 

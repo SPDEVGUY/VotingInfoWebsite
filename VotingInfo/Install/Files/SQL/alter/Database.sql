@@ -411,9 +411,11 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Data].[C
 BEGIN
 	CREATE TABLE [Data].[Candidate](
 		[CandidateId] int IDENTITY(1,1) NOT NULL,
+		[UserId] int  NOT NULL,
 		[ContentInspectionId] int  NOT NULL,
-		[CandidateName] varchar(150)  NOT NULL,
+		[LocationId] int  NOT NULL,
 		[OrganizationId] int  NOT NULL,
+		[CandidateName] varchar(150)  NOT NULL,
 		CONSTRAINT [PK_Candidate] PRIMARY KEY CLUSTERED ([CandidateId])
 	)  
 	INSERT INTO [Data].[TableVersion]([TableName],[Version]) VALUES('[Data].[Candidate]', 0)
@@ -459,7 +461,7 @@ BEGIN
 		[ElectionId] int IDENTITY(1,1) NOT NULL,
 		[ContentInspectionId] int  NOT NULL,
 		[ElectionLevelId] int  NOT NULL,
-		[ElectionRegion] varchar(150)  NOT NULL,
+		[LocationId] int  NOT NULL,
 		[VotingDate] datetime  NOT NULL,
 		CONSTRAINT [PK_Election] PRIMARY KEY CLUSTERED ([ElectionId])
 	)  
@@ -507,6 +509,18 @@ BEGIN
 END
 
 GO--
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Data].[Location]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [Data].[Location](
+		[LocationId] int IDENTITY(1,1) NOT NULL,
+		[ContentInspectionId] int  NOT NULL,
+		[LocationName] varchar(150)  NOT NULL,
+		CONSTRAINT [PK_Location] PRIMARY KEY CLUSTERED ([LocationId])
+	)  
+	INSERT INTO [Data].[TableVersion]([TableName],[Version]) VALUES('[Data].[Location]', 0)
+END
+
+GO--
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Data].[MetaData]') AND type in (N'U'))
 BEGIN
 	CREATE TABLE [Data].[MetaData](
@@ -549,6 +563,22 @@ BEGIN
 END
 
 GO--
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Data].[Voter]') AND type in (N'U'))
+BEGIN
+	CREATE TABLE [Data].[Voter](
+		[VoterId] int IDENTITY(1,1) NOT NULL,
+		[UserId] int  NOT NULL,
+		[ContentInspectionId] int  NOT NULL,
+		[LocationId] int  NOT NULL,
+		[VoterName] varchar(150)  NOT NULL,
+		[PostalCode] char(6)  NOT NULL,
+		[FavoriteOrganizationId] int  NOT NULL,
+		CONSTRAINT [PK_Voter] PRIMARY KEY CLUSTERED ([VoterId])
+	)  
+	INSERT INTO [Data].[TableVersion]([TableName],[Version]) VALUES('[Data].[Voter]', 0)
+END
+
+GO--
 CREATE VIEW [Client].[Candidates] WITH SCHEMABINDING
 AS
 SELECT	
@@ -568,6 +598,27 @@ SELECT
 FROM	[Data].[Candidate] C
 INNER JOIN [Data].[ContentInspection] CI
 	ON C.[ContentInspectionId] = CI.[ContentInspectionId]
+
+
+GO--
+CREATE VIEW [Client].[Locations] WITH SCHEMABINDING
+AS
+SELECT	
+		L.[LocationId],
+		L.[ContentInspectionId],
+		L.[LocationName],
+		CI.[IsArchived],
+		CI.[IsBeingProposed],
+		CI.[ProposedByUserId],
+		CI.[ConfirmedByUserId],
+		CI.[FalseInfoCount],
+		CI.[TrueInfoCount],
+		CI.[AdminInpsected],
+		CI.[DateLastChecked],
+		CI.[SourceUrl]
+FROM	[Data].[Location] L
+INNER JOIN [Data].[ContentInspection] CI
+	ON L.[ContentInspectionId] = CI.[ContentInspectionId]
 
 
 GO--
@@ -2290,6 +2341,204 @@ GO--
 --Make sure you follow the same expected interface of parameters, and resultsets.--
 -----------------------------------------------------------------------------------
 
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Client].[Locations_Search]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Client].[Locations_Search]
+
+GO--
+
+CREATE PROCEDURE [Client].[Locations_Search] 
+			@LocationName varchar(150) = NULL,
+			@SourceUrl varchar(250) = NULL
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[LocationId],
+			[ContentInspectionId],
+			[LocationName],
+			[IsArchived],
+			[IsBeingProposed],
+			[ProposedByUserId],
+			[ConfirmedByUserId],
+			[FalseInfoCount],
+			[TrueInfoCount],
+			[AdminInpsected],
+			[DateLastChecked],
+			[SourceUrl]
+	FROM	[Client].[Locations]
+	WHERE	(@LocationName IS NULL OR [LocationName] LIKE '%' + @LocationName + '%')
+			AND (@SourceUrl IS NULL OR [SourceUrl] LIKE '%' + @SourceUrl + '%')
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Client].[Locations_SelectAll]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Client].[Locations_SelectAll]
+
+GO--
+
+CREATE PROCEDURE [Client].[Locations_SelectAll]
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[LocationId],
+			[ContentInspectionId],
+			[LocationName],
+			[IsArchived],
+			[IsBeingProposed],
+			[ProposedByUserId],
+			[ConfirmedByUserId],
+			[FalseInfoCount],
+			[TrueInfoCount],
+			[AdminInpsected],
+			[DateLastChecked],
+			[SourceUrl]
+	FROM	[Client].[Locations]
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Client].[Locations_SelectBy_ConfirmedByUserId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Client].[Locations_SelectBy_ConfirmedByUserId]
+
+GO--
+
+CREATE PROCEDURE [Client].[Locations_SelectBy_ConfirmedByUserId] 
+			@ConfirmedByUserId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[LocationId],
+			[ContentInspectionId],
+			[LocationName],
+			[IsArchived],
+			[IsBeingProposed],
+			[ProposedByUserId],
+			[ConfirmedByUserId],
+			[FalseInfoCount],
+			[TrueInfoCount],
+			[AdminInpsected],
+			[DateLastChecked],
+			[SourceUrl]
+	FROM	[Client].[Locations]
+	WHERE	[ConfirmedByUserId] = @ConfirmedByUserId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Client].[Locations_SelectBy_ContentInspectionId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Client].[Locations_SelectBy_ContentInspectionId]
+
+GO--
+
+CREATE PROCEDURE [Client].[Locations_SelectBy_ContentInspectionId] 
+			@ContentInspectionId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[LocationId],
+			[ContentInspectionId],
+			[LocationName],
+			[IsArchived],
+			[IsBeingProposed],
+			[ProposedByUserId],
+			[ConfirmedByUserId],
+			[FalseInfoCount],
+			[TrueInfoCount],
+			[AdminInpsected],
+			[DateLastChecked],
+			[SourceUrl]
+	FROM	[Client].[Locations]
+	WHERE	[ContentInspectionId] = @ContentInspectionId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Client].[Locations_SelectBy_LocationId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Client].[Locations_SelectBy_LocationId]
+
+GO--
+
+CREATE PROCEDURE [Client].[Locations_SelectBy_LocationId] 
+			@LocationId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[LocationId],
+			[ContentInspectionId],
+			[LocationName],
+			[IsArchived],
+			[IsBeingProposed],
+			[ProposedByUserId],
+			[ConfirmedByUserId],
+			[FalseInfoCount],
+			[TrueInfoCount],
+			[AdminInpsected],
+			[DateLastChecked],
+			[SourceUrl]
+	FROM	[Client].[Locations]
+	WHERE	[LocationId] = @LocationId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Client].[Locations_SelectBy_ProposedByUserId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Client].[Locations_SelectBy_ProposedByUserId]
+
+GO--
+
+CREATE PROCEDURE [Client].[Locations_SelectBy_ProposedByUserId] 
+			@ProposedByUserId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[LocationId],
+			[ContentInspectionId],
+			[LocationName],
+			[IsArchived],
+			[IsBeingProposed],
+			[ProposedByUserId],
+			[ConfirmedByUserId],
+			[FalseInfoCount],
+			[TrueInfoCount],
+			[AdminInpsected],
+			[DateLastChecked],
+			[SourceUrl]
+	FROM	[Client].[Locations]
+	WHERE	[ProposedByUserId] = @ProposedByUserId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
 IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Client].[Organizations_Exists]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Client].[Organizations_Exists]
 
 GO--
@@ -2848,22 +3097,28 @@ IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Candidat
 GO--
 
 CREATE PROCEDURE [Data].[Candidate_Insert]
+			@UserId int,
 			@ContentInspectionId int,
-			@CandidateName varchar(150),
-			@OrganizationId int
+			@LocationId int,
+			@OrganizationId int,
+			@CandidateName varchar(150)
 AS --Generated--
 BEGIN
 
 	INSERT INTO [Data].[Candidate] (
 
+			[UserId],
 			[ContentInspectionId],
-			[CandidateName],
-			[OrganizationId]
+			[LocationId],
+			[OrganizationId],
+			[CandidateName]
 	) VALUES (
 
+			@UserId,
 			@ContentInspectionId,
-			@CandidateName,
-			@OrganizationId
+			@LocationId,
+			@OrganizationId,
+			@CandidateName
 	)
 
 	SELECT CAST(SCOPE_IDENTITY() AS int) AS [CandidateId]
@@ -2910,9 +3165,11 @@ BEGIN
 
 	SELECT	
 			[CandidateId],
+			[UserId],
 			[ContentInspectionId],
-			[CandidateName],
-			[OrganizationId]
+			[LocationId],
+			[OrganizationId],
+			[CandidateName]
 	FROM	[Data].[Candidate]
 	WHERE	(@CandidateName IS NULL OR [CandidateName] LIKE '%' + @CandidateName + '%')
 
@@ -2934,9 +3191,11 @@ BEGIN
 
 	SELECT	
 			[CandidateId],
+			[UserId],
 			[ContentInspectionId],
-			[CandidateName],
-			[OrganizationId]
+			[LocationId],
+			[OrganizationId],
+			[CandidateName]
 	FROM	[Data].[Candidate]
 
 END
@@ -2958,9 +3217,11 @@ BEGIN
 
 	SELECT	
 			[CandidateId],
+			[UserId],
 			[ContentInspectionId],
-			[CandidateName],
-			[OrganizationId]
+			[LocationId],
+			[OrganizationId],
+			[CandidateName]
 	FROM	[Data].[Candidate]
 	WHERE	[CandidateId] = @CandidateId
 
@@ -2983,11 +3244,40 @@ BEGIN
 
 	SELECT	
 			[CandidateId],
+			[UserId],
 			[ContentInspectionId],
-			[CandidateName],
-			[OrganizationId]
+			[LocationId],
+			[OrganizationId],
+			[CandidateName]
 	FROM	[Data].[Candidate]
 	WHERE	[ContentInspectionId] = @ContentInspectionId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Candidate_SelectBy_LocationId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Candidate_SelectBy_LocationId]
+
+GO--
+
+CREATE PROCEDURE [Data].[Candidate_SelectBy_LocationId] 
+			@LocationId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[CandidateId],
+			[UserId],
+			[ContentInspectionId],
+			[LocationId],
+			[OrganizationId],
+			[CandidateName]
+	FROM	[Data].[Candidate]
+	WHERE	[LocationId] = @LocationId
 
 END
 GO--
@@ -3008,11 +3298,40 @@ BEGIN
 
 	SELECT	
 			[CandidateId],
+			[UserId],
 			[ContentInspectionId],
-			[CandidateName],
-			[OrganizationId]
+			[LocationId],
+			[OrganizationId],
+			[CandidateName]
 	FROM	[Data].[Candidate]
 	WHERE	[OrganizationId] = @OrganizationId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Candidate_SelectBy_UserId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Candidate_SelectBy_UserId]
+
+GO--
+
+CREATE PROCEDURE [Data].[Candidate_SelectBy_UserId] 
+			@UserId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[CandidateId],
+			[UserId],
+			[ContentInspectionId],
+			[LocationId],
+			[OrganizationId],
+			[CandidateName]
+	FROM	[Data].[Candidate]
+	WHERE	[UserId] = @UserId
 
 END
 GO--
@@ -3027,16 +3346,20 @@ GO--
 
 CREATE PROCEDURE [Data].[Candidate_Update] 
 			@CandidateId int,
+			@UserId int,
 			@ContentInspectionId int,
-			@CandidateName varchar(150),
-			@OrganizationId int
+			@LocationId int,
+			@OrganizationId int,
+			@CandidateName varchar(150)
 AS --Generated--
 BEGIN
 
 	UPDATE	[Data].[Candidate] SET 
+			[UserId] = @UserId,
 			[ContentInspectionId] = @ContentInspectionId,
-			[CandidateName] = @CandidateName,
-			[OrganizationId] = @OrganizationId
+			[LocationId] = @LocationId,
+			[OrganizationId] = @OrganizationId,
+			[CandidateName] = @CandidateName
 	WHERE	[CandidateId] = @CandidateId
 
 END
@@ -3642,7 +3965,7 @@ GO--
 CREATE PROCEDURE [Data].[Election_Insert]
 			@ContentInspectionId int,
 			@ElectionLevelId int,
-			@ElectionRegion varchar(150),
+			@LocationId int,
 			@VotingDate datetime
 AS --Generated--
 BEGIN
@@ -3651,43 +3974,17 @@ BEGIN
 
 			[ContentInspectionId],
 			[ElectionLevelId],
-			[ElectionRegion],
+			[LocationId],
 			[VotingDate]
 	) VALUES (
 
 			@ContentInspectionId,
 			@ElectionLevelId,
-			@ElectionRegion,
+			@LocationId,
 			@VotingDate
 	)
 
 	SELECT CAST(SCOPE_IDENTITY() AS int) AS [ElectionId]
-END
-GO--
------------------------------------------------------------------------------------
---Do not modify this file, instead use an alter proc to over-write the procedure.--
---Make sure you follow the same expected interface of parameters, and resultsets.--
------------------------------------------------------------------------------------
-
-IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Election_Search]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Election_Search]
-
-GO--
-
-CREATE PROCEDURE [Data].[Election_Search] 
-			@ElectionRegion varchar(150) = NULL
-AS --Generated--
-BEGIN
-	SET NOCOUNT ON;
-
-	SELECT	
-			[ElectionId],
-			[ContentInspectionId],
-			[ElectionLevelId],
-			[ElectionRegion],
-			[VotingDate]
-	FROM	[Data].[Election]
-	WHERE	(@ElectionRegion IS NULL OR [ElectionRegion] LIKE '%' + @ElectionRegion + '%')
-
 END
 GO--
 -----------------------------------------------------------------------------------
@@ -3708,7 +4005,7 @@ BEGIN
 			[ElectionId],
 			[ContentInspectionId],
 			[ElectionLevelId],
-			[ElectionRegion],
+			[LocationId],
 			[VotingDate]
 	FROM	[Data].[Election]
 
@@ -3733,7 +4030,7 @@ BEGIN
 			[ElectionId],
 			[ContentInspectionId],
 			[ElectionLevelId],
-			[ElectionRegion],
+			[LocationId],
 			[VotingDate]
 	FROM	[Data].[Election]
 	WHERE	[ContentInspectionId] = @ContentInspectionId
@@ -3759,7 +4056,7 @@ BEGIN
 			[ElectionId],
 			[ContentInspectionId],
 			[ElectionLevelId],
-			[ElectionRegion],
+			[LocationId],
 			[VotingDate]
 	FROM	[Data].[Election]
 	WHERE	[ElectionId] = @ElectionId
@@ -3785,10 +4082,36 @@ BEGIN
 			[ElectionId],
 			[ContentInspectionId],
 			[ElectionLevelId],
-			[ElectionRegion],
+			[LocationId],
 			[VotingDate]
 	FROM	[Data].[Election]
 	WHERE	[ElectionLevelId] = @ElectionLevelId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Election_SelectBy_LocationId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Election_SelectBy_LocationId]
+
+GO--
+
+CREATE PROCEDURE [Data].[Election_SelectBy_LocationId] 
+			@LocationId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[ElectionId],
+			[ContentInspectionId],
+			[ElectionLevelId],
+			[LocationId],
+			[VotingDate]
+	FROM	[Data].[Election]
+	WHERE	[LocationId] = @LocationId
 
 END
 GO--
@@ -3805,7 +4128,7 @@ CREATE PROCEDURE [Data].[Election_Update]
 			@ElectionId int,
 			@ContentInspectionId int,
 			@ElectionLevelId int,
-			@ElectionRegion varchar(150),
+			@LocationId int,
 			@VotingDate datetime
 AS --Generated--
 BEGIN
@@ -3813,7 +4136,7 @@ BEGIN
 	UPDATE	[Data].[Election] SET 
 			[ContentInspectionId] = @ContentInspectionId,
 			[ElectionLevelId] = @ElectionLevelId,
-			[ElectionRegion] = @ElectionRegion,
+			[LocationId] = @LocationId,
 			[VotingDate] = @VotingDate
 	WHERE	[ElectionId] = @ElectionId
 
@@ -4523,6 +4846,220 @@ BEGIN
 			[ElectionLevelId] = @ElectionLevelId,
 			[MetaDataId] = @MetaDataId
 	WHERE	[ElectionLevelMetaDataXrefId] = @ElectionLevelMetaDataXrefId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Location_Delete]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Location_Delete]
+
+GO--
+
+CREATE PROCEDURE [Data].[Location_Delete] 
+			@LocationId int
+AS --Generated--
+BEGIN
+
+	DELETE FROM	[Data].[Location]
+	WHERE	[LocationId] = @LocationId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Location_Exists]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Location_Exists]
+
+GO--
+
+CREATE PROCEDURE [Data].[Location_Exists]
+			@LocationId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	IF EXISTS(
+		SELECT * FROM [Data].[Location]
+		WHERE	[LocationId] = @LocationId
+	) BEGIN
+		SELECT CAST(1 as bit) as [Exists]
+	END ELSE BEGIN
+		SELECT CAST(0 as bit) as [Exists]
+	END
+END
+
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Location_Insert]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Location_Insert]
+
+GO--
+
+CREATE PROCEDURE [Data].[Location_Insert]
+			@ContentInspectionId int,
+			@LocationName varchar(150)
+AS --Generated--
+BEGIN
+
+	INSERT INTO [Data].[Location] (
+
+			[ContentInspectionId],
+			[LocationName]
+	) VALUES (
+
+			@ContentInspectionId,
+			@LocationName
+	)
+
+	SELECT CAST(SCOPE_IDENTITY() AS int) AS [LocationId]
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Location_List]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Location_List]
+
+GO--
+
+CREATE PROCEDURE [Data].[Location_List] 
+			@LocationName varchar(150) = NULL
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+		[LocationId] as [ListKey],
+		[LocationName] AS [ListLabel]			
+	FROM	[Data].[Location]
+	WHERE	(@LocationName IS NULL OR [LocationName] LIKE '%' + @LocationName + '%')
+	ORDER BY [ListLabel] ASC
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Location_Search]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Location_Search]
+
+GO--
+
+CREATE PROCEDURE [Data].[Location_Search] 
+			@LocationName varchar(150) = NULL
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[LocationId],
+			[ContentInspectionId],
+			[LocationName]
+	FROM	[Data].[Location]
+	WHERE	(@LocationName IS NULL OR [LocationName] LIKE '%' + @LocationName + '%')
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Location_SelectAll]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Location_SelectAll]
+
+GO--
+
+CREATE PROCEDURE [Data].[Location_SelectAll]
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[LocationId],
+			[ContentInspectionId],
+			[LocationName]
+	FROM	[Data].[Location]
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Location_SelectBy_ContentInspectionId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Location_SelectBy_ContentInspectionId]
+
+GO--
+
+CREATE PROCEDURE [Data].[Location_SelectBy_ContentInspectionId] 
+			@ContentInspectionId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[LocationId],
+			[ContentInspectionId],
+			[LocationName]
+	FROM	[Data].[Location]
+	WHERE	[ContentInspectionId] = @ContentInspectionId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Location_SelectBy_LocationId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Location_SelectBy_LocationId]
+
+GO--
+
+CREATE PROCEDURE [Data].[Location_SelectBy_LocationId] 
+			@LocationId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[LocationId],
+			[ContentInspectionId],
+			[LocationName]
+	FROM	[Data].[Location]
+	WHERE	[LocationId] = @LocationId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Location_Update]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Location_Update]
+
+GO--
+
+CREATE PROCEDURE [Data].[Location_Update] 
+			@LocationId int,
+			@ContentInspectionId int,
+			@LocationName varchar(150)
+AS --Generated--
+BEGIN
+
+	UPDATE	[Data].[Location] SET 
+			[ContentInspectionId] = @ContentInspectionId,
+			[LocationName] = @LocationName
+	WHERE	[LocationId] = @LocationId
 
 END
 GO--
@@ -5416,6 +5953,342 @@ BEGIN
 
 END
 GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Voter_Delete]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Voter_Delete]
+
+GO--
+
+CREATE PROCEDURE [Data].[Voter_Delete] 
+			@VoterId int
+AS --Generated--
+BEGIN
+
+	DELETE FROM	[Data].[Voter]
+	WHERE	[VoterId] = @VoterId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Voter_Exists]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Voter_Exists]
+
+GO--
+
+CREATE PROCEDURE [Data].[Voter_Exists]
+			@VoterId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	IF EXISTS(
+		SELECT * FROM [Data].[Voter]
+		WHERE	[VoterId] = @VoterId
+	) BEGIN
+		SELECT CAST(1 as bit) as [Exists]
+	END ELSE BEGIN
+		SELECT CAST(0 as bit) as [Exists]
+	END
+END
+
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Voter_Insert]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Voter_Insert]
+
+GO--
+
+CREATE PROCEDURE [Data].[Voter_Insert]
+			@UserId int,
+			@ContentInspectionId int,
+			@LocationId int,
+			@VoterName varchar(150),
+			@PostalCode char(6),
+			@FavoriteOrganizationId int
+AS --Generated--
+BEGIN
+
+	INSERT INTO [Data].[Voter] (
+
+			[UserId],
+			[ContentInspectionId],
+			[LocationId],
+			[VoterName],
+			[PostalCode],
+			[FavoriteOrganizationId]
+	) VALUES (
+
+			@UserId,
+			@ContentInspectionId,
+			@LocationId,
+			@VoterName,
+			@PostalCode,
+			@FavoriteOrganizationId
+	)
+
+	SELECT CAST(SCOPE_IDENTITY() AS int) AS [VoterId]
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Voter_List]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Voter_List]
+
+GO--
+
+CREATE PROCEDURE [Data].[Voter_List] 
+			@VoterName varchar(150) = NULL
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+		[VoterId] as [ListKey],
+		[VoterName] AS [ListLabel]			
+	FROM	[Data].[Voter]
+	WHERE	(@VoterName IS NULL OR [VoterName] LIKE '%' + @VoterName + '%')
+	ORDER BY [ListLabel] ASC
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Voter_Search]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Voter_Search]
+
+GO--
+
+CREATE PROCEDURE [Data].[Voter_Search] 
+			@VoterName varchar(150) = NULL,
+			@PostalCode char(6) = NULL
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[VoterId],
+			[UserId],
+			[ContentInspectionId],
+			[LocationId],
+			[VoterName],
+			[PostalCode],
+			[FavoriteOrganizationId]
+	FROM	[Data].[Voter]
+	WHERE	(@VoterName IS NULL OR [VoterName] LIKE '%' + @VoterName + '%')
+			AND (@PostalCode IS NULL OR [PostalCode] LIKE '%' + @PostalCode + '%')
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Voter_SelectAll]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Voter_SelectAll]
+
+GO--
+
+CREATE PROCEDURE [Data].[Voter_SelectAll]
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[VoterId],
+			[UserId],
+			[ContentInspectionId],
+			[LocationId],
+			[VoterName],
+			[PostalCode],
+			[FavoriteOrganizationId]
+	FROM	[Data].[Voter]
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Voter_SelectBy_ContentInspectionId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Voter_SelectBy_ContentInspectionId]
+
+GO--
+
+CREATE PROCEDURE [Data].[Voter_SelectBy_ContentInspectionId] 
+			@ContentInspectionId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[VoterId],
+			[UserId],
+			[ContentInspectionId],
+			[LocationId],
+			[VoterName],
+			[PostalCode],
+			[FavoriteOrganizationId]
+	FROM	[Data].[Voter]
+	WHERE	[ContentInspectionId] = @ContentInspectionId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Voter_SelectBy_FavoriteOrganizationId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Voter_SelectBy_FavoriteOrganizationId]
+
+GO--
+
+CREATE PROCEDURE [Data].[Voter_SelectBy_FavoriteOrganizationId] 
+			@FavoriteOrganizationId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[VoterId],
+			[UserId],
+			[ContentInspectionId],
+			[LocationId],
+			[VoterName],
+			[PostalCode],
+			[FavoriteOrganizationId]
+	FROM	[Data].[Voter]
+	WHERE	[FavoriteOrganizationId] = @FavoriteOrganizationId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Voter_SelectBy_LocationId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Voter_SelectBy_LocationId]
+
+GO--
+
+CREATE PROCEDURE [Data].[Voter_SelectBy_LocationId] 
+			@LocationId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[VoterId],
+			[UserId],
+			[ContentInspectionId],
+			[LocationId],
+			[VoterName],
+			[PostalCode],
+			[FavoriteOrganizationId]
+	FROM	[Data].[Voter]
+	WHERE	[LocationId] = @LocationId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Voter_SelectBy_UserId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Voter_SelectBy_UserId]
+
+GO--
+
+CREATE PROCEDURE [Data].[Voter_SelectBy_UserId] 
+			@UserId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[VoterId],
+			[UserId],
+			[ContentInspectionId],
+			[LocationId],
+			[VoterName],
+			[PostalCode],
+			[FavoriteOrganizationId]
+	FROM	[Data].[Voter]
+	WHERE	[UserId] = @UserId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Voter_SelectBy_VoterId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Voter_SelectBy_VoterId]
+
+GO--
+
+CREATE PROCEDURE [Data].[Voter_SelectBy_VoterId] 
+			@VoterId int
+AS --Generated--
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	
+			[VoterId],
+			[UserId],
+			[ContentInspectionId],
+			[LocationId],
+			[VoterName],
+			[PostalCode],
+			[FavoriteOrganizationId]
+	FROM	[Data].[Voter]
+	WHERE	[VoterId] = @VoterId
+
+END
+GO--
+-----------------------------------------------------------------------------------
+--Do not modify this file, instead use an alter proc to over-write the procedure.--
+--Make sure you follow the same expected interface of parameters, and resultsets.--
+-----------------------------------------------------------------------------------
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Voter_Update]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Voter_Update]
+
+GO--
+
+CREATE PROCEDURE [Data].[Voter_Update] 
+			@VoterId int,
+			@UserId int,
+			@ContentInspectionId int,
+			@LocationId int,
+			@VoterName varchar(150),
+			@PostalCode char(6),
+			@FavoriteOrganizationId int
+AS --Generated--
+BEGIN
+
+	UPDATE	[Data].[Voter] SET 
+			[UserId] = @UserId,
+			[ContentInspectionId] = @ContentInspectionId,
+			[LocationId] = @LocationId,
+			[VoterName] = @VoterName,
+			[PostalCode] = @PostalCode,
+			[FavoriteOrganizationId] = @FavoriteOrganizationId
+	WHERE	[VoterId] = @VoterId
+
+END
+GO--
 
 IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Auth].[Permission_SelectBy_UserId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Auth].[Permission_SelectBy_UserId]
 
@@ -5457,6 +6330,22 @@ BEGIN
 			AND R.[IsActive] = 1
 	)
 		
+
+END
+GO--
+
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Client].[Organizations_SelectAll]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Client].[Organizations_SelectAll]
+
+GO--
+
+CREATE PROCEDURE [Client].[Organizations_SelectAll]
+AS 
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT	*
+	FROM	[Client].[Organizations]
+	ORDER BY [OrganizationName] ASC
 
 END
 GO--
@@ -5531,6 +6420,19 @@ CREATE  NONCLUSTERED INDEX [IX_Client_Candidates_ConfirmedByUserId]
 	ON [Client].[Candidates] ([ConfirmedByUserId])
 
 GO--
+CREATE UNIQUE CLUSTERED INDEX [IX_Client_Locations_LocationId] 
+	ON [Client].[Locations] ([LocationId])
+
+CREATE  NONCLUSTERED INDEX [IX_Client_Locations_ContentInspectionId] 
+	ON [Client].[Locations] ([ContentInspectionId])
+
+CREATE  NONCLUSTERED INDEX [IX_Client_Locations_ProposedByUserId] 
+	ON [Client].[Locations] ([ProposedByUserId])
+
+CREATE  NONCLUSTERED INDEX [IX_Client_Locations_ConfirmedByUserId] 
+	ON [Client].[Locations] ([ConfirmedByUserId])
+
+GO--
 CREATE UNIQUE CLUSTERED INDEX [IX_Client_Organizations_OrganizationId] 
 	ON [Client].[Organizations] ([OrganizationId])
 
@@ -5559,25 +6461,29 @@ ADD	CONSTRAINT [FK_UserRole_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [Auth].[Ro
 
 GO--
 ALTER TABLE [Data].[Candidate]
-ADD	CONSTRAINT [FK_Data_Candidate_ContentInspectionId] FOREIGN KEY ([ContentInspectionId]) REFERENCES [Data].[ContentInspection] ([ContentInspectionId])
+ADD	CONSTRAINT [FK_Data_Candidate_UserId] FOREIGN KEY ([UserId]) REFERENCES [Auth].[User] ([UserId])
+
+,	CONSTRAINT [FK_Data_Candidate_ContentInspectionId] FOREIGN KEY ([ContentInspectionId]) REFERENCES [Data].[ContentInspection] ([ContentInspectionId])
+
+,	CONSTRAINT [FK_Data_Candidate_LocationId] FOREIGN KEY ([LocationId]) REFERENCES [Data].[Location] ([LocationId])
 
 ,	CONSTRAINT [FK_Data_Candidate_OrganizationId] FOREIGN KEY ([OrganizationId]) REFERENCES [Data].[Organization] ([OrganizationId])
 
 
 GO--
 ALTER TABLE [Data].[CandidateMetaData]
-ADD	CONSTRAINT [FK_Data_CandidateMetaData_CandidateId] FOREIGN KEY ([CandidateId]) REFERENCES [Data].[Candidate] ([CandidateId])
+ADD	CONSTRAINT [FK_Data_CandidateMetaData_ContentInspectionId] FOREIGN KEY ([ContentInspectionId]) REFERENCES [Data].[ContentInspection] ([ContentInspectionId])
 
-,	CONSTRAINT [FK_Data_CandidateMetaData_ContentInspectionId] FOREIGN KEY ([ContentInspectionId]) REFERENCES [Data].[ContentInspection] ([ContentInspectionId])
+,	CONSTRAINT [FK_Data_CandidateMetaData_CandidateId] FOREIGN KEY ([CandidateId]) REFERENCES [Data].[Candidate] ([CandidateId])
 
 ,	CONSTRAINT [FK_Data_CandidateMetaData_MetaDataId] FOREIGN KEY ([MetaDataId]) REFERENCES [Data].[MetaData] ([MetaDataId])
 
 
 GO--
 ALTER TABLE [Data].[ContentInspection]
-ADD	CONSTRAINT [FK_Data_ContentInspection_ConfirmedByUserId] FOREIGN KEY ([ConfirmedByUserId]) REFERENCES [Auth].[User] ([UserId])
+ADD	CONSTRAINT [FK_Data_ContentInspection_ProposedByUserId] FOREIGN KEY ([ProposedByUserId]) REFERENCES [Auth].[User] ([UserId])
 
-,	CONSTRAINT [FK_Data_ContentInspection_ProposedByUserId] FOREIGN KEY ([ProposedByUserId]) REFERENCES [Auth].[User] ([UserId])
+,	CONSTRAINT [FK_Data_ContentInspection_ConfirmedByUserId] FOREIGN KEY ([ConfirmedByUserId]) REFERENCES [Auth].[User] ([UserId])
 
 
 GO--
@@ -5586,12 +6492,14 @@ ADD	CONSTRAINT [FK_Data_Election_ContentInspectionId] FOREIGN KEY ([ContentInspe
 
 ,	CONSTRAINT [FK_Data_Election_ElectionLevelId] FOREIGN KEY ([ElectionLevelId]) REFERENCES [Data].[ElectionLevel] ([ElectionLevelId])
 
+,	CONSTRAINT [FK_Data_Election_LocationId] FOREIGN KEY ([LocationId]) REFERENCES [Data].[Location] ([LocationId])
+
 
 GO--
 ALTER TABLE [Data].[ElectionCandidate]
-ADD	CONSTRAINT [FK_Data_ElectionCandidate_CandidateId] FOREIGN KEY ([CandidateId]) REFERENCES [Data].[Candidate] ([CandidateId])
+ADD	CONSTRAINT [FK_Data_ElectionCandidate_ContentInspectionId] FOREIGN KEY ([ContentInspectionId]) REFERENCES [Data].[ContentInspection] ([ContentInspectionId])
 
-,	CONSTRAINT [FK_Data_ElectionCandidate_ContentInspectionId] FOREIGN KEY ([ContentInspectionId]) REFERENCES [Data].[ContentInspection] ([ContentInspectionId])
+,	CONSTRAINT [FK_Data_ElectionCandidate_CandidateId] FOREIGN KEY ([CandidateId]) REFERENCES [Data].[Candidate] ([CandidateId])
 
 ,	CONSTRAINT [FK_Data_ElectionCandidate_ElectionId] FOREIGN KEY ([ElectionId]) REFERENCES [Data].[Election] ([ElectionId])
 
@@ -5609,6 +6517,11 @@ ADD	CONSTRAINT [FK_Data_ElectionLevelMetaDataXref_ContentInspectionId] FOREIGN K
 
 
 GO--
+ALTER TABLE [Data].[Location]
+ADD	CONSTRAINT [FK_Data_Location_ContentInspectionId] FOREIGN KEY ([ContentInspectionId]) REFERENCES [Data].[ContentInspection] ([ContentInspectionId])
+
+
+GO--
 ALTER TABLE [Data].[MetaData]
 ADD	CONSTRAINT [FK_Data_MetaData_ContentInspectionId] FOREIGN KEY ([ContentInspectionId]) REFERENCES [Data].[ContentInspection] ([ContentInspectionId])
 
@@ -5622,9 +6535,20 @@ GO--
 ALTER TABLE [Data].[OrganizationMetaData]
 ADD	CONSTRAINT [FK_Data_OrganizationMetaData_ContentInspectionId] FOREIGN KEY ([ContentInspectionId]) REFERENCES [Data].[ContentInspection] ([ContentInspectionId])
 
+,	CONSTRAINT [FK_Data_OrganizationMetaData_OrganizationId] FOREIGN KEY ([OrganizationId]) REFERENCES [Data].[Organization] ([OrganizationId])
+
 ,	CONSTRAINT [FK_Data_OrganizationMetaData_MetaDataId] FOREIGN KEY ([MetaDataId]) REFERENCES [Data].[MetaData] ([MetaDataId])
 
-,	CONSTRAINT [FK_Data_OrganizationMetaData_OrganizationId] FOREIGN KEY ([OrganizationId]) REFERENCES [Data].[Organization] ([OrganizationId])
+
+GO--
+ALTER TABLE [Data].[Voter]
+ADD	CONSTRAINT [FK_Data_Voter_UserId] FOREIGN KEY ([UserId]) REFERENCES [Auth].[User] ([UserId])
+
+,	CONSTRAINT [FK_Data_Voter_ContentInspectionId] FOREIGN KEY ([ContentInspectionId]) REFERENCES [Data].[ContentInspection] ([ContentInspectionId])
+
+,	CONSTRAINT [FK_Data_Voter_LocationId] FOREIGN KEY ([LocationId]) REFERENCES [Data].[Location] ([LocationId])
+
+,	CONSTRAINT [FK_Data_Voter_FavoriteOrganizationId] FOREIGN KEY ([FavoriteOrganizationId]) REFERENCES [Data].[Organization] ([OrganizationId])
 
 
 GO--
@@ -5726,12 +6650,24 @@ IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client
 	INSERT INTO [Auth].[Permission] ([PermissionName],[Title],[IsRead]) VALUES ('Client_Candidates_SelectBy_ProposedByUserId', 'Client Candidates SelectBy ProposedByUserId',1);
 IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client_Candidates_SelectBy_ConfirmedByUserId' )
 	INSERT INTO [Auth].[Permission] ([PermissionName],[Title],[IsRead]) VALUES ('Client_Candidates_SelectBy_ConfirmedByUserId', 'Client Candidates SelectBy ConfirmedByUserId',1);
+IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client_Locations_Search' )
+	INSERT INTO [Auth].[Permission] ([PermissionName],[Title],[IsRead]) VALUES ('Client_Locations_Search', 'Client Locations Search',1);
+IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client_Locations_SelectAll' )
+	INSERT INTO [Auth].[Permission] ([PermissionName],[Title],[IsRead]) VALUES ('Client_Locations_SelectAll', 'Client Locations SelectAll',1);
+IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client_Locations_SelectBy_LocationId' )
+	INSERT INTO [Auth].[Permission] ([PermissionName],[Title],[IsRead]) VALUES ('Client_Locations_SelectBy_LocationId', 'Client Locations SelectBy LocationId',1);
+IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client_Locations_SelectBy_ContentInspectionId' )
+	INSERT INTO [Auth].[Permission] ([PermissionName],[Title],[IsRead]) VALUES ('Client_Locations_SelectBy_ContentInspectionId', 'Client Locations SelectBy ContentInspectionId',1);
+IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client_Locations_SelectBy_ProposedByUserId' )
+	INSERT INTO [Auth].[Permission] ([PermissionName],[Title],[IsRead]) VALUES ('Client_Locations_SelectBy_ProposedByUserId', 'Client Locations SelectBy ProposedByUserId',1);
+IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client_Locations_SelectBy_ConfirmedByUserId' )
+	INSERT INTO [Auth].[Permission] ([PermissionName],[Title],[IsRead]) VALUES ('Client_Locations_SelectBy_ConfirmedByUserId', 'Client Locations SelectBy ConfirmedByUserId',1);
+IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client_Organizations_SelectAll' )
+	INSERT INTO [Auth].[Permission] ([PermissionName],[Title],[IsRead]) VALUES ('Client_Organizations_SelectAll', 'Client Organizations SelectAll',1);
 IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client_Organizations_Exists' )
 	INSERT INTO [Auth].[Permission] ([PermissionName],[Title],[IsRead]) VALUES ('Client_Organizations_Exists', 'Client Organizations Exists',1);
 IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client_Organizations_Search' )
 	INSERT INTO [Auth].[Permission] ([PermissionName],[Title],[IsRead]) VALUES ('Client_Organizations_Search', 'Client Organizations Search',1);
-IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client_Organizations_SelectAll' )
-	INSERT INTO [Auth].[Permission] ([PermissionName],[Title],[IsRead]) VALUES ('Client_Organizations_SelectAll', 'Client Organizations SelectAll',1);
 IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client_Organizations_SelectBy_OrganizationId' )
 	INSERT INTO [Auth].[Permission] ([PermissionName],[Title],[IsRead]) VALUES ('Client_Organizations_SelectBy_OrganizationId', 'Client Organizations SelectBy OrganizationId',1);
 IF NOT EXISTS(SELECT * FROM [Auth].[Permission] WHERE [PermissionName] = 'Client_Organizations_SelectBy_ContentInspectionId' )
@@ -5972,7 +6908,7 @@ IF NOT EXISTS(SELECT * FROM [Data].[Organization]) BEGIN
 
 	EXEC [Data].[Organization_Insert] 
 		@ContentInspectionId = @LastId,
-		@OrganizationName = 'Bloc Qu�b�cois'
+		@OrganizationName = 'Bloc Quebecois'
 
 		
 	EXEC [Data].[ContentInspection_Insert]
@@ -6366,6 +7302,31 @@ IF NOT EXISTS(SELECT * FROM [Data].[MetaData]) BEGIN
 			@AppliesAtAllLevels = 1,
 			@AppliesToCandidates = 1,
 			@AppliesToOrganizations =1
+			   
+END
+GO--
+IF NOT EXISTS(SELECT * FROM [Data].[Location]) BEGIN
+
+	DECLARE @Now DateTime; SET @Now = GETDATE();
+	DECLARE @LastId int;
+
+	EXEC [Data].[ContentInspection_Insert]
+			@IsArchived =0,
+			@IsBeingProposed =0,
+			@ProposedByUserId =1,
+			@ConfirmedByUserId =1,
+			@FalseInfoCount =0,
+			@TrueInfoCount =1,
+			@AdminInpsected =0,
+			@DateLastChecked =@Now,
+			@SourceUrl = 'http://en.wikipedia.org/wiki/Elections_in_Canada'
+	SELECT TOP 1 @LastId = [ContentInspectionId] FROM [Data].[ContentInspection] ORDER BY [ContentInspectionId] DESC
+
+	EXEC [Data].[Location_Insert] 
+		@ContentInspectionId = @LastId,
+		@LocationName = 'Edmonton, Alberta, Canada'
+
+
 			   
 END
 GO--

@@ -1,0 +1,31 @@
+<!--<div data-ng-include="'/scripts/views/html/VotingInfo.Client.Locations.template.html'"></div>-->
+<script src="Scripts/Views/js/VotingInfo.Client.Locations.controller.js"></script><!-- Edit this, remove /gen/-->
+
+<div data-ng-controller="VotingInfoClientLocationsController" >
+    
+    
+    <div data-ng-show="vm.IsLoading">
+        <img src="/Content/images/loading.gif"/> Loading...
+    </div>
+        
+    <!-- List view -->
+    <div data-ng-show="!vm.IsLoading" class="locations">
+        <div data-ng-repeat="Item in vm.Items" data-ng-mouseenter="vm.MoveIndex($index)">
+            <div class="caption"><a href="#/loc?id={{Item.LocationId}}">{{Item.LocationName}}</a></div>
+            <div class="subtext"><a href="{{Item.SourceUrl}}" target="_blank">{{Item.SourceUrl}}</a></div>
+        </div>
+    </div>
+
+    <style>
+        .locations .caption {
+            font-size: 12pt;
+            margin-top: 1em;
+            
+        }
+        .locations .subtext {
+            font-size: 10pt;
+            text-indent: 1em;
+        }
+    </style>
+
+</div>

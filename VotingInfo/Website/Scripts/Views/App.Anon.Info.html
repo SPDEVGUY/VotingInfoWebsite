@@ -1,9 +1,20 @@
 <div class="container">  
     <h3>Find Information</h3>
 
-    <h4>Parties / Organizations</h4>
-    <div data-ng-include="'/scripts/views/html/VotingInfo.Client.Organizations.template.html'"></div>
+    <ul class="nav nav-tabs">
+        <li class="active" data-tab="organizationsTab" onclick="switchTab(this)"><a>Organizations / Parties</a></li>
+        <li data-tab="locationsTab" onclick="switchTab(this)"><a>Locations</a></li>
+    </ul>
 
-    <h4>Candidates</h4>
-    <div data-ng-include="'/scripts/views/html/VotingInfo.Client.Candidates.template.html'"></div>
+    <div id="organizationsTab" class="tab-content" data-ng-include="'/scripts/views/html/VotingInfo.Client.Organizations.template.html'"></div>
+    <div id="locationsTab" class="tab-content" style="display: block;" data-ng-include="'/scripts/views/html/VotingInfo.Client.Locations.template.html'"></div>
 </div>
+<script>
+    function switchTab(tab) {
+        var $tab = $(tab);
+        $(".tab-content").hide();
+        $("#"+$tab.data("tab")).show();
+        $tab.parent().find("LI").removeClass("active");
+        $tab.addClass("active");
+    }
+</script>

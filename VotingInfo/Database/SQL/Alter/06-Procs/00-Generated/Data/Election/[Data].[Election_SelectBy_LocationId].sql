@@ -3,10 +3,10 @@
 --Make sure you follow the same expected interface of parameters, and resultsets.--
 -----------------------------------------------------------------------------------
 
-IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Election_Search]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Election_Search]
+IF EXISTS(SELECT * FROM [dbo].[sysobjects] WHERE ID=object_id(N'[Data].[Election_SelectBy_LocationId]') AND OBJECTPROPERTY(id, N'IsProcedure')=1) DROP PROC [Data].[Election_SelectBy_LocationId]
 GO--
-CREATE PROCEDURE [Data].[Election_Search] 
-			@ElectionRegion varchar(150) = NULL
+CREATE PROCEDURE [Data].[Election_SelectBy_LocationId] 
+			@LocationId int
 AS --Generated--
 BEGIN
 	SET NOCOUNT ON;
@@ -15,9 +15,9 @@ BEGIN
 			[ElectionId],
 			[ContentInspectionId],
 			[ElectionLevelId],
-			[ElectionRegion],
+			[LocationId],
 			[VotingDate]
 	FROM	[Data].[Election]
-	WHERE	(@ElectionRegion IS NULL OR [ElectionRegion] LIKE '%' + @ElectionRegion + '%')
+	WHERE	[LocationId] = @LocationId
 
 END

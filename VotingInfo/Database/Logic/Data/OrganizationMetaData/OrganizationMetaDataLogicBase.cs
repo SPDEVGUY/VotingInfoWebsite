@@ -788,60 +788,6 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
-		/// Run OrganizationMetaData_SelectBy_MetaDataId, and return results as a list of OrganizationMetaDataRow.
-		/// </summary>
-		/// <param name="fldMetaDataId">Value for MetaDataId</param>
-		/// <returns>A collection of OrganizationMetaDataRow.</returns>
-		public virtual bool SelectBy_MetaDataId(int fldMetaDataId
-)
-		{
-			var result = false;
-
-			VotingInfoDb.ConnectThen(x =>
-			{
-				using (
-					var cmd = new SqlCommand("[Data].[OrganizationMetaData_SelectBy_MetaDataId]", x)
-					{
-						CommandType = CommandType.StoredProcedure,
-						CommandTimeout = DefaultCommandTimeout
-					})
-				{
-					cmd.Parameters.AddRange(new[] {
-						new SqlParameter("@MetaDataId", fldMetaDataId)
-
-					});
-
-					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
-				}
-			});
-
-			return result;
-		}
-
-		/// <summary>
-		/// Run OrganizationMetaData_SelectBy_MetaDataId, and return results as a list of OrganizationMetaDataRow.
-		/// </summary>
-		/// <param name="fldMetaDataId">Value for MetaDataId</param>
-		/// <param name="connection">The SqlConnection to use</param>
-		/// <param name="transaction">The SqlTransaction to use</param>
-		/// <returns>A collection of OrganizationMetaDataRow.</returns>
-		public virtual bool SelectBy_MetaDataId(int fldMetaDataId
-, SqlConnection connection, SqlTransaction transaction)
-		{
-			using (
-				var cmd = new SqlCommand("[Data].[OrganizationMetaData_SelectBy_MetaDataId]", connection)
-				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
-			{
-					cmd.Parameters.AddRange(new[] {
-						new SqlParameter("@MetaDataId", fldMetaDataId)
-
-					});
-
-				using(var r = cmd.ExecuteReader()) return ReadAll(r);
-			}
-		}
-
-		/// <summary>
 		/// Run OrganizationMetaData_SelectBy_OrganizationId, and return results as a list of OrganizationMetaDataRow.
 		/// </summary>
 		/// <param name="fldOrganizationId">Value for OrganizationId</param>
@@ -888,6 +834,60 @@ namespace VotingInfo.Database.Logic.Data
 			{
 					cmd.Parameters.AddRange(new[] {
 						new SqlParameter("@OrganizationId", fldOrganizationId)
+
+					});
+
+				using(var r = cmd.ExecuteReader()) return ReadAll(r);
+			}
+		}
+
+		/// <summary>
+		/// Run OrganizationMetaData_SelectBy_MetaDataId, and return results as a list of OrganizationMetaDataRow.
+		/// </summary>
+		/// <param name="fldMetaDataId">Value for MetaDataId</param>
+		/// <returns>A collection of OrganizationMetaDataRow.</returns>
+		public virtual bool SelectBy_MetaDataId(int fldMetaDataId
+)
+		{
+			var result = false;
+
+			VotingInfoDb.ConnectThen(x =>
+			{
+				using (
+					var cmd = new SqlCommand("[Data].[OrganizationMetaData_SelectBy_MetaDataId]", x)
+					{
+						CommandType = CommandType.StoredProcedure,
+						CommandTimeout = DefaultCommandTimeout
+					})
+				{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@MetaDataId", fldMetaDataId)
+
+					});
+
+					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
+				}
+			});
+
+			return result;
+		}
+
+		/// <summary>
+		/// Run OrganizationMetaData_SelectBy_MetaDataId, and return results as a list of OrganizationMetaDataRow.
+		/// </summary>
+		/// <param name="fldMetaDataId">Value for MetaDataId</param>
+		/// <param name="connection">The SqlConnection to use</param>
+		/// <param name="transaction">The SqlTransaction to use</param>
+		/// <returns>A collection of OrganizationMetaDataRow.</returns>
+		public virtual bool SelectBy_MetaDataId(int fldMetaDataId
+, SqlConnection connection, SqlTransaction transaction)
+		{
+			using (
+				var cmd = new SqlCommand("[Data].[OrganizationMetaData_SelectBy_MetaDataId]", connection)
+				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
+			{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@MetaDataId", fldMetaDataId)
 
 					});
 

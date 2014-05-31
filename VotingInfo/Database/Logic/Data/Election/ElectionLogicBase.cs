@@ -30,12 +30,12 @@ namespace VotingInfo.Database.Logic.Data
 		/// </summary>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
 		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
-		/// <param name="fldElectionRegion">Value for ElectionRegion</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldVotingDate">Value for VotingDate</param>
 		/// <returns>The new ID</returns>
 		public virtual int? Insert(int fldContentInspectionId
 , int fldElectionLevelId
-, string fldElectionRegion
+, int fldLocationId
 , DateTime fldVotingDate
 )
 		{
@@ -54,7 +54,7 @@ namespace VotingInfo.Database.Logic.Data
 ,
 						new SqlParameter("@ElectionLevelId", fldElectionLevelId)
 ,
-						new SqlParameter("@ElectionRegion", fldElectionRegion)
+						new SqlParameter("@LocationId", fldLocationId)
 ,
 						new SqlParameter("@VotingDate", fldVotingDate)
 
@@ -71,14 +71,14 @@ namespace VotingInfo.Database.Logic.Data
 		/// </summary>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
 		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
-		/// <param name="fldElectionRegion">Value for ElectionRegion</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldVotingDate">Value for VotingDate</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		/// <returns>The new ID</returns>
 		public virtual int? Insert(int fldContentInspectionId
 , int fldElectionLevelId
-, string fldElectionRegion
+, int fldLocationId
 , DateTime fldVotingDate
 , SqlConnection connection, SqlTransaction transaction)
 		{
@@ -91,7 +91,7 @@ namespace VotingInfo.Database.Logic.Data
 ,
 						new SqlParameter("@ElectionLevelId", fldElectionLevelId)
 ,
-						new SqlParameter("@ElectionRegion", fldElectionRegion)
+						new SqlParameter("@LocationId", fldLocationId)
 ,
 						new SqlParameter("@VotingDate", fldVotingDate)
 
@@ -123,7 +123,7 @@ namespace VotingInfo.Database.Logic.Data
 ,
 						new SqlParameter("@ElectionLevelId", row.ElectionLevelId)
 ,
-						new SqlParameter("@ElectionRegion", row.ElectionRegion)
+						new SqlParameter("@LocationId", row.LocationId)
 ,
 						new SqlParameter("@VotingDate", row.VotingDate)
 
@@ -155,7 +155,7 @@ namespace VotingInfo.Database.Logic.Data
 ,
 						new SqlParameter("@ElectionLevelId", row.ElectionLevelId)
 ,
-						new SqlParameter("@ElectionRegion", row.ElectionRegion)
+						new SqlParameter("@LocationId", row.LocationId)
 ,
 						new SqlParameter("@VotingDate", row.VotingDate)
 
@@ -202,12 +202,12 @@ namespace VotingInfo.Database.Logic.Data
 		/// <param name="fldElectionId">Value for ElectionId</param>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
 		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
-		/// <param name="fldElectionRegion">Value for ElectionRegion</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldVotingDate">Value for VotingDate</param>
 		public virtual int Update(int fldElectionId
 , int fldContentInspectionId
 , int fldElectionLevelId
-, string fldElectionRegion
+, int fldLocationId
 , DateTime fldVotingDate
 )
 		{
@@ -228,7 +228,7 @@ namespace VotingInfo.Database.Logic.Data
 ,
 						new SqlParameter("@ElectionLevelId", fldElectionLevelId)
 ,
-						new SqlParameter("@ElectionRegion", fldElectionRegion)
+						new SqlParameter("@LocationId", fldLocationId)
 ,
 						new SqlParameter("@VotingDate", fldVotingDate)
 
@@ -248,7 +248,7 @@ namespace VotingInfo.Database.Logic.Data
 		/// <param name="fldElectionId">Value for ElectionId</param>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
 		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
-		/// <param name="fldElectionRegion">Value for ElectionRegion</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldVotingDate">Value for VotingDate</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
@@ -256,7 +256,7 @@ namespace VotingInfo.Database.Logic.Data
 		public virtual int Update(int fldElectionId
 , int fldContentInspectionId
 , int fldElectionLevelId
-, string fldElectionRegion
+, int fldLocationId
 , DateTime fldVotingDate
 , SqlConnection connection, SqlTransaction transaction)
 		{
@@ -272,7 +272,7 @@ namespace VotingInfo.Database.Logic.Data
 ,
 						new SqlParameter("@ElectionLevelId", fldElectionLevelId)
 ,
-						new SqlParameter("@ElectionRegion", fldElectionRegion)
+						new SqlParameter("@LocationId", fldLocationId)
 ,
 						new SqlParameter("@VotingDate", fldVotingDate)
 
@@ -309,7 +309,7 @@ namespace VotingInfo.Database.Logic.Data
 ,
 						new SqlParameter("@ElectionLevelId", row.ElectionLevelId)
 ,
-						new SqlParameter("@ElectionRegion", row.ElectionRegion)
+						new SqlParameter("@LocationId", row.LocationId)
 ,
 						new SqlParameter("@VotingDate", row.VotingDate)
 
@@ -344,7 +344,7 @@ namespace VotingInfo.Database.Logic.Data
 ,
 						new SqlParameter("@ElectionLevelId", row.ElectionLevelId)
 ,
-						new SqlParameter("@ElectionRegion", row.ElectionRegion)
+						new SqlParameter("@LocationId", row.LocationId)
 ,
 						new SqlParameter("@VotingDate", row.VotingDate)
 
@@ -584,60 +584,6 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
-		/// Run Election_Search, and return results as a list of ElectionRow.
-		/// </summary>
-		/// <param name="fldElectionRegion">Value for ElectionRegion</param>
-		/// <returns>A collection of ElectionRow.</returns>
-		public virtual bool Search(string fldElectionRegion
-)
-		{
-			var result = false;
-
-			VotingInfoDb.ConnectThen(x =>
-			{
-				using (
-					var cmd = new SqlCommand("[Data].[Election_Search]", x)
-					{
-						CommandType = CommandType.StoredProcedure,
-						CommandTimeout = DefaultCommandTimeout
-					})
-				{
-					cmd.Parameters.AddRange(new[] {
-						new SqlParameter("@ElectionRegion", fldElectionRegion)
-
-					});
-
-					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
-				}
-			});
-
-			return result;
-		}
-
-		/// <summary>
-		/// Run Election_Search, and return results as a list of ElectionRow.
-		/// </summary>
-		/// <param name="fldElectionRegion">Value for ElectionRegion</param>
-		/// <param name="connection">The SqlConnection to use</param>
-		/// <param name="transaction">The SqlTransaction to use</param>
-		/// <returns>A collection of ElectionRow.</returns>
-		public virtual bool Search(string fldElectionRegion
-, SqlConnection connection, SqlTransaction transaction)
-		{
-			using (
-				var cmd = new SqlCommand("[Data].[Election_Search]", connection)
-				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
-			{
-					cmd.Parameters.AddRange(new[] {
-						new SqlParameter("@ElectionRegion", fldElectionRegion)
-
-					});
-
-				using(var r = cmd.ExecuteReader()) return ReadAll(r);
-			}
-		}
-
-		/// <summary>
 		/// Run Election_SelectAll, and return results as a list of ElectionRow.
 		/// </summary>
 
@@ -734,60 +680,6 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
-		/// Run Election_SelectBy_ElectionLevelId, and return results as a list of ElectionRow.
-		/// </summary>
-		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
-		/// <returns>A collection of ElectionRow.</returns>
-		public virtual bool SelectBy_ElectionLevelId(int fldElectionLevelId
-)
-		{
-			var result = false;
-
-			VotingInfoDb.ConnectThen(x =>
-			{
-				using (
-					var cmd = new SqlCommand("[Data].[Election_SelectBy_ElectionLevelId]", x)
-					{
-						CommandType = CommandType.StoredProcedure,
-						CommandTimeout = DefaultCommandTimeout
-					})
-				{
-					cmd.Parameters.AddRange(new[] {
-						new SqlParameter("@ElectionLevelId", fldElectionLevelId)
-
-					});
-
-					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
-				}
-			});
-
-			return result;
-		}
-
-		/// <summary>
-		/// Run Election_SelectBy_ElectionLevelId, and return results as a list of ElectionRow.
-		/// </summary>
-		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
-		/// <param name="connection">The SqlConnection to use</param>
-		/// <param name="transaction">The SqlTransaction to use</param>
-		/// <returns>A collection of ElectionRow.</returns>
-		public virtual bool SelectBy_ElectionLevelId(int fldElectionLevelId
-, SqlConnection connection, SqlTransaction transaction)
-		{
-			using (
-				var cmd = new SqlCommand("[Data].[Election_SelectBy_ElectionLevelId]", connection)
-				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
-			{
-					cmd.Parameters.AddRange(new[] {
-						new SqlParameter("@ElectionLevelId", fldElectionLevelId)
-
-					});
-
-				using(var r = cmd.ExecuteReader()) return ReadAll(r);
-			}
-		}
-
-		/// <summary>
 		/// Run Election_SelectBy_ContentInspectionId, and return results as a list of ElectionRow.
 		/// </summary>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
@@ -842,6 +734,114 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
+		/// Run Election_SelectBy_ElectionLevelId, and return results as a list of ElectionRow.
+		/// </summary>
+		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
+		/// <returns>A collection of ElectionRow.</returns>
+		public virtual bool SelectBy_ElectionLevelId(int fldElectionLevelId
+)
+		{
+			var result = false;
+
+			VotingInfoDb.ConnectThen(x =>
+			{
+				using (
+					var cmd = new SqlCommand("[Data].[Election_SelectBy_ElectionLevelId]", x)
+					{
+						CommandType = CommandType.StoredProcedure,
+						CommandTimeout = DefaultCommandTimeout
+					})
+				{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@ElectionLevelId", fldElectionLevelId)
+
+					});
+
+					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
+				}
+			});
+
+			return result;
+		}
+
+		/// <summary>
+		/// Run Election_SelectBy_ElectionLevelId, and return results as a list of ElectionRow.
+		/// </summary>
+		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
+		/// <param name="connection">The SqlConnection to use</param>
+		/// <param name="transaction">The SqlTransaction to use</param>
+		/// <returns>A collection of ElectionRow.</returns>
+		public virtual bool SelectBy_ElectionLevelId(int fldElectionLevelId
+, SqlConnection connection, SqlTransaction transaction)
+		{
+			using (
+				var cmd = new SqlCommand("[Data].[Election_SelectBy_ElectionLevelId]", connection)
+				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
+			{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@ElectionLevelId", fldElectionLevelId)
+
+					});
+
+				using(var r = cmd.ExecuteReader()) return ReadAll(r);
+			}
+		}
+
+		/// <summary>
+		/// Run Election_SelectBy_LocationId, and return results as a list of ElectionRow.
+		/// </summary>
+		/// <param name="fldLocationId">Value for LocationId</param>
+		/// <returns>A collection of ElectionRow.</returns>
+		public virtual bool SelectBy_LocationId(int fldLocationId
+)
+		{
+			var result = false;
+
+			VotingInfoDb.ConnectThen(x =>
+			{
+				using (
+					var cmd = new SqlCommand("[Data].[Election_SelectBy_LocationId]", x)
+					{
+						CommandType = CommandType.StoredProcedure,
+						CommandTimeout = DefaultCommandTimeout
+					})
+				{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@LocationId", fldLocationId)
+
+					});
+
+					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
+				}
+			});
+
+			return result;
+		}
+
+		/// <summary>
+		/// Run Election_SelectBy_LocationId, and return results as a list of ElectionRow.
+		/// </summary>
+		/// <param name="fldLocationId">Value for LocationId</param>
+		/// <param name="connection">The SqlConnection to use</param>
+		/// <param name="transaction">The SqlTransaction to use</param>
+		/// <returns>A collection of ElectionRow.</returns>
+		public virtual bool SelectBy_LocationId(int fldLocationId
+, SqlConnection connection, SqlTransaction transaction)
+		{
+			using (
+				var cmd = new SqlCommand("[Data].[Election_SelectBy_LocationId]", connection)
+				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
+			{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@LocationId", fldLocationId)
+
+					});
+
+				using(var r = cmd.ExecuteReader()) return ReadAll(r);
+			}
+		}
+
+		/// <summary>
 		/// Read all items into this collection
 		/// </summary>
 		/// <param name="reader">The result of running a sql command.</param>
@@ -868,7 +868,7 @@ namespace VotingInfo.Database.Logic.Data
 					ElectionId = reader.GetInt32(0),
 					ContentInspectionId = reader.GetInt32(1),
 					ElectionLevelId = reader.GetInt32(2),
-					ElectionRegion = reader.GetString(3),
+					LocationId = reader.GetInt32(3),
 					VotingDate = reader.GetDateTime(4),
 
 					});

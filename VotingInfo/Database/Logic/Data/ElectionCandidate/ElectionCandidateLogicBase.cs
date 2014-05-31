@@ -704,60 +704,6 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
-		/// Run ElectionCandidate_SelectBy_CandidateId, and return results as a list of ElectionCandidateRow.
-		/// </summary>
-		/// <param name="fldCandidateId">Value for CandidateId</param>
-		/// <returns>A collection of ElectionCandidateRow.</returns>
-		public virtual bool SelectBy_CandidateId(int fldCandidateId
-)
-		{
-			var result = false;
-
-			VotingInfoDb.ConnectThen(x =>
-			{
-				using (
-					var cmd = new SqlCommand("[Data].[ElectionCandidate_SelectBy_CandidateId]", x)
-					{
-						CommandType = CommandType.StoredProcedure,
-						CommandTimeout = DefaultCommandTimeout
-					})
-				{
-					cmd.Parameters.AddRange(new[] {
-						new SqlParameter("@CandidateId", fldCandidateId)
-
-					});
-
-					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
-				}
-			});
-
-			return result;
-		}
-
-		/// <summary>
-		/// Run ElectionCandidate_SelectBy_CandidateId, and return results as a list of ElectionCandidateRow.
-		/// </summary>
-		/// <param name="fldCandidateId">Value for CandidateId</param>
-		/// <param name="connection">The SqlConnection to use</param>
-		/// <param name="transaction">The SqlTransaction to use</param>
-		/// <returns>A collection of ElectionCandidateRow.</returns>
-		public virtual bool SelectBy_CandidateId(int fldCandidateId
-, SqlConnection connection, SqlTransaction transaction)
-		{
-			using (
-				var cmd = new SqlCommand("[Data].[ElectionCandidate_SelectBy_CandidateId]", connection)
-				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
-			{
-					cmd.Parameters.AddRange(new[] {
-						new SqlParameter("@CandidateId", fldCandidateId)
-
-					});
-
-				using(var r = cmd.ExecuteReader()) return ReadAll(r);
-			}
-		}
-
-		/// <summary>
 		/// Run ElectionCandidate_SelectBy_ContentInspectionId, and return results as a list of ElectionCandidateRow.
 		/// </summary>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
@@ -804,6 +750,60 @@ namespace VotingInfo.Database.Logic.Data
 			{
 					cmd.Parameters.AddRange(new[] {
 						new SqlParameter("@ContentInspectionId", fldContentInspectionId)
+
+					});
+
+				using(var r = cmd.ExecuteReader()) return ReadAll(r);
+			}
+		}
+
+		/// <summary>
+		/// Run ElectionCandidate_SelectBy_CandidateId, and return results as a list of ElectionCandidateRow.
+		/// </summary>
+		/// <param name="fldCandidateId">Value for CandidateId</param>
+		/// <returns>A collection of ElectionCandidateRow.</returns>
+		public virtual bool SelectBy_CandidateId(int fldCandidateId
+)
+		{
+			var result = false;
+
+			VotingInfoDb.ConnectThen(x =>
+			{
+				using (
+					var cmd = new SqlCommand("[Data].[ElectionCandidate_SelectBy_CandidateId]", x)
+					{
+						CommandType = CommandType.StoredProcedure,
+						CommandTimeout = DefaultCommandTimeout
+					})
+				{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@CandidateId", fldCandidateId)
+
+					});
+
+					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
+				}
+			});
+
+			return result;
+		}
+
+		/// <summary>
+		/// Run ElectionCandidate_SelectBy_CandidateId, and return results as a list of ElectionCandidateRow.
+		/// </summary>
+		/// <param name="fldCandidateId">Value for CandidateId</param>
+		/// <param name="connection">The SqlConnection to use</param>
+		/// <param name="transaction">The SqlTransaction to use</param>
+		/// <returns>A collection of ElectionCandidateRow.</returns>
+		public virtual bool SelectBy_CandidateId(int fldCandidateId
+, SqlConnection connection, SqlTransaction transaction)
+		{
+			using (
+				var cmd = new SqlCommand("[Data].[ElectionCandidate_SelectBy_CandidateId]", connection)
+				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
+			{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@CandidateId", fldCandidateId)
 
 					});
 

@@ -398,62 +398,62 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
-		/// Run ElectionLevelMetaDataXref_SelectBy_ElectionLevelId, and return results as a list of ElectionLevelMetaDataXrefRow.
+		/// Run ElectionLevelMetaDataXref_SelectBy_ContentInspectionId, and return results as a list of ElectionLevelMetaDataXrefRow.
 		/// </summary>
-		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
+		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
 		/// <returns>A collection of ElectionLevelMetaDataXrefRow.</returns>
-		public static List<ElectionLevelMetaDataXrefContract> SelectBy_ElectionLevelIdNow(int fldElectionLevelId
+		public static List<ElectionLevelMetaDataXrefContract> SelectBy_ContentInspectionIdNow(int fldContentInspectionId
 )
 		{
 			var driver = new ElectionLevelMetaDataXrefLogic();
-			driver.SelectBy_ElectionLevelId(fldElectionLevelId
+			driver.SelectBy_ContentInspectionId(fldContentInspectionId
 );
 			return driver.Results;
 		}
 
 		/// <summary>
-		/// Run ElectionLevelMetaDataXref_SelectBy_ElectionLevelId, and return results as a list of ElectionLevelMetaDataXrefRow.
+		/// Run ElectionLevelMetaDataXref_SelectBy_ContentInspectionId, and return results as a list of ElectionLevelMetaDataXrefRow.
 		/// </summary>
-		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
+		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		/// <returns>A collection of ElectionLevelMetaDataXrefRow.</returns>
-		public static List<ElectionLevelMetaDataXrefContract> SelectBy_ElectionLevelIdNow(int fldElectionLevelId
+		public static List<ElectionLevelMetaDataXrefContract> SelectBy_ContentInspectionIdNow(int fldContentInspectionId
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			var driver = new ElectionLevelMetaDataXrefLogic();
-			driver.SelectBy_ElectionLevelId(fldElectionLevelId
+			driver.SelectBy_ContentInspectionId(fldContentInspectionId
 , connection, transaction);
 
 			return driver.Results;
 		}
 
 		/// <summary>
-		/// Run ElectionLevelMetaDataXref_SelectBy_ContentInspectionId, and return results as a list of ElectionLevelMetaDataXrefRow.
+		/// Run ElectionLevelMetaDataXref_SelectBy_ElectionLevelId, and return results as a list of ElectionLevelMetaDataXrefRow.
 		/// </summary>
-		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
+		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
 		/// <returns>A collection of ElectionLevelMetaDataXrefRow.</returns>
-		public static List<ElectionLevelMetaDataXrefContract> SelectBy_ContentInspectionIdNow(int fldContentInspectionId
+		public static List<ElectionLevelMetaDataXrefContract> SelectBy_ElectionLevelIdNow(int fldElectionLevelId
 )
 		{
 			var driver = new ElectionLevelMetaDataXrefLogic();
-			driver.SelectBy_ContentInspectionId(fldContentInspectionId
+			driver.SelectBy_ElectionLevelId(fldElectionLevelId
 );
 			return driver.Results;
 		}
 
 		/// <summary>
-		/// Run ElectionLevelMetaDataXref_SelectBy_ContentInspectionId, and return results as a list of ElectionLevelMetaDataXrefRow.
+		/// Run ElectionLevelMetaDataXref_SelectBy_ElectionLevelId, and return results as a list of ElectionLevelMetaDataXrefRow.
 		/// </summary>
-		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
+		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		/// <returns>A collection of ElectionLevelMetaDataXrefRow.</returns>
-		public static List<ElectionLevelMetaDataXrefContract> SelectBy_ContentInspectionIdNow(int fldContentInspectionId
+		public static List<ElectionLevelMetaDataXrefContract> SelectBy_ElectionLevelIdNow(int fldElectionLevelId
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			var driver = new ElectionLevelMetaDataXrefLogic();
-			driver.SelectBy_ContentInspectionId(fldContentInspectionId
+			driver.SelectBy_ElectionLevelId(fldElectionLevelId
 , connection, transaction);
 
 			return driver.Results;

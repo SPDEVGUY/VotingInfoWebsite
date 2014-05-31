@@ -1,4 +1,4 @@
-USE [$DatabaseName]
+USE [VotingInfo]
 DECLARE @SchemaName as nvarchar(20); SET @SchemaName = 'Client';
 
 

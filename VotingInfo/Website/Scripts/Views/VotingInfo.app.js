@@ -3,6 +3,8 @@ angular.module('VotingInfo', ['ngRoute']).
     config(function ($routeProvider) {
         $routeProvider.
             when('/info', { templateUrl: '/Scripts/Views/App.Anon.Info.html' }).
+            when('/org', { templateUrl: '/Scripts/Views/App.Anon.Org.html' }).
+            when('/loc', { templateUrl: '/Scripts/Views/App.Anon.Loc.html' }).
             when('/auth', { templateUrl: '/Scripts/Views/App.Auth.Welcome.html' }).
             otherwise({ templateUrl: '/scripts/views/App.Anon.Welcome.html' });
     })

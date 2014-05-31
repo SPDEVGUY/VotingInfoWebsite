@@ -20,6 +20,33 @@ namespace VotingInfo.Database.Logic.Client
 	{
 		//Put your code in a separate file.  This is auto generated.
 		/// <summary>
+		/// Run Organizations_SelectAll, and return results as a list of OrganizationsRow.
+		/// </summary>
+
+		/// <returns>A collection of OrganizationsRow.</returns>
+		public static List<OrganizationsContract> SelectAllNow()
+		{			
+			var driver = new OrganizationsLogic();
+			driver.SelectAll();
+			return driver.Results;
+		}
+
+		/// <summary>
+		/// Run Organizations_SelectAll, and return results as a list of OrganizationsRow.
+		/// </summary>
+
+		/// <param name="connection">The SqlConnection to use</param>
+		/// <param name="transaction">The SqlTransaction to use</param>
+		/// <returns>A collection of OrganizationsRow.</returns>
+		public static List<OrganizationsContract> SelectAllNow(SqlConnection connection, SqlTransaction transaction)
+		{
+			var driver = new OrganizationsLogic();
+			driver.SelectAll(connection, transaction);
+
+			return driver.Results;
+		}
+
+		/// <summary>
 		/// Determine if the table contains a row with the existing values
 		/// </summary>
 		/// <param name="fldOrganizationId">Value for OrganizationId</param>
@@ -78,33 +105,6 @@ namespace VotingInfo.Database.Logic.Client
 			driver.Search(fldOrganizationName
 , fldSourceUrl
 , connection, transaction);
-
-			return driver.Results;
-		}
-
-		/// <summary>
-		/// Run Organizations_SelectAll, and return results as a list of OrganizationsRow.
-		/// </summary>
-
-		/// <returns>A collection of OrganizationsRow.</returns>
-		public static List<OrganizationsContract> SelectAllNow()
-		{			
-			var driver = new OrganizationsLogic();
-			driver.SelectAll();
-			return driver.Results;
-		}
-
-		/// <summary>
-		/// Run Organizations_SelectAll, and return results as a list of OrganizationsRow.
-		/// </summary>
-
-		/// <param name="connection">The SqlConnection to use</param>
-		/// <param name="transaction">The SqlTransaction to use</param>
-		/// <returns>A collection of OrganizationsRow.</returns>
-		public static List<OrganizationsContract> SelectAllNow(SqlConnection connection, SqlTransaction transaction)
-		{
-			var driver = new OrganizationsLogic();
-			driver.SelectAll(connection, transaction);
 
 			return driver.Results;
 		}

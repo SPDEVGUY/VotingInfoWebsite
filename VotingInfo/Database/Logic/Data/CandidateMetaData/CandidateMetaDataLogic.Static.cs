@@ -379,62 +379,62 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
-		/// Run CandidateMetaData_SelectBy_CandidateId, and return results as a list of CandidateMetaDataRow.
+		/// Run CandidateMetaData_SelectBy_ContentInspectionId, and return results as a list of CandidateMetaDataRow.
 		/// </summary>
-		/// <param name="fldCandidateId">Value for CandidateId</param>
+		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
 		/// <returns>A collection of CandidateMetaDataRow.</returns>
-		public static List<CandidateMetaDataContract> SelectBy_CandidateIdNow(int fldCandidateId
+		public static List<CandidateMetaDataContract> SelectBy_ContentInspectionIdNow(int fldContentInspectionId
 )
 		{
 			var driver = new CandidateMetaDataLogic();
-			driver.SelectBy_CandidateId(fldCandidateId
+			driver.SelectBy_ContentInspectionId(fldContentInspectionId
 );
 			return driver.Results;
 		}
 
 		/// <summary>
-		/// Run CandidateMetaData_SelectBy_CandidateId, and return results as a list of CandidateMetaDataRow.
+		/// Run CandidateMetaData_SelectBy_ContentInspectionId, and return results as a list of CandidateMetaDataRow.
 		/// </summary>
-		/// <param name="fldCandidateId">Value for CandidateId</param>
+		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		/// <returns>A collection of CandidateMetaDataRow.</returns>
-		public static List<CandidateMetaDataContract> SelectBy_CandidateIdNow(int fldCandidateId
+		public static List<CandidateMetaDataContract> SelectBy_ContentInspectionIdNow(int fldContentInspectionId
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			var driver = new CandidateMetaDataLogic();
-			driver.SelectBy_CandidateId(fldCandidateId
+			driver.SelectBy_ContentInspectionId(fldContentInspectionId
 , connection, transaction);
 
 			return driver.Results;
 		}
 
 		/// <summary>
-		/// Run CandidateMetaData_SelectBy_ContentInspectionId, and return results as a list of CandidateMetaDataRow.
+		/// Run CandidateMetaData_SelectBy_CandidateId, and return results as a list of CandidateMetaDataRow.
 		/// </summary>
-		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
+		/// <param name="fldCandidateId">Value for CandidateId</param>
 		/// <returns>A collection of CandidateMetaDataRow.</returns>
-		public static List<CandidateMetaDataContract> SelectBy_ContentInspectionIdNow(int fldContentInspectionId
+		public static List<CandidateMetaDataContract> SelectBy_CandidateIdNow(int fldCandidateId
 )
 		{
 			var driver = new CandidateMetaDataLogic();
-			driver.SelectBy_ContentInspectionId(fldContentInspectionId
+			driver.SelectBy_CandidateId(fldCandidateId
 );
 			return driver.Results;
 		}
 
 		/// <summary>
-		/// Run CandidateMetaData_SelectBy_ContentInspectionId, and return results as a list of CandidateMetaDataRow.
+		/// Run CandidateMetaData_SelectBy_CandidateId, and return results as a list of CandidateMetaDataRow.
 		/// </summary>
-		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
+		/// <param name="fldCandidateId">Value for CandidateId</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		/// <returns>A collection of CandidateMetaDataRow.</returns>
-		public static List<CandidateMetaDataContract> SelectBy_ContentInspectionIdNow(int fldContentInspectionId
+		public static List<CandidateMetaDataContract> SelectBy_CandidateIdNow(int fldCandidateId
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			var driver = new CandidateMetaDataLogic();
-			driver.SelectBy_ContentInspectionId(fldContentInspectionId
+			driver.SelectBy_CandidateId(fldCandidateId
 , connection, transaction);
 
 			return driver.Results;

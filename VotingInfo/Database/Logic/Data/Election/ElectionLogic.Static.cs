@@ -24,17 +24,17 @@ namespace VotingInfo.Database.Logic.Data
 		/// </summary>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
 		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
-		/// <param name="fldElectionRegion">Value for ElectionRegion</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldVotingDate">Value for VotingDate</param>
 		public static int? InsertNow(int fldContentInspectionId
 , int fldElectionLevelId
-, string fldElectionRegion
+, int fldLocationId
 , DateTime fldVotingDate
 )
 		{
 			return (new ElectionLogic()).Insert(fldContentInspectionId
 , fldElectionLevelId
-, fldElectionRegion
+, fldLocationId
 , fldVotingDate
 );
 		}
@@ -43,19 +43,19 @@ namespace VotingInfo.Database.Logic.Data
 		/// </summary>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
 		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
-		/// <param name="fldElectionRegion">Value for ElectionRegion</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldVotingDate">Value for VotingDate</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		public static int? InsertNow(int fldContentInspectionId
 , int fldElectionLevelId
-, string fldElectionRegion
+, int fldLocationId
 , DateTime fldVotingDate
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			return (new ElectionLogic()).Insert(fldContentInspectionId
 , fldElectionLevelId
-, fldElectionRegion
+, fldLocationId
 , fldVotingDate
 , connection, transaction);
 		}
@@ -109,20 +109,20 @@ namespace VotingInfo.Database.Logic.Data
 		/// <param name="fldElectionId">Value for ElectionId</param>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
 		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
-		/// <param name="fldElectionRegion">Value for ElectionRegion</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldVotingDate">Value for VotingDate</param>
 		/// <returns>The number of rows affected.</returns>
 		public static int UpdateNow(int fldElectionId
 , int fldContentInspectionId
 , int fldElectionLevelId
-, string fldElectionRegion
+, int fldLocationId
 , DateTime fldVotingDate
 )
 		{
 			return (new ElectionLogic()).Update(fldElectionId
 , fldContentInspectionId
 , fldElectionLevelId
-, fldElectionRegion
+, fldLocationId
 , fldVotingDate
 );
 		}
@@ -133,7 +133,7 @@ namespace VotingInfo.Database.Logic.Data
 		/// <param name="fldElectionId">Value for ElectionId</param>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
 		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
-		/// <param name="fldElectionRegion">Value for ElectionRegion</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldVotingDate">Value for VotingDate</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
@@ -141,14 +141,14 @@ namespace VotingInfo.Database.Logic.Data
 		public static int UpdateNow(int fldElectionId
 , int fldContentInspectionId
 , int fldElectionLevelId
-, string fldElectionRegion
+, int fldLocationId
 , DateTime fldVotingDate
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			return (new ElectionLogic()).Update(fldElectionId
 , fldContentInspectionId
 , fldElectionLevelId
-, fldElectionRegion
+, fldLocationId
 , fldVotingDate
 , connection, transaction);
 		}
@@ -290,37 +290,6 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
-		/// Run Election_Search, and return results as a list of ElectionRow.
-		/// </summary>
-		/// <param name="fldElectionRegion">Value for ElectionRegion</param>
-		/// <returns>A collection of ElectionRow.</returns>
-		public static List<ElectionContract> SearchNow(string fldElectionRegion
-)
-		{
-			var driver = new ElectionLogic();
-			driver.Search(fldElectionRegion
-);
-			return driver.Results;
-		}
-
-		/// <summary>
-		/// Run Election_Search, and return results as a list of ElectionRow.
-		/// </summary>
-		/// <param name="fldElectionRegion">Value for ElectionRegion</param>
-		/// <param name="connection">The SqlConnection to use</param>
-		/// <param name="transaction">The SqlTransaction to use</param>
-		/// <returns>A collection of ElectionRow.</returns>
-		public static List<ElectionContract> SearchNow(string fldElectionRegion
-, SqlConnection connection, SqlTransaction transaction)
-		{
-			var driver = new ElectionLogic();
-			driver.Search(fldElectionRegion
-, connection, transaction);
-
-			return driver.Results;
-		}
-
-		/// <summary>
 		/// Run Election_SelectAll, and return results as a list of ElectionRow.
 		/// </summary>
 
@@ -379,6 +348,37 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
+		/// Run Election_SelectBy_ContentInspectionId, and return results as a list of ElectionRow.
+		/// </summary>
+		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
+		/// <returns>A collection of ElectionRow.</returns>
+		public static List<ElectionContract> SelectBy_ContentInspectionIdNow(int fldContentInspectionId
+)
+		{
+			var driver = new ElectionLogic();
+			driver.SelectBy_ContentInspectionId(fldContentInspectionId
+);
+			return driver.Results;
+		}
+
+		/// <summary>
+		/// Run Election_SelectBy_ContentInspectionId, and return results as a list of ElectionRow.
+		/// </summary>
+		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
+		/// <param name="connection">The SqlConnection to use</param>
+		/// <param name="transaction">The SqlTransaction to use</param>
+		/// <returns>A collection of ElectionRow.</returns>
+		public static List<ElectionContract> SelectBy_ContentInspectionIdNow(int fldContentInspectionId
+, SqlConnection connection, SqlTransaction transaction)
+		{
+			var driver = new ElectionLogic();
+			driver.SelectBy_ContentInspectionId(fldContentInspectionId
+, connection, transaction);
+
+			return driver.Results;
+		}
+
+		/// <summary>
 		/// Run Election_SelectBy_ElectionLevelId, and return results as a list of ElectionRow.
 		/// </summary>
 		/// <param name="fldElectionLevelId">Value for ElectionLevelId</param>
@@ -410,31 +410,31 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
-		/// Run Election_SelectBy_ContentInspectionId, and return results as a list of ElectionRow.
+		/// Run Election_SelectBy_LocationId, and return results as a list of ElectionRow.
 		/// </summary>
-		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <returns>A collection of ElectionRow.</returns>
-		public static List<ElectionContract> SelectBy_ContentInspectionIdNow(int fldContentInspectionId
+		public static List<ElectionContract> SelectBy_LocationIdNow(int fldLocationId
 )
 		{
 			var driver = new ElectionLogic();
-			driver.SelectBy_ContentInspectionId(fldContentInspectionId
+			driver.SelectBy_LocationId(fldLocationId
 );
 			return driver.Results;
 		}
 
 		/// <summary>
-		/// Run Election_SelectBy_ContentInspectionId, and return results as a list of ElectionRow.
+		/// Run Election_SelectBy_LocationId, and return results as a list of ElectionRow.
 		/// </summary>
-		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		/// <returns>A collection of ElectionRow.</returns>
-		public static List<ElectionContract> SelectBy_ContentInspectionIdNow(int fldContentInspectionId
+		public static List<ElectionContract> SelectBy_LocationIdNow(int fldLocationId
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			var driver = new ElectionLogic();
-			driver.SelectBy_ContentInspectionId(fldContentInspectionId
+			driver.SelectBy_LocationId(fldLocationId
 , connection, transaction);
 
 			return driver.Results;

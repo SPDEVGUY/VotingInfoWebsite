@@ -3,7 +3,7 @@ GO
 
 -- This script creates a database with the provided name.
 
-DECLARE @DatabaseName as nvarchar(30); SET @DatabaseName = '$DatabaseName';
+DECLARE @DatabaseName as nvarchar(30); SET @DatabaseName = 'VotingInfo';
 
 
 

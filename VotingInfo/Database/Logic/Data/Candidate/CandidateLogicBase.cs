@@ -28,13 +28,17 @@ namespace VotingInfo.Database.Logic.Data
 		/// <summary>
 		/// Run Candidate_Insert.
 		/// </summary>
+		/// <param name="fldUserId">Value for UserId</param>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
-		/// <param name="fldCandidateName">Value for CandidateName</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldOrganizationId">Value for OrganizationId</param>
+		/// <param name="fldCandidateName">Value for CandidateName</param>
 		/// <returns>The new ID</returns>
-		public virtual int? Insert(int fldContentInspectionId
-, string fldCandidateName
+		public virtual int? Insert(int fldUserId
+, int fldContentInspectionId
+, int fldLocationId
 , int fldOrganizationId
+, string fldCandidateName
 )
 		{
 			int? result = null;
@@ -48,11 +52,15 @@ namespace VotingInfo.Database.Logic.Data
 					})
 				{
 					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@UserId", fldUserId)
+,
 						new SqlParameter("@ContentInspectionId", fldContentInspectionId)
 ,
-						new SqlParameter("@CandidateName", fldCandidateName)
+						new SqlParameter("@LocationId", fldLocationId)
 ,
 						new SqlParameter("@OrganizationId", fldOrganizationId)
+,
+						new SqlParameter("@CandidateName", fldCandidateName)
 
 					});
 
@@ -65,15 +73,19 @@ namespace VotingInfo.Database.Logic.Data
 		/// <summary>
 		/// Run Candidate_Insert.
 		/// </summary>
+		/// <param name="fldUserId">Value for UserId</param>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
-		/// <param name="fldCandidateName">Value for CandidateName</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldOrganizationId">Value for OrganizationId</param>
+		/// <param name="fldCandidateName">Value for CandidateName</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		/// <returns>The new ID</returns>
-		public virtual int? Insert(int fldContentInspectionId
-, string fldCandidateName
+		public virtual int? Insert(int fldUserId
+, int fldContentInspectionId
+, int fldLocationId
 , int fldOrganizationId
+, string fldCandidateName
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			using (
@@ -81,11 +93,15 @@ namespace VotingInfo.Database.Logic.Data
 				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
 			{
 					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@UserId", fldUserId)
+,
 						new SqlParameter("@ContentInspectionId", fldContentInspectionId)
 ,
-						new SqlParameter("@CandidateName", fldCandidateName)
+						new SqlParameter("@LocationId", fldLocationId)
 ,
 						new SqlParameter("@OrganizationId", fldOrganizationId)
+,
+						new SqlParameter("@CandidateName", fldCandidateName)
 
 					});
 
@@ -111,11 +127,15 @@ namespace VotingInfo.Database.Logic.Data
 					})
 				{
 					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@UserId", row.UserId)
+,
 						new SqlParameter("@ContentInspectionId", row.ContentInspectionId)
 ,
-						new SqlParameter("@CandidateName", row.CandidateName)
+						new SqlParameter("@LocationId", row.LocationId)
 ,
 						new SqlParameter("@OrganizationId", row.OrganizationId)
+,
+						new SqlParameter("@CandidateName", row.CandidateName)
 
 					});
             
@@ -141,11 +161,15 @@ namespace VotingInfo.Database.Logic.Data
 				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
 			{
 					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@UserId", row.UserId)
+,
 						new SqlParameter("@ContentInspectionId", row.ContentInspectionId)
 ,
-						new SqlParameter("@CandidateName", row.CandidateName)
+						new SqlParameter("@LocationId", row.LocationId)
 ,
 						new SqlParameter("@OrganizationId", row.OrganizationId)
+,
+						new SqlParameter("@CandidateName", row.CandidateName)
 
 					});
             
@@ -188,13 +212,17 @@ namespace VotingInfo.Database.Logic.Data
 		/// </summary>
 		/// <returns>The number of rows affected.</returns>
 		/// <param name="fldCandidateId">Value for CandidateId</param>
+		/// <param name="fldUserId">Value for UserId</param>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
-		/// <param name="fldCandidateName">Value for CandidateName</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldOrganizationId">Value for OrganizationId</param>
+		/// <param name="fldCandidateName">Value for CandidateName</param>
 		public virtual int Update(int fldCandidateId
+, int fldUserId
 , int fldContentInspectionId
-, string fldCandidateName
+, int fldLocationId
 , int fldOrganizationId
+, string fldCandidateName
 )
 		{
 			var rowCount = 0;
@@ -210,11 +238,15 @@ namespace VotingInfo.Database.Logic.Data
 					cmd.Parameters.AddRange(new[] {
 						new SqlParameter("@CandidateId", fldCandidateId)
 ,
+						new SqlParameter("@UserId", fldUserId)
+,
 						new SqlParameter("@ContentInspectionId", fldContentInspectionId)
 ,
-						new SqlParameter("@CandidateName", fldCandidateName)
+						new SqlParameter("@LocationId", fldLocationId)
 ,
 						new SqlParameter("@OrganizationId", fldOrganizationId)
+,
+						new SqlParameter("@CandidateName", fldCandidateName)
 
 					});
 
@@ -230,16 +262,20 @@ namespace VotingInfo.Database.Logic.Data
 		/// Run Candidate_Update.
 		/// </summary>
 		/// <param name="fldCandidateId">Value for CandidateId</param>
+		/// <param name="fldUserId">Value for UserId</param>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
-		/// <param name="fldCandidateName">Value for CandidateName</param>
+		/// <param name="fldLocationId">Value for LocationId</param>
 		/// <param name="fldOrganizationId">Value for OrganizationId</param>
+		/// <param name="fldCandidateName">Value for CandidateName</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		/// <returns>The number of rows affected.</returns>
 		public virtual int Update(int fldCandidateId
+, int fldUserId
 , int fldContentInspectionId
-, string fldCandidateName
+, int fldLocationId
 , int fldOrganizationId
+, string fldCandidateName
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			var rowCount = 0;
@@ -250,11 +286,15 @@ namespace VotingInfo.Database.Logic.Data
 					cmd.Parameters.AddRange(new[] {
 						new SqlParameter("@CandidateId", fldCandidateId)
 ,
+						new SqlParameter("@UserId", fldUserId)
+,
 						new SqlParameter("@ContentInspectionId", fldContentInspectionId)
 ,
-						new SqlParameter("@CandidateName", fldCandidateName)
+						new SqlParameter("@LocationId", fldLocationId)
 ,
 						new SqlParameter("@OrganizationId", fldOrganizationId)
+,
+						new SqlParameter("@CandidateName", fldCandidateName)
 
 					});
 
@@ -285,11 +325,15 @@ namespace VotingInfo.Database.Logic.Data
 					cmd.Parameters.AddRange(new[] {
 						new SqlParameter("@CandidateId", row.CandidateId)
 ,
+						new SqlParameter("@UserId", row.UserId)
+,
 						new SqlParameter("@ContentInspectionId", row.ContentInspectionId)
 ,
-						new SqlParameter("@CandidateName", row.CandidateName)
+						new SqlParameter("@LocationId", row.LocationId)
 ,
 						new SqlParameter("@OrganizationId", row.OrganizationId)
+,
+						new SqlParameter("@CandidateName", row.CandidateName)
 
 					});
             
@@ -318,11 +362,15 @@ namespace VotingInfo.Database.Logic.Data
 					cmd.Parameters.AddRange(new[] {
 						new SqlParameter("@CandidateId", row.CandidateId)
 ,
+						new SqlParameter("@UserId", row.UserId)
+,
 						new SqlParameter("@ContentInspectionId", row.ContentInspectionId)
 ,
-						new SqlParameter("@CandidateName", row.CandidateName)
+						new SqlParameter("@LocationId", row.LocationId)
 ,
 						new SqlParameter("@OrganizationId", row.OrganizationId)
+,
+						new SqlParameter("@CandidateName", row.CandidateName)
 
 					});
             
@@ -764,6 +812,60 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
+		/// Run Candidate_SelectBy_UserId, and return results as a list of CandidateRow.
+		/// </summary>
+		/// <param name="fldUserId">Value for UserId</param>
+		/// <returns>A collection of CandidateRow.</returns>
+		public virtual bool SelectBy_UserId(int fldUserId
+)
+		{
+			var result = false;
+
+			VotingInfoDb.ConnectThen(x =>
+			{
+				using (
+					var cmd = new SqlCommand("[Data].[Candidate_SelectBy_UserId]", x)
+					{
+						CommandType = CommandType.StoredProcedure,
+						CommandTimeout = DefaultCommandTimeout
+					})
+				{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@UserId", fldUserId)
+
+					});
+
+					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
+				}
+			});
+
+			return result;
+		}
+
+		/// <summary>
+		/// Run Candidate_SelectBy_UserId, and return results as a list of CandidateRow.
+		/// </summary>
+		/// <param name="fldUserId">Value for UserId</param>
+		/// <param name="connection">The SqlConnection to use</param>
+		/// <param name="transaction">The SqlTransaction to use</param>
+		/// <returns>A collection of CandidateRow.</returns>
+		public virtual bool SelectBy_UserId(int fldUserId
+, SqlConnection connection, SqlTransaction transaction)
+		{
+			using (
+				var cmd = new SqlCommand("[Data].[Candidate_SelectBy_UserId]", connection)
+				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
+			{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@UserId", fldUserId)
+
+					});
+
+				using(var r = cmd.ExecuteReader()) return ReadAll(r);
+			}
+		}
+
+		/// <summary>
 		/// Run Candidate_SelectBy_ContentInspectionId, and return results as a list of CandidateRow.
 		/// </summary>
 		/// <param name="fldContentInspectionId">Value for ContentInspectionId</param>
@@ -810,6 +912,60 @@ namespace VotingInfo.Database.Logic.Data
 			{
 					cmd.Parameters.AddRange(new[] {
 						new SqlParameter("@ContentInspectionId", fldContentInspectionId)
+
+					});
+
+				using(var r = cmd.ExecuteReader()) return ReadAll(r);
+			}
+		}
+
+		/// <summary>
+		/// Run Candidate_SelectBy_LocationId, and return results as a list of CandidateRow.
+		/// </summary>
+		/// <param name="fldLocationId">Value for LocationId</param>
+		/// <returns>A collection of CandidateRow.</returns>
+		public virtual bool SelectBy_LocationId(int fldLocationId
+)
+		{
+			var result = false;
+
+			VotingInfoDb.ConnectThen(x =>
+			{
+				using (
+					var cmd = new SqlCommand("[Data].[Candidate_SelectBy_LocationId]", x)
+					{
+						CommandType = CommandType.StoredProcedure,
+						CommandTimeout = DefaultCommandTimeout
+					})
+				{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@LocationId", fldLocationId)
+
+					});
+
+					using(var r = cmd.ExecuteReader()) result = ReadAll(r);
+				}
+			});
+
+			return result;
+		}
+
+		/// <summary>
+		/// Run Candidate_SelectBy_LocationId, and return results as a list of CandidateRow.
+		/// </summary>
+		/// <param name="fldLocationId">Value for LocationId</param>
+		/// <param name="connection">The SqlConnection to use</param>
+		/// <param name="transaction">The SqlTransaction to use</param>
+		/// <returns>A collection of CandidateRow.</returns>
+		public virtual bool SelectBy_LocationId(int fldLocationId
+, SqlConnection connection, SqlTransaction transaction)
+		{
+			using (
+				var cmd = new SqlCommand("[Data].[Candidate_SelectBy_LocationId]", connection)
+				{CommandType = CommandType.StoredProcedure,Transaction = transaction})
+			{
+					cmd.Parameters.AddRange(new[] {
+						new SqlParameter("@LocationId", fldLocationId)
 
 					});
 
@@ -896,9 +1052,11 @@ namespace VotingInfo.Database.Logic.Data
 					new CandidateContract
 					{
 					CandidateId = reader.GetInt32(0),
-					ContentInspectionId = reader.GetInt32(1),
-					CandidateName = reader.GetString(2),
-					OrganizationId = reader.GetInt32(3),
+					UserId = reader.GetInt32(1),
+					ContentInspectionId = reader.GetInt32(2),
+					LocationId = reader.GetInt32(3),
+					OrganizationId = reader.GetInt32(4),
+					CandidateName = reader.GetString(5),
 
 					});
 				return true;

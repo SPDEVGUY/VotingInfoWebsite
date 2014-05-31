@@ -39,6 +39,16 @@ namespace VotingInfo.Database.Contracts.Data
 		[IgnoreDataMember] protected List<Data.ElectionLevelContract> _ElectionLevel;
 #endregion ElectionLevel Extension
 
+#region Location Extension (Parent)
+		[IgnoreDataMember] public virtual Data.LocationContract Location
+		{ get { return LocationList == null || LocationList.Count == 0 ? null : LocationList[0]; } }
+
+		[IgnoreDataMember] public virtual List<Data.LocationContract> LocationList
+		{ get { return _Location ?? (_Location = logic.Data.LocationLogic.SelectBy_LocationIdNow(LocationId)); } }
+
+		[IgnoreDataMember] protected List<Data.LocationContract> _Location;
+#endregion Location Extension
+
 #region ElectionCandidate Extension (Child)
 		[IgnoreDataMember] public virtual Data.ElectionCandidateContract ElectionCandidate
 		{ get { return ElectionCandidateList == null || ElectionCandidateList.Count == 0 ? null : ElectionCandidateList[0]; } }

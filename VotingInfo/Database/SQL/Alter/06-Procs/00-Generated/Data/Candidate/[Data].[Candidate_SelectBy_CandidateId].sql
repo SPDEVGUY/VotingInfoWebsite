@@ -13,9 +13,11 @@ BEGIN
 
 	SELECT	
 			[CandidateId],
+			[UserId],
 			[ContentInspectionId],
-			[CandidateName],
-			[OrganizationId]
+			[LocationId],
+			[OrganizationId],
+			[CandidateName]
 	FROM	[Data].[Candidate]
 	WHERE	[CandidateId] = @CandidateId
 

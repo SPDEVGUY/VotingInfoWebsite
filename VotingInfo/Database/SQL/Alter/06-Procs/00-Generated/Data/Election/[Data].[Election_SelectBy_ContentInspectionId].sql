@@ -15,7 +15,7 @@ BEGIN
 			[ElectionId],
 			[ContentInspectionId],
 			[ElectionLevelId],
-			[ElectionRegion],
+			[LocationId],
 			[VotingDate]
 	FROM	[Data].[Election]
 	WHERE	[ContentInspectionId] = @ContentInspectionId

@@ -410,62 +410,62 @@ namespace VotingInfo.Database.Logic.Data
 		}
 
 		/// <summary>
-		/// Run OrganizationMetaData_SelectBy_MetaDataId, and return results as a list of OrganizationMetaDataRow.
+		/// Run OrganizationMetaData_SelectBy_OrganizationId, and return results as a list of OrganizationMetaDataRow.
 		/// </summary>
-		/// <param name="fldMetaDataId">Value for MetaDataId</param>
+		/// <param name="fldOrganizationId">Value for OrganizationId</param>
 		/// <returns>A collection of OrganizationMetaDataRow.</returns>
-		public static List<OrganizationMetaDataContract> SelectBy_MetaDataIdNow(int fldMetaDataId
+		public static List<OrganizationMetaDataContract> SelectBy_OrganizationIdNow(int fldOrganizationId
 )
 		{
 			var driver = new OrganizationMetaDataLogic();
-			driver.SelectBy_MetaDataId(fldMetaDataId
+			driver.SelectBy_OrganizationId(fldOrganizationId
 );
 			return driver.Results;
 		}
 
 		/// <summary>
-		/// Run OrganizationMetaData_SelectBy_MetaDataId, and return results as a list of OrganizationMetaDataRow.
+		/// Run OrganizationMetaData_SelectBy_OrganizationId, and return results as a list of OrganizationMetaDataRow.
 		/// </summary>
-		/// <param name="fldMetaDataId">Value for MetaDataId</param>
+		/// <param name="fldOrganizationId">Value for OrganizationId</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		/// <returns>A collection of OrganizationMetaDataRow.</returns>
-		public static List<OrganizationMetaDataContract> SelectBy_MetaDataIdNow(int fldMetaDataId
+		public static List<OrganizationMetaDataContract> SelectBy_OrganizationIdNow(int fldOrganizationId
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			var driver = new OrganizationMetaDataLogic();
-			driver.SelectBy_MetaDataId(fldMetaDataId
+			driver.SelectBy_OrganizationId(fldOrganizationId
 , connection, transaction);
 
 			return driver.Results;
 		}
 
 		/// <summary>
-		/// Run OrganizationMetaData_SelectBy_OrganizationId, and return results as a list of OrganizationMetaDataRow.
+		/// Run OrganizationMetaData_SelectBy_MetaDataId, and return results as a list of OrganizationMetaDataRow.
 		/// </summary>
-		/// <param name="fldOrganizationId">Value for OrganizationId</param>
+		/// <param name="fldMetaDataId">Value for MetaDataId</param>
 		/// <returns>A collection of OrganizationMetaDataRow.</returns>
-		public static List<OrganizationMetaDataContract> SelectBy_OrganizationIdNow(int fldOrganizationId
+		public static List<OrganizationMetaDataContract> SelectBy_MetaDataIdNow(int fldMetaDataId
 )
 		{
 			var driver = new OrganizationMetaDataLogic();
-			driver.SelectBy_OrganizationId(fldOrganizationId
+			driver.SelectBy_MetaDataId(fldMetaDataId
 );
 			return driver.Results;
 		}
 
 		/// <summary>
-		/// Run OrganizationMetaData_SelectBy_OrganizationId, and return results as a list of OrganizationMetaDataRow.
+		/// Run OrganizationMetaData_SelectBy_MetaDataId, and return results as a list of OrganizationMetaDataRow.
 		/// </summary>
-		/// <param name="fldOrganizationId">Value for OrganizationId</param>
+		/// <param name="fldMetaDataId">Value for MetaDataId</param>
 		/// <param name="connection">The SqlConnection to use</param>
 		/// <param name="transaction">The SqlTransaction to use</param>
 		/// <returns>A collection of OrganizationMetaDataRow.</returns>
-		public static List<OrganizationMetaDataContract> SelectBy_OrganizationIdNow(int fldOrganizationId
+		public static List<OrganizationMetaDataContract> SelectBy_MetaDataIdNow(int fldMetaDataId
 , SqlConnection connection, SqlTransaction transaction)
 		{
 			var driver = new OrganizationMetaDataLogic();
-			driver.SelectBy_OrganizationId(fldOrganizationId
+			driver.SelectBy_MetaDataId(fldMetaDataId
 , connection, transaction);
 
 			return driver.Results;
